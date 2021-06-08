@@ -1,0 +1,27 @@
+<!-- purbeurre/templates/main_template.html -->
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Pur Beurre</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    </head>
+    <body>
+        <header>
+            <p id="header-logo">
+                
+            </p>
+            <div id="header-text" class="jumbotron">
+                <p id="main-title">PUR BEURRE</p>
+                <p id="sub-title">On est là pour votre santé</p>
+            </div>
+        </header>
+        {% block content %}
+
+        {% endblock content %}
+        <footer>
+            <div id="footer-bottom-bloc">Copyright 2021 - Tous droits réservés</div>
+        </footer>
+    </body>
+</html>
