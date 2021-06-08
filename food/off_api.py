@@ -5,6 +5,7 @@ import requests
 import time
 
 from food.setting import API_BASE_URL, PAGE_SIZE, PAGE_NUMBER, FIELDS_OF_PRODUCT
+from errors import OffNetworkError, OffJsonError, OffBadRequestError
 
 class OffApi:
     """
@@ -27,16 +28,25 @@ class OffApi:
             'sort_by': 'unique_scans_n' # Sorting by most popular products
             }
         headers = {'User-Agent': 'NameOfYourApp - Android - Version 1.0 - www.yourappwebsite.com'}
-        result = requests.get(API_BASE_URL, headers = headers, params = params)
-        if result.status_code == 200:
-            data = result.json()
-            products_data = data['products'] # Only the value of the 'products' key is kept (there are other keys in the JSON object).
-            
-            return products_data
+        try:
+            result = requests.get(API_BASE_URL, headers = headers, params = params)
+        except requests.RequestException:
+            print("The connection to the OpenFoodFact API has failed.")
+            raise OffNetworkError()
         else:
-            print("La connexion à l'API d'Open Food Facts a échoué.")
-            print("Nouvelle tentative.")
-            self.get_full_api_products()
+            try:
+                result.raise_for_status()
+            except requests.HTTPError:
+                print("Bad request during OffApi.get_api_products.")
+                raise OffBadRequestError()
+            else:
+                try:
+                    data = result.json()
+                    products_data = data['products'] # Only the value of the 'products' key is kept (there are other keys in the JSON object).
+                    return products_data
+                except KeyError:
+                    print("JSON does not contain products_data.")
+                    raise OffJsonError
 
     def get_full_api_products(self):
         """
