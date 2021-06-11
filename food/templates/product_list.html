@@ -4,20 +4,27 @@
 {% block content %}
 <main>
     <section id="intro-section">
-        <h1>Bienvenue chez Pur Beurre !</h1>
-        <p id="intro">Blablabla</p>
+        <h1>Produits correspondant à votre recherche</h1>
     </section>
     <section id="main-section">
-        {% comment %} <ul>
-        {% if products %}
-        {% for product in products %}
-            <li>{{ product.designation }} <a href="{% url 'addproduct' id_product=product.id %}">Modifier le produit</a></li>
-        {% endfor %}
+        {% if product_search %}
+            {% for product in product_search %}
+                <div class="product-card">
+                    <div class="product-img-frame">
+                        <img src="{{ product.image_url }}" 
+                             alt="{{ product.designation }} / {{ product.brand }}" 
+                             class="product-img" />
+                    </div>
+                    <ul>
+                        <li>Nom : {{ product.designation }}</li>
+                        <li>Marque : {{ product.brand }}</li>
+                        <li>Code barres : {{ product.barcode }}</li>
+                    </ul>
+                </div>
+            {% endfor %}
         {% else %}
-        <span class="text-danger">Il n'y a aucun produit à afficher.</span>
+            <span class="text-danger">Il n'y a aucun produit à afficher.</span>
         {% endif %}
-        </ul>
-        <a href="{% url 'addproduct' %}">Ajouter un produit</a> {% endcomment %}
     </section>
 </main>
 {% endblock content %}

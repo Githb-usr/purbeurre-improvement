@@ -1,0 +1,18 @@
+<!-- purbeurre/index.html -->
+
+{% extends 'main_template.html' %}
+{% block content %}
+<main>
+    <section id="intro-section">
+        <h1>Bienvenue chez Pur Beurre !</h1>
+        <p id="intro">Blablabla</p>
+    </section>
+    <section id="search-form-section">
+        <form action="/product_list/" method="get">
+            {% comment %} {% csrf_token %} {% endcomment %}
+            {{ form }}
+            <input type="submit" value="OK">
+        </form>
+    </section>
+</main>
+{% endblock content %}

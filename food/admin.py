@@ -2,4 +2,26 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-# Register your models here.
+from .models import Product, Category, Store
+
+class ProductAdmin(admin.ModelAdmin):
+    """
+        xxx
+    """
+    list_display = ('designation', 'brand', 'barcode', 'nutriscore', 'novascore', 'url',)
+    
+class CategoryAdmin(admin.ModelAdmin):
+    """
+        xxx
+    """
+    list_display = ('designation',)
+    
+class StoreAdmin(admin.ModelAdmin):
+    """
+        xxx
+    """
+    list_display = ('designation',)
+
+admin.site.register(Product, ProductAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Store, StoreAdmin)

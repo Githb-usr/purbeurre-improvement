@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import unicodedata
+
 from food.off_api import OffApi
+from food.settings import FIELDS_OF_PRODUCT_LIST
 
-from food.setting import FIELDS_OF_PRODUCT_LIST
-
-class DataCleaner:
+class ApiDataCleaner:
     """
         DataCleaner class
         To manage data cleaning from the Open Food Facts API
@@ -14,12 +15,6 @@ class DataCleaner:
     def __init__(self):
         """ Constructor """
         self.products_dict_list = []
-        # self.clean_brands = []
-        # self.clean_categories = []
-        # self.clean_stores = []
-        # self.brand_of_products = []
-        # self.cats_of_products = []
-        # self.stores_of_products = []
 
     def create_products_dict_list(self, raw_data):
         """
@@ -68,7 +63,7 @@ class DataCleaner:
             clean_categories = list(set(clean_categories))
 
             # For the 'stores' field
-            product_clean_stores = self.clean_fields(product['stores'])
+            product_clean_stores = self.clean_proper_names_fields(product['stores'])
             stores_of_products.append((product['code'], product_clean_stores))
             for store in product_clean_stores:
                 if store != '':
@@ -87,8 +82,7 @@ class DataCleaner:
     def clean_fields(self, field_string):
         """
             The strings of the products_dict_list containing several values
-            are transformed into a list
-            after standardization of the spaces.
+            are transformed into a list after standardization of the spaces.
             :param field_string: string with several values separated by commas
             :return: A list of values is obtained instead of a string
             :rtype: list()
@@ -97,7 +91,28 @@ class DataCleaner:
 
         field_split = field_string.split(',')
         for value in field_split:
-            value_strip = value.strip().capitalize()
+            # We capitalize only the first word of the expression
+            value_strip = value.strip().lower().capitalize()
+            clean_field_list.append(value_strip)
+
+        clean_field_list = list(set(clean_field_list))
+
+        return clean_field_list
+    
+    def clean_proper_names_fields(self, field_string):
+        """
+            The strings of the products_dict_list containing several values
+            are transformed into a list after standardization of the spaces.
+            :param field_string: string with several values separated by commas
+            :return: A list of values is obtained instead of a string
+            :rtype: list()
+        """
+        clean_field_list = []
+
+        field_split = field_string.split(',')
+        for value in field_split:
+            # We capitalize each word of the expression
+            value_strip = value.strip().lower().title()
             clean_field_list.append(value_strip)
 
         clean_field_list = list(set(clean_field_list))
@@ -112,6 +127,6 @@ class DataCleaner:
             :return: A string with one brand only
             :rtype: string
         """
-        clean_field_list = self.clean_fields(field_string)
+        clean_field_list = self.clean_proper_names_fields(field_string)
 
         return clean_field_list[0].title()

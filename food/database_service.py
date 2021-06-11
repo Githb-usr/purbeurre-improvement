@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from food.data_cleaner import DataCleaner
+from food.api_data_cleaner import ApiDataCleaner
 from food.models import Product, Category, Store
 from food.off_api import OffApi
 
@@ -14,7 +14,7 @@ class DatabaseService:
     def __init__(self):
         """ Constructor """
         self.off_api = OffApi()
-        self.data_cleaner = DataCleaner()
+        self.data_cleaner = ApiDataCleaner()
         self.raw_data = []
         self.products_dict_list = []
         self.clean_product_fields = {}
@@ -50,10 +50,11 @@ class DatabaseService:
                             barcode = prod_dict['code'],
                             nutriscore = prod_dict['nutriscore_grade'].capitalize(),
                             novascore = prod_dict['nova_group'],
-                            url = prod_dict['url']
+                            url = prod_dict['url'],
+                            image_url = prod_dict['image_url']
                         )
                         product.save()
-                        all_products = Product.objects.all().order_by('-id')
+                        all_products = Product.objects.all().order_by('id')
 
         return all_products
 
