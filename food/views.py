@@ -2,36 +2,49 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views.generic import TemplateView, ListView
 
 from food.database_service import DatabaseService
-from food.forms import FoodForm
+from food.forms import SearchForm
 from food.models import Product, Category, Store
 
-def index(request):
+def get_index_view(request):
     """
         xxx
         :param field_string: xxx
         :return: xxxx
         :rtype: xxx
     """
-    # récupérer tous les produits de la BDD
-    products = Product.objects.all()
-    return render(request, 'product_list.html', {'products': products})
-    # return HttpResponse("Hello, world. You're at the food index.")
+    search_form = SearchForm()
+    
+    return render(request, 'index.html', { 'form': search_form })
 
-def import_products(request):
+def get_search_view(request):
     """
         xxx
         :param field_string: xxx
         :return: xxxx
         :rtype: xxx
     """
-    database_service = DatabaseService()
-    database_service.get_api_data()
-    all_products = database_service.populate_database_with_products()
-    all_categories = database_service.populate_database_with_categories()
-    database_service.populate_database_with_category_products()
-    all_stores = database_service.populate_database_with_stores()
-    database_service.populate_database_with_store_products()
+    search_form = SearchForm()
+    
+    return render(request, 'index.html', { 'form': search_form })
 
-    return render (request, 'showallproducts.html', { "all_products": all_products } )
+def get_search_result(request):
+    """
+        xxx
+        :param field_string: xxx
+        :return: xxxx
+        :rtype: xxx
+    """
+    query = request.GET['query']
+    product_search = Product.objects.filter(designation__unaccent__icontains=query)
+    brand_search = Product.objects.filter(brand__unaccent__icontains=query)
+    category_search = Category.objects.filter(designation__unaccent__icontains=query)
+    
+    return render(request, 'product_list.html', { 
+                                                 'product_search': product_search,
+                                                 'brand_search': brand_search,
+                                                 'category_search': category_search
+                                                }
+                  )

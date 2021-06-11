@@ -1,0 +1,22 @@
+<!-- purbeurre/food/templates/product_list.html -->
+
+{% extends 'main_template.html' %}
+{% block content %}
+<main>
+    <section id="intro-section">
+        <h1>Détail du produit xxx</h1>
+    </section>
+    <section id="main-section">
+        {% comment %} <ul>
+        {% if products %}
+        {% for product in products %}
+            <li>{{ product.designation }} <a href="{% url 'addproduct' id_product=product.id %}">Modifier le produit</a></li>
+        {% endfor %}
+        {% else %}
+        <span class="text-danger">Il n'y a aucun produit à afficher.</span>
+        {% endif %}
+        </ul>
+        <a href="{% url 'addproduct' %}">Ajouter un produit</a> {% endcomment %}
+    </section>
+</main>
+{% endblock content %}

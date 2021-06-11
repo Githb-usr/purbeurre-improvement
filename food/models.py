@@ -12,9 +12,13 @@ class Product(models.Model):
     nutriscore = models.CharField(max_length=1)
     novascore = models.CharField(max_length=1)
     url = models.URLField(max_length=200)
+    image_url = models.URLField(max_length=150)
     
     def __str__(self):
         return self.designation
+    
+    class Meta:
+        verbose_name_plural = "products"
 
 class Category(models.Model):
     """
@@ -25,6 +29,9 @@ class Category(models.Model):
     
     def __str__(self):
         return self.designation
+    
+    class Meta:
+        verbose_name_plural = "categories"
 
 class Store(models.Model):
     """
@@ -35,3 +42,6 @@ class Store(models.Model):
     
     def __str__(self):
         return self.designation
+    
+    class Meta:
+        verbose_name_plural = "stores"

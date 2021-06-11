@@ -5,9 +5,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    # path('addproduct', views.create_product, name='addproduct'),
-    path('showallproducts', views.import_products, name='showallproducts'),
-    # on ajoute une 2ème ligne avec même url mais pouvant avoir des paramètres
-    # path('addproduct/<int:id_product>', views.create_product, name='addproduct'),
+    path('', views.get_index_view, name='homepage'),
+    path('product_list/', views.get_search_result, name='product_list'),
+    path('product_list<str:query>', views.get_search_result, name='product_list'),
 ]

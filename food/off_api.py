@@ -4,7 +4,7 @@
 import requests
 import time
 
-from food.setting import API_BASE_URL, PAGE_SIZE, PAGE_NUMBER, FIELDS_OF_PRODUCT
+from food.settings import API_BASE_URL, PAGE_SIZE, PAGE_NUMBER, FIELDS_OF_PRODUCT
 from errors import OffNetworkError, OffJsonError, OffBadRequestError
 
 class OffApi:
@@ -42,8 +42,8 @@ class OffApi:
             else:
                 try:
                     data = result.json()
-                    products_data = data['products'] # Only the value of the 'products' key is kept (there are other keys in the JSON object).
-                    return products_data
+                    # Only the value of the 'products' key is kept (there are other keys in the JSON object).
+                    return data['products'] 
                 except KeyError:
                     print("JSON does not contain products_data.")
                     raise OffJsonError
