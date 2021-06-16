@@ -10,9 +10,12 @@ class SearchForm(forms.Form):
     """
         xxx
     """
-    query = forms.CharField(label='Votre recherche de produit', help_text="Saisissez le nom d'un produit", max_length=100)
+    query = forms.CharField(label="", max_length=100)
     query.widget.attrs.update({
-                    "class": "search_field",
+                    "class": "form-control",
+                    "placeholder": "Produit à remplacer",
+                    "aria-label": "Produit à remplacer",
+                    "aria-describedby": "button-addon2"
                 })
     
     def clean_search(self):
