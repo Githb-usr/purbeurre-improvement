@@ -1,6 +1,18 @@
 <!-- purbeurre/food/templates/product_list.html -->
 
-{% extends 'main_template.html' %}
+{% extends 'base_template.html' %}
+{% block header %}
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 h-25">
+            <div class="row gx-4 gx-lg-5 h-25 align-items-center justify-content-center text-center" id="header-content-block">
+                <div class="col-lg-8 align-self-end">
+                    <h1 class="text-white font-weight-bold">[nom du produit à substituer]</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
 {% block content %}
 <main>
     <section id="intro-section">
@@ -20,3 +32,4 @@
     </section>
 </main>
 {% endblock content %}
+{% block contact %}{% endblock contact %}
