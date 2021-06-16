@@ -5,9 +5,9 @@ from collections import OrderedDict
 import re
 import unicodedata
 
-from food.settings import NO_DATA
+from food.settings import NO_DATA, STOPWORDS
 
-class Parser:
+class SearchParser:
     """
         Parser class
         To manage user question parsing
@@ -58,6 +58,59 @@ class Parser:
         no_quote_letter_data = re.sub(r"(\s[a-z])'", " ", raw_string)
         # We delete the special characters except the hyphen
         return re.sub(r'[^\-\'\,\w\s]','',no_quote_letter_data)
+    
+    def get_cleaned_data_list(self, raw_string):
+        """
+            Cutting the string into words
+            :param: raw_string is a string
+            :return: a list containing all the words of the given string
+            :rtype: list
+        """
+        # We transform the string into a list of words
+        cleaned_data_temp_list = []
+        cleaned_data_list = []
+        cleaned_data_temp_list = raw_string.split(' ')
+        # We delete the duplicates
+        cleaned_data_list = list(OrderedDict.fromkeys(cleaned_data_temp_list))
+        # We delete the empty items
+        value_to_delete = ''
+        cleaned_data_list = [i for i in cleaned_data_list if i != value_to_delete]
+
+        return cleaned_data_list
+    
+    def get_clean_stopwords_list(self):
+        """
+            Remove accents in predefined stopwords list
+            :return: a clean stopwords list without accents
+            :rtype: list
+        """
+        clean_stopwords_list = []
+        for word in STOPWORDS:
+            clean_word = self.remove_accented_characters(word)
+            clean_stopwords_list.append(clean_word.strip())
+
+        # We delete the duplicates
+        clean_stopwords_list = list(set(clean_stopwords_list))
+
+        return clean_stopwords_list
+
+    def remove_stopwords(self, raw_list, clean_stopwords_list):
+        """
+            Removal of unnecessary words from a pre-defined list
+            :param: cleaned_data_list is a list of cleaned words (strings)
+            :return: a list containing only the important words
+            :rtype: list
+        """
+        # We determine the list of words to delete in the original list
+        words_to_remove = list(set(raw_list) & set(clean_stopwords_list))
+
+        # We remove unnecessary words from the original list
+        for word in words_to_remove:
+            raw_list.remove(word)
+
+        self.cleaned_string_words_list = raw_list
+
+        return self.cleaned_string_words_list
 
     def get_cleaned_string(self, raw_string):
         """
@@ -73,5 +126,10 @@ class Parser:
 
         # We remove any accents and special characters (punctuation and others)
         no_accent_data = self.remove_accented_characters(raw_string)
-
-        return self.remove_special_characters(no_accent_data)
+        no_special_characters_data = self.remove_special_characters(no_accent_data)
+        # We get the original cleaned word list
+        cleaned_data_list = self.get_cleaned_data_list(no_special_characters_data)
+        # A tuple is retrieved from the list of filtered words
+        clean_stopwords_list = self.get_clean_stopwords_list()
+        
+        return list(tuple(self.remove_stopwords(cleaned_data_list, clean_stopwords_list)))
