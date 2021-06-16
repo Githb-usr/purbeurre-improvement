@@ -7,8 +7,8 @@ class Product(models.Model):
         xxx
     """
     designation = models.CharField(max_length=250)
-    brand = models.CharField(max_length=60)
     barcode = models.CharField(max_length=13)
+    brand = models.CharField(max_length=60)
     nutriscore = models.CharField(max_length=1)
     novascore = models.CharField(max_length=1)
     url = models.URLField(max_length=200)

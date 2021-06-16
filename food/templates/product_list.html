@@ -1,25 +1,21 @@
 <!-- purbeurre/food/templates/product_list.html -->
 
-{% extends 'main_template.html' %}
+{% extends 'base_template.html' %}
 {% block content %}
 <main>
     <section id="intro-section">
-        <h1>Produits correspondant à votre recherche</h1>
+        <h1>Produit(s) correspondant à votre recherche</h1>
     </section>
     <section id="main-section">
-        {% if product_search %}
-            {% for product in product_search %}
+        {% if product_search_result %}
+            {% for product in product_search_result %}
                 <div class="product-card">
                     <div class="product-img-frame">
                         <img src="{{ product.image_url }}" 
                              alt="{{ product.designation }} / {{ product.brand }}" 
                              class="product-img" />
                     </div>
-                    <ul>
-                        <li>Nom : {{ product.designation }}</li>
-                        <li>Marque : {{ product.brand }}</li>
-                        <li>Code barres : {{ product.barcode }}</li>
-                    </ul>
+                    {{ product.designation }}
                 </div>
             {% endfor %}
         {% else %}
