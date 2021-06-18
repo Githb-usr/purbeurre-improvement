@@ -12,7 +12,8 @@ class SearchForm(forms.Form):
     """
     query = forms.CharField(label="", max_length=100)
     query.widget.attrs.update({
-                    "class": "form-control",
+                    "class": "form-control form-control-lg",
+                    "type": "text",
                     "placeholder": "Produit à remplacer",
                     "aria-label": "Produit à remplacer",
                     "aria-describedby": "button-addon2"
