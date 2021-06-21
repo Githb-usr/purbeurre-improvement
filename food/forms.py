@@ -32,4 +32,4 @@ class FoodForm(ModelForm):
     """
     class Meta:
         model = Product
-        fields = ['designation', 'brand', 'barcode', 'nutriscore', 'novascore', 'url']
+        fields = ['designation', 'brand', 'barcode', 'nutriscore', 'url']
