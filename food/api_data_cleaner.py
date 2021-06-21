@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from collections import OrderedDict
 import unicodedata
 
 from food.off_api import OffApi
@@ -23,16 +24,11 @@ class ApiDataCleaner:
             :return: A list of dictionaries is obtained, one dictionary per product.
             :rtype: list()
         """
-        complete_data = []
         # Deletion of products with empty fields
-        complete_data = [
-                product for product in raw_data
-                if len(product) == len(FIELDS_OF_PRODUCT_LIST) and all(product.values())            
-            ]
-
-        # Creation of the dictionary containing all the complete products
-        for data in complete_data:
-            self.products_dict_list.append(data)
+        self.products_dict_list = [
+        product for product in raw_data
+        if len(product) == (len(FIELDS_OF_PRODUCT_LIST) + 2) and all(product.values())
+        ]        
 
         return self.products_dict_list
 
@@ -52,15 +48,17 @@ class ApiDataCleaner:
             brand_of_products.append((product['code'], product_clean_brand))
             if product_clean_brand != '':
                 clean_brands.append(product_clean_brand)
-            clean_brands = list(set(clean_brands))
+            clean_brands = list(OrderedDict.fromkeys(clean_brands))
 
             # For the 'categories' field
-            product_clean_categories = self.clean_fields(product['categories'])
+            all_product_clean_categories = self.clean_fields(product['categories'])
+            # We only keep the last 5 categories, the most specific to the product
+            product_clean_categories = all_product_clean_categories[-5:]
             categories_of_products.append((product['code'], product_clean_categories))
             for category in product_clean_categories:
                 if category != '':
                     clean_categories.append(category)
-            clean_categories = list(set(clean_categories))
+            clean_categories = list(OrderedDict.fromkeys(clean_categories))
 
             # For the 'stores' field
             product_clean_stores = self.clean_proper_names_fields(product['stores'])
@@ -68,7 +66,7 @@ class ApiDataCleaner:
             for store in product_clean_stores:
                 if store != '':
                     clean_stores.append(store)
-            clean_stores = list(set(clean_stores))
+            clean_stores = list(OrderedDict.fromkeys(clean_stores))
 
         return {
             'clean_brands': clean_brands,
@@ -88,14 +86,13 @@ class ApiDataCleaner:
             :rtype: list()
         """
         clean_field_list = []
-
         field_split = field_string.split(',')
         for value in field_split:
             # We capitalize only the first word of the expression
             value_strip = value.strip().lower().capitalize()
             clean_field_list.append(value_strip)
-
-        clean_field_list = list(set(clean_field_list))
+        # We remove duplicates by keeping the order of the categories
+        clean_field_list = list(OrderedDict.fromkeys(clean_field_list))
 
         return clean_field_list
     

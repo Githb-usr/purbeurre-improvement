@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+
+from config.settings import BASE_DIR
 from food.api_data_cleaner import ApiDataCleaner
 from food.models import Product, Category, Store
 from food.off_api import OffApi
@@ -49,14 +52,66 @@ class DatabaseService:
                             brand = brand[1],
                             barcode = prod_dict['code'],
                             nutriscore = prod_dict['nutriscore_grade'].capitalize(),
-                            novascore = prod_dict['nova_group'],
+                            fat_value = self.get_field_value(prod_dict, 'fat'),
+                            fat_levels = self.transcribe_nutrient_level(prod_dict, 'fat'),
+                            saturated_fat_value = self.get_field_value(prod_dict, 'saturated-fat'),
+                            saturated_fat_levels = self.transcribe_nutrient_level(prod_dict, 'saturated-fat'),
+                            sugars_value = self.get_field_value(prod_dict, 'sugars'),
+                            sugars_levels = self.transcribe_nutrient_level(prod_dict, 'sugars'),
+                            salt_value = self.get_field_value(prod_dict, 'salt'),
+                            salt_levels = self.transcribe_nutrient_level(prod_dict, 'salt'),
                             url = prod_dict['url'],
-                            image_url = prod_dict['image_url']
+                            image_url = self.get_image_url(prod_dict, 'image_url')
                         )
                         product.save()
                         all_products = Product.objects.all().order_by('id')
 
         return all_products
+
+    def get_field_value(self, prod_dict, field):
+        """
+            xxx
+            :param field_string: xxx
+            :return: xxxx
+            :rtype: dict()
+        """
+        try:
+            if prod_dict['nutriments'][field]:
+                return prod_dict['nutriments'][field]
+            return 0
+        except KeyError:
+                return None
+
+    def get_image_url(self, prod_dict, url):
+        """
+            xxx
+            :param field_string: xxx
+            :return: xxxx
+            :rtype: dict()
+        """
+        try:
+            if prod_dict[url]:
+                return prod_dict[url]
+        except KeyError:
+            return os.path.join(BASE_DIR, 'static/dist/assets/img/default_product_img.png')
+
+    def transcribe_nutrient_level(self, prod_dict, nutriment):
+        """
+            xxx
+            :param field_string: xxx
+            :return: xxxx
+            :rtype: dict()
+        """
+        try:
+            level = prod_dict['nutrient_levels'][nutriment]
+            if level == 'low':
+                return 'LO'
+            elif level == 'moderate':
+                return 'MO'
+            elif level == 'high':
+                return 'HI'
+        except KeyError:
+            return None
 
     def populate_database_with_categories(self):
         """
@@ -74,7 +129,7 @@ class DatabaseService:
                     designation = clean_cat
                 )
                 category.save()
-                all_categories = Category.objects.all().order_by('-id')
+                all_categories = Category.objects.all().order_by('id')
                 
         return all_categories
     
