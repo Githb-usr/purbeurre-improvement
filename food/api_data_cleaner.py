@@ -61,7 +61,8 @@ class ApiDataCleaner:
             clean_categories = list(OrderedDict.fromkeys(clean_categories))
 
             # For the 'stores' field
-            product_clean_stores = self.clean_proper_names_fields(product['stores'])
+            all_product_clean_stores = self.clean_proper_names_fields(product['stores'])
+            product_clean_stores = all_product_clean_stores[3:]
             stores_of_products.append((product['code'], product_clean_stores))
             for store in product_clean_stores:
                 if store != '':

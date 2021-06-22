@@ -33,7 +33,7 @@
                             </div>
                             <div class="card-body">
                                 <p class="card-text">{{ product.designation }}</p>
-                                <a href="product_detail/{{ product.barcode }}" class="btn btn-primary">Fiche détaillée</a>
+                                <a href="{% url 'product_detail' barcode=product.barcode %}" class="btn btn-primary">Fiche détaillée</a>
                                 <a href="#" class="btn btn-primary">Choisir ce produit</a>
                             </div>
                         </div>

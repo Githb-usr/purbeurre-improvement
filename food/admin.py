@@ -8,7 +8,12 @@ class ProductAdmin(admin.ModelAdmin):
     """
         xxx
     """
-    list_display = ('designation', 'brand', 'barcode', 'nutriscore', 'url',)
+    list_display = ('designation', 'brand', 'barcode', 'nutriscore',
+                    'fat_value', 'fat_levels',
+                    'saturated_fat_value', 'saturated_fat_levels',
+                    'sugars_value', 'sugars_levels',
+                    'salt_value', 'salt_levels',
+                    'url', 'image_url')
     
 class CategoryAdmin(admin.ModelAdmin):
     """

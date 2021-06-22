@@ -9,6 +9,7 @@ from food.database_service import DatabaseService
 from food.forms import SearchForm
 from food.models import Product, Category, Store
 from food.search_parser import SearchParser
+from food.settings import NUTRIENT_LEVELS
 
 def show_index(request):
     """
@@ -57,18 +58,18 @@ def show_search_result(request):
         if product_search_by_barcode:
             return render(request, 'product_list.html', { 'product_search_result': product_search_by_barcode })
         
-def show_product_detail(self, request):
+def show_product_detail(request, barcode):
     """
         xxx
         :param field_string: xxx
         :return: xxxx
         :rtype: xxx
     """
-    product_detail = Product.objects.filter(designation__unaccent__icontains="xxx")
-    
-    return render(request, 'product_detail.html', { 'product_detail': product_detail })
+    product_detail = Product.objects.filter(barcode__icontains=barcode)
 
-def show_substitute_choice_list(self, request):
+    return render(request, 'product_detail.html', { 'product_detail': product_detail[0], 'nutrient_levels': NUTRIENT_LEVELS })
+
+def show_substitute_choice_list(request):
     """
         xxx
         :param field_string: xxx
