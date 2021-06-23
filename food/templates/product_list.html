@@ -3,20 +3,30 @@
 {% extends 'base_template.html' %}
 {% block header %}
     <!-- Masthead-->
-    <header class="masthead">
-        <div class="container px-4 px-lg-5 h-25">
-            <div class="row gx-4 gx-lg-5 h-25 align-items-center justify-content-center text-center" id="header-content-block">
+    <header class="bg-primary">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 align-items-center justify-content-center text-center" id="header-content-block">
                 <div class="col-lg-8 align-self-end">
-                    <h1 class="text-white font-weight-bold">Votre recherche : xxx</h1>
+                    <h1 class="text-center text-white" id="product-list-title">Produits correspondant à votre recherche "{{ query }}"</h1>
                 </div>
             </div>
         </div>
     </header>
 {% endblock header %}
 {% block content %}
-<main>
-    <section id="intro-section">
-        <h2>Vous pouvez remplacer cet aliment par : </h2>
+<main class="bg-primary">
+    <section class="container text-white intro-section">
+        <div class="row">
+            <i class="fas fa-info-circle"></i>
+            <div class="info1">
+                <i class="fas fa-long-arrow-alt-right"></i>
+                <p class="align-middle">Cliquez sur "<strong>Fiche détaillée</strong>" pour avoir plus d'information sur un produit.</p>
+            </div>
+            <div class="info2">
+                <i class="fas fa-long-arrow-alt-right"></i>
+                <p class="align-middle">Cliquez sur "<strong>Choisir ce produit</strong>" pour voir les substituts que nous vous proposons pour le remplacer par un produit plus sain.</p>
+            </div>
+        </div>
     </section>
     <section class="container" id="main-section">
         <div class="row">
@@ -26,15 +36,15 @@
                 {% for product in product_search_result %}
                     <div class="col-4 col-card">
                         <div class="card product-card">
-                            <div class="product-img-block">
-                                <img src="{{ product.image_url }}" 
-                                    alt="{{ product.designation }}" 
-                                    class="img-fluid rounded product-img d-flex align-self-end" />
+                            <img src="{{ product.image_url }}" 
+                                alt="{{ product.designation }}" 
+                                class="card-img-top product-img img-fluid rounded d-block align-middle" />
+                            <div class="card-body text-center">
+                                <p class="card-title">{{ product.designation }}</p>
                             </div>
-                            <div class="card-body">
-                                <p class="card-text">{{ product.designation }}</p>
-                                <a href="{% url 'product_detail' barcode=product.barcode %}" class="btn btn-primary">Fiche détaillée</a>
-                                <a href="#" class="btn btn-primary">Choisir ce produit</a>
+                            <div class="card-footer">
+                                <a href="{% url 'product_detail' barcode=product.barcode %}" class="btn">Fiche détaillée</a>
+                                <a href="#" class="btn">Choisir ce produit</a>
                             </div>
                         </div>
                     </div>

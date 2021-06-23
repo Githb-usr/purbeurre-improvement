@@ -15,7 +15,7 @@
                     <form action="/product_list/" method="get">
                         <div class="input-group mb-3">                                
                             {{ form }}
-                            <button class="btn btn-secondary input-group-text" type="submit" id="button-addon2">Chercher</button>
+                            <button class="btn btn-info input-group-text" type="submit" id="button-addon2">Chercher</button>
                         </div>
                     </form>
                 </div>
@@ -68,22 +68,28 @@
 {% endblock content %}
 {% block contact %}
 <!-- Contact-->
-<section class="page-section" id="contact">
+<section class="page-section" id="page-contact">
     <div class="container px-4 px-lg-5">
         <div class="row justify-content-evenly">
-            <div class="col-6">
+            <div class="col-12 text-center text-white">
+                <h2>Contactez-nous !</h>
+                <p class="contact-intro">Nous sommes là pour répondre à vos questions et prendre en compte vos suggestions, alors n'hésitez pas !</p>
+            </div>
+            <div class="col-6" id="contact-phone">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-6 text-center mb-5 mb-lg-0">
-                        <i class="fas fa-mobile-alt fs-2 mb-3 text-muted"></i>
+                    <div class="col-lg-6 text-center text-white mb-5 mb-lg-0">
+                        <i class="fas fa-mobile-alt fs-2 mb-3"></i>
                         <div>01 00 00 00 00</div>
                     </div>
                 </div>
             </div>
             <div class="col-6">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-6 text-center mb-5 mb-lg-0">
-                        <i class="fas fa-envelope fs-2 mb-3 text-muted"></i>
-                        <div>contact@pur-beurre.com</div>
+                    <div class="col-lg-6 text-center text-white mb-5 mb-lg-0">
+                        <i class="fas fa-envelope fs-2 mb-3"></i>
+                        <div id="contact-mail">
+                            <a href="mailto:contact@pur-beurre.com?subject=Contact depuis votre site web">contact@pur-beurre.com</a>
+                        </div>
                     </div>
                 </div>
             </div>
