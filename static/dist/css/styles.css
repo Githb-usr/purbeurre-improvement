@@ -10843,7 +10843,7 @@ html {
 body {
   width: 100%;
   height: 100%;
-  color: #fff;
+  color: #212529;
 }
 
 .col, .col-4 {
@@ -10895,46 +10895,63 @@ a:hover {
   width: 50%;
 }
 
-.product-detail-header {
-  height: 17rem;
-  background-color: #DE9440;
-  padding: 3rem 0;
+.simple-header {
+  height: 20rem;
+  background-color: #E8A75D;
+  color: #fff;
+  vertical-align: middle;
+  padding-top: calc(4.5rem + 3rem);
+  padding-bottom: 1rem;
+}
+
+.index-about-title {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+main section {
+  padding: 0 0 2rem 0;
+  font-size: 1.2rem;
 }
 
 .product-detail-infos {
+  background-color: #DE9440;
   border: 2px solid #C45525;
-  padding: 1.5rem;
-  font-size: larger;
   font-weight: bold;
+  color: #fff;
+  margin-top: 4rem;
+}
+
+.product-detail-img {
+  background-color: #fff;
+  height: 500px;
+  margin: 0;
+  padding: 1rem;
 }
 
 .product-detail-image {
-  max-height: 20rem;
-  margin: 0 auto;
-  padding: 0 2rem 0 0;
+  height: 100%;
+  width: 100%;
 }
 
-.product-detail-misc {
-  padding: 0 2rem;
+.product-detail-data {
+  margin: 0;
+  padding: 1.5rem;
   border-left: 2px solid #C45525;
 }
 
-.product-detail-identification {
-  margin-top: 2rem;
+.product-detail-nutriment {
+  padding-top: 2rem;
+  font-size: 1rem;
 }
 
 .product-detail-identification p {
   margin-bottom: 0.5rem;
 }
 
-main section h2, main section .h2 {
-  padding: 0 0 2rem 0;
-  font-size: 2rem;
-}
-
-.product-detail-nutriment {
-  padding-left: 2rem;
-  border-left: 2px solid #C45525;
+.product-detail-nutriment-title {
+  padding: 0 0 1.5rem 0;
+  font-size: 1.6rem;
 }
 
 .green-dot {
@@ -10971,21 +10988,10 @@ footer, footer a {
   font-size: large;
 }
 
-.little-masthead {
-  height: 15rem;
-  padding-top: calc(7rem - 4.5rem);
-  padding-bottom: calc(7rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(222, 148, 64, 0.8) 0%, rgba(222, 148, 64, 0.8) 100%), url("../assets/img/background.jpg");
-}
-
-#product-list-title {
-  padding: 3rem 0 4rem 0;
-}
-
 .intro-section {
   display: flex;
   flex-direction: column;
-  padding-bottom: 2rem;
+  padding: 2.5rem 0 2rem 0;
   font-size: 1.2rem;
 }
 
@@ -11013,7 +11019,7 @@ main section i {
 }
 
 .card-body, .card-footer {
-  background-color: #C45525;
+  background-color: #DE9440;
   padding: 0.5rem;
 }
 
@@ -11022,12 +11028,16 @@ main section i {
   color: #fff;
 }
 
+main section div div .card-body {
+  border-top: 2px solid #C45525;
+}
+
 .card-footer {
   border-top: none;
 }
 
 .card-footer .btn {
-  background-color: #E8A75D;
+  background-color: #C45525;
   margin-right: 0.3rem;
   color: #f3f3f3;
 }
@@ -11045,12 +11055,17 @@ main section i {
 .product-img {
   height: 100%;
   width: 100%;
+  margin: 0 auto;
   padding: 1rem;
 }
 
 .contact-intro {
   font-size: 1.2rem;
   padding: 1rem 0 1.5rem 0;
+}
+
+.index-title-block {
+  margin-top: 4rem;
 }
 
 .btn-xl {
@@ -11072,6 +11087,10 @@ hr.divider {
 
 hr.divider-light {
   background-color: #fff;
+}
+
+hr.divider-gray {
+  background-color: #212529;
 }
 
 #mainNav {
@@ -11144,7 +11163,7 @@ hr.divider-light {
 header.masthead {
   padding-top: calc(7rem - 4.5rem);
   padding-bottom: calc(7rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(222, 148, 64, 0.8) 0%, rgba(222, 148, 64, 0.8) 100%), url("../assets/img/background.jpg");
+  background: linear-gradient(to bottom, rgba(232, 167, 93, 0.8) 0%, rgba(232, 167, 93, 0.8) 100%), url("../assets/img/background.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -11177,16 +11196,12 @@ header.masthead h1, header.masthead .h1 {
   }
 }
 
-#header-content-block {
-  padding-top: 5rem;
-}
-
 #big-search-form {
   margin-top: 2rem;
 }
 
 #portraits-intro {
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .portrait-colette {

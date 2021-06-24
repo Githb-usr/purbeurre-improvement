@@ -3,29 +3,24 @@
 {% extends 'base_template.html' %}
 {% block header %}
     <!-- Masthead-->
-    <header class="bg-primary">
+    <header class="simple-header d-flex align-items-center">
         <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 align-items-center justify-content-center text-center" id="header-content-block">
-                <div class="col-lg-8 align-self-end">
-                    <h1 class="text-center text-white" id="product-list-title">Produits correspondant à votre recherche "{{ query }}"</h1>
+            <div class="row gx-4 gx-lg-5 align-items-center justify-content-center text-center">
+                <div class="col-lg-8 align-content-between">
+                    <p class="d-inline-flex fs-2 align-self-baseline header-title-intro">Produits correspondant à votre recherche</p>
+                    <h1 class="d-inline-flex align-middle text-white font-weight-bold header-title">
+                        "{{ query }}"
+                    </h1>
                 </div>
             </div>
         </div>
     </header>
 {% endblock header %}
 {% block content %}
-<main class="bg-primary">
-    <section class="container text-white intro-section">
-        <div class="row">
-            <i class="fas fa-info-circle"></i>
-            <div class="info1">
-                <i class="fas fa-long-arrow-alt-right"></i>
-                <p class="align-middle">Cliquez sur "<strong>Fiche détaillée</strong>" pour avoir plus d'information sur un produit.</p>
-            </div>
-            <div class="info2">
-                <i class="fas fa-long-arrow-alt-right"></i>
-                <p class="align-middle">Cliquez sur "<strong>Choisir ce produit</strong>" pour voir les substituts que nous vous proposons pour le remplacer par un produit plus sain.</p>
-            </div>
+<main class="text-body">
+    <section class="text-white intro-section">
+        <div class="product-list-instructions">
+            <p class="text-center text-body">Passez la souris sur les boutons des produits pour savoir où ils vous emmèneront ;)</p>
         </div>
     </section>
     <section class="container" id="main-section">
@@ -43,8 +38,8 @@
                                 <p class="card-title">{{ product.designation }}</p>
                             </div>
                             <div class="card-footer">
-                                <a href="{% url 'product_detail' barcode=product.barcode %}" class="btn">Fiche détaillée</a>
-                                <a href="#" class="btn">Choisir ce produit</a>
+                                <a href="{% url 'product_detail' barcode=product.barcode %}" class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Afficher les informations sur ce produit">Fiche détaillée</a>
+                                <a href="#" class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Afficher les substituts plus sains">Choisir ce produit</a>
                             </div>
                         </div>
                     </div>
