@@ -10843,6 +10843,7 @@ html {
 body {
   width: 100%;
   height: 100%;
+  color: #212529;
 }
 
 .col, .col-4 {
@@ -10862,8 +10863,18 @@ h3, .h3 {
   font-size: 1.2em;
 }
 
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: underline;
+}
+
 .page-section {
-  padding: 8rem 0;
+  padding: 3rem 0;
 }
 
 .text-white-75 {
@@ -10873,37 +10884,188 @@ h3, .h3 {
 #pb-img-logo {
   width: 2rem;
   margin-right: 0.5rem;
+  padding-bottom: 0.4rem;
 }
 
 #footer-copyright {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 #big-search-form {
   width: 50%;
 }
 
-.col-card {
-  margin-right: 0;
+.simple-header {
+  height: 20rem;
+  background-color: #E8A75D;
+  color: #fff;
+  vertical-align: middle;
+  padding-top: calc(4.5rem + 3rem);
+  padding-bottom: 1rem;
+}
+
+.index-about-title {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+main section {
+  padding: 0 0 2rem 0;
+  font-size: 1.2rem;
+}
+
+.product-detail-infos {
+  background-color: #DE9440;
+  border: 2px solid #C45525;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 4rem;
+}
+
+.product-detail-img {
+  background-color: #fff;
+  height: 500px;
+  margin: 0;
+  padding: 1rem;
+}
+
+.product-detail-image {
+  height: 100%;
+  width: 100%;
+}
+
+.product-detail-data {
+  margin: 0;
+  padding: 1.5rem;
+  border-left: 2px solid #C45525;
+}
+
+.product-detail-nutriment {
+  padding-top: 2rem;
+  font-size: 1rem;
+}
+
+.product-detail-identification p {
+  margin-bottom: 0.5rem;
+}
+
+.product-detail-nutriment-title {
+  padding: 0 0 1.5rem 0;
+  font-size: 1.6rem;
+}
+
+.green-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: green;
+}
+
+.orange-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: orange;
+}
+
+.red-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: red;
+}
+
+#page-contact {
+  background: #E8A75D;
+}
+
+#contact-mail a, #contact-mail a:hoover {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer, footer a {
+  font-size: large;
+}
+
+.intro-section {
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 0 2rem 0;
+  font-size: 1.2rem;
+}
+
+main section i {
+  font-size: 2.5rem;
+  padding: 0 0.5rem 1rem 0;
+}
+
+.info1, .info2 {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.info1 p, .info2 p {
+  display: inline;
+  padding-bottom: 1rem;
+}
+
+.fa-long-arrow-alt-right {
+  padding-top: 0;
+}
+
+.card {
+  border: 2px solid #C45525;
+}
+
+.card-body, .card-footer {
+  background-color: #DE9440;
+  padding: 0.5rem;
+}
+
+.card-body {
+  height: 80px;
+  color: #fff;
+}
+
+main section div div .card-body {
+  border-top: 2px solid #C45525;
+}
+
+.card-footer {
+  border-top: none;
+}
+
+.card-footer .btn {
+  background-color: #C45525;
+  margin-right: 0.3rem;
+  color: #f3f3f3;
+}
+
+.card-title {
+  margin: 0;
 }
 
 .product-card {
-  width: 90%;
-  min-height: 50rem;
-  margin-bottom: 2.5rem;
-}
-
-.product-img-block {
-  display: flex;
-  flex-direction: column;
-  height: 30rem;
-  border: 1px solid #000;
+  height: 500px;
+  margin-bottom: 3rem;
+  margin-right: 3rem;
 }
 
 .product-img {
-  max-height: 25rem;
-  max-width: 100%;
-  border: 1px solid #000;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.contact-intro {
+  font-size: 1.2rem;
+  padding: 1rem 0 1.5rem 0;
+}
+
+.index-title-block {
+  margin-top: 4rem;
 }
 
 .btn-xl {
@@ -10927,22 +11089,26 @@ hr.divider-light {
   background-color: #fff;
 }
 
+hr.divider-gray {
+  background-color: #212529;
+}
+
 #mainNav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  background-color: #fff;
+  background-color: #C45525;
   transition: background-color 0.2s ease;
 }
 #mainNav .navbar-brand {
   font-family: "Open Sans", sans-serif, "Scope One", sans-serif, "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 2em;
   font-weight: 700;
-  color: #212529;
+  color: #fff;
 }
 #mainNav .navbar-nav .nav-item .nav-link {
   color: #6c757d;
   font-family: "Open Sans", sans-serif, "Scope One", sans-serif, "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   padding: 0.75rem 0;
 }
 #mainNav .navbar-nav .nav-item .nav-link:hover, #mainNav .navbar-nav .nav-item .nav-link:active {
@@ -10957,17 +11123,17 @@ hr.divider-light {
     background-color: transparent;
   }
   #mainNav .navbar-brand {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  #mainNav .navbar-brand:hover {
     color: #fff;
   }
-  #mainNav .navbar-nav .nav-item .nav-link {
+  #mainNav .navbar-brand:hover {
     color: rgba(255, 255, 255, 0.7);
+  }
+  #mainNav .navbar-nav .nav-item .nav-link {
+    color: #fff;
     padding: 0 1rem;
   }
   #mainNav .navbar-nav .nav-item .nav-link:hover {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
   }
   #mainNav .navbar-nav .nav-item:last-child .nav-link {
     padding-right: 0;
@@ -10977,23 +11143,27 @@ hr.divider-light {
     background-color: #fff;
   }
   #mainNav.navbar-shrink .navbar-brand {
-    color: #212529;
+    color: #fff;
   }
   #mainNav.navbar-shrink .navbar-brand:hover {
     color: #DE9440;
   }
   #mainNav.navbar-shrink .navbar-nav .nav-item .nav-link {
-    color: #212529;
+    color: #fff;
   }
   #mainNav.navbar-shrink .navbar-nav .nav-item .nav-link:hover {
     color: #DE9440;
   }
 }
 
+#nav-search-form {
+  padding-right: 2rem;
+}
+
 header.masthead {
   padding-top: calc(7rem - 4.5rem);
   padding-bottom: calc(7rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(222, 148, 64, 0.8) 0%, rgba(222, 148, 64, 0.8) 100%), url("../assets/img/background.jpg");
+  background: linear-gradient(to bottom, rgba(232, 167, 93, 0.8) 0%, rgba(232, 167, 93, 0.8) 100%), url("../assets/img/background.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -11026,16 +11196,12 @@ header.masthead h1, header.masthead .h1 {
   }
 }
 
-#header-content-block {
-  padding-top: 5rem;
-}
-
 #big-search-form {
   margin-top: 2rem;
 }
 
 #portraits-intro {
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .portrait-colette {

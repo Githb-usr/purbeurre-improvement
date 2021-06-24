@@ -17,7 +17,7 @@ def show_index(request):
         :return: index template
     """
     search_form = SearchForm()
-
+    
     return render(request, 'index.html', { 'form': search_form })
 
 def show_search_form(request):
@@ -36,6 +36,8 @@ def show_search_result(request):
         :return: xxxx
         :rtype: xxx
     """
+    search_form = SearchForm()
+    
     searchParser = SearchParser()
     # We get the product name entered by the user
     query = request.GET['query']
@@ -51,12 +53,15 @@ def show_search_result(request):
 
         # If there are any matches, we send them to the template
         if product_search_by_name:
-            return render(request, 'product_list.html', { 'product_search_result': product_search_by_name })
+            return render(request, 'product_list.html', { 'product_search_result': product_search_by_name, 'form': search_form, 'query': query })
 
         # If the user has entered a very specific product name or barcode, and there is only one result
         product_search_by_barcode = Product.objects.filter(barcode__icontains=cleaned_query[0])
         if product_search_by_barcode:
-            return render(request, 'product_list.html', { 'product_search_result': product_search_by_barcode })
+            return render(request, 'product_list.html', { 'product_search_result': product_search_by_barcode, 'form': search_form, 'query': query })
+    
+        if not product_search_by_name and not product_search_by_barcode:
+            return render(request, 'product_list.html', { 'product_search_result': 'Aucun résultat', 'form': search_form, 'query': query })
         
 def show_product_detail(request, barcode):
     """
@@ -65,9 +70,11 @@ def show_product_detail(request, barcode):
         :return: xxxx
         :rtype: xxx
     """
+    search_form = SearchForm()
+        
     product_detail = Product.objects.filter(barcode__icontains=barcode)
 
-    return render(request, 'product_detail.html', { 'product_detail': product_detail[0], 'nutrient_levels': NUTRIENT_LEVELS })
+    return render(request, 'product_detail.html', { 'product_detail': product_detail[0], 'form': search_form, 'nutrient_levels': NUTRIENT_LEVELS })
 
 def show_substitute_choice_list(request):
     """
@@ -76,6 +83,8 @@ def show_substitute_choice_list(request):
         :return: xxxx
         :rtype: xxx
     """
+    search_form = SearchForm()
+        
     substitute_search = Product.objects.filter(designation__unaccent__icontains="xxx")
     
-    return render(request, 'substitute_list.html', { 'substitute_search_result': substitute_search })
+    return render(request, 'substitute_list.html', { 'substitute_search_result': substitute_search, 'form': search_form })

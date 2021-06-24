@@ -1,9 +1,19 @@
-.product-card {
-    width: 25em;
-    border: 1px solid #000;
+a {
+    color:blue;
+}
 
+.col-card {
+    margin-right: 1rem;
+}
+
+.product-card {
+    width: 90%;
+    min-height: 50rem;
+    margin-bottom: 2.5rem;
 }
 
 .product-img {
-    max-width: 75%;
+    height: 100px;
+    width: 100px;
+    vertical-align: middle;
 }
