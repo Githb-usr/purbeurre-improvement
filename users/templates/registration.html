@@ -1,0 +1,27 @@
+<!-- purbeurre/users/templates/registration.html -->
+
+{% extends 'base_template.html' %}
+{% block header %}
+    <!-- Masthead-->
+    <header class="simple-header d-flex align-items-center">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center align-content-between text-center">
+                <div class="col-lg-8">
+                    <h1 class="d-inline-flex align-middle text-white font-weight-bold header-title">Création de votre compte Pur Beurre</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+{% block content %}
+<main>
+    <section class="container" id="main-section">
+        <form method="POST">
+            {% csrf_token %}
+            {{registration_form.as_p}}
+            <button>Créer mon compte</button>
+        </form>
+    </section>
+</main>
+{% endblock content %}
+{% block contact %}{% endblock contact %}
