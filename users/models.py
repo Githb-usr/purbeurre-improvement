@@ -41,7 +41,6 @@ class User(AbstractUser):
     # About
     avatar = models.ImageField()
     # Registration
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Création')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Dernière modification')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -56,7 +55,7 @@ class User(AbstractUser):
         return self.username
     
     class Meta:
-        ordering = ('-created_at', '-updated_at', )
+        ordering = ('-date_joined', '-updated_at', )
         
     def get_full_name(self):
         if self.first_name:

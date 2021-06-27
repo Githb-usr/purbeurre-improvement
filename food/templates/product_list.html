@@ -18,16 +18,20 @@
 {% endblock header %}
 {% block content %}
 <main class="text-body">
-    <section class="text-white intro-section">
-        <div class="product-list-instructions">
-            <p class="text-center text-body">Passez la souris sur les boutons des produits pour savoir où ils vous emmèneront ;)</p>
-        </div>
-    </section>
-    <section class="container" id="main-section">
-        <div class="row">
-            {% if not product_search_result %}
-                <span class="text-danger">Il n'y a aucun produit à afficher.</span>
-            {% else %}
+    {% if product_search_result is none or product_search_result == 'NO_DATA' %}
+        <section class="intro-section">
+            <div class="product-list-instructions">
+                <span class="text-center text-body text-danger">Il n'y a aucun produit correspondant à votre recherche.</span>
+            </div>
+        </section>
+    {% else %}
+        <section class="intro-section">
+            <div class="product-list-instructions">
+                <p class="text-center text-body">Passez la souris sur les boutons des produits pour savoir où ils vous emmèneront ;)</p>
+            </div>
+        </section>
+        <section class="container" id="main-section">
+            <div class="row">
                 {% for product in product_search_result %}
                     <div class="col-4 col-card">
                         <div class="card product-card">
@@ -44,9 +48,9 @@
                         </div>
                     </div>
                 {% endfor %}
-            {% endif %}
-        </div>
-    </section>
+            </div>
+        </section>
+    {% endif %}
 </main>
 {% endblock content %}
 {% block contact %}{% endblock contact %}

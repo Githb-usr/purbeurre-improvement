@@ -47,52 +47,28 @@
                 </div>
                 <div class="product-detail-nutriment">
                     <h2 class="product-detail-nutriment-title">Repères nutritionnels pour 100g</h2>
-                    {% if product_detail.fat_levels %}
+                    {% if product_detail.fat_level %}
                         <div>
-                            <p>
-                                <img src="{% get_static_prefix %}dist/assets/img/nutrient_levels/{{ product_detail.fat_levels }}.svg" alt="" />
-                                {{ product_detail.fat_value|floatformat }}g : matières grasses / lipides en {% for level in nutrient_levels %}
-                                                                                                                {% if product_detail.fat_levels == level %}
-                                                                                                                    {{ nutrient_levels|get_dict_value:level }}
-                                                                                                                {% endif %}
-                                                                                                            {% endfor %}
-                            </p>
+                            <div class="{{ nutriment_data.fat.color }}"></div>
+                            <div>{{ product_detail.fat_value|floatformat }}g : matières grasses / lipides en {{ nutriment_data.fat.quantity }}</div>
                         </div>
                     {% endif %}
-                    {% if product_detail.saturated_fat_levels %}
+                    {% if product_detail.saturated_fat_level %}
                         <div>
-                            <p>
-                                <img src="{% get_static_prefix %}dist/assets/img/nutrient_levels/{{ product_detail.saturated_fat_levels }}.svg" alt="" /> 
-                                {{ product_detail.saturated_fat_value|floatformat }}g : acides gras saturés en {% for level in nutrient_levels %}
-                                                                                                                    {% if product_detail.saturated_fat_levels == level %}
-                                                                                                                        {{ nutrient_levels|get_dict_value:level }}
-                                                                                                                    {% endif %}
-                                                                                                                {% endfor %}
-                            </p>
+                            <div class="{{ nutriment_data.saturated_fat.color }}"></div>
+                            <div>{{ product_detail.saturated_fat_value|floatformat }}g : acides gras saturés en {{ nutriment_data.saturated_fat.quantity }}</div>
                         </div>
                     {% endif %}
-                    {% if product_detail.sugars_levels %}
+                    {% if product_detail.sugars_level %}
                         <div>
-                            <p>
-                                <img src="{% get_static_prefix %}dist/assets/img/nutrient_levels/{{ product_detail.sugars_levels }}.svg" alt="" /> 
-                                {{ product_detail.sugars_value|floatformat }}g : sucres en {% for level in nutrient_levels %}
-                                                                                                {% if product_detail.sugars_levels == level %}
-                                                                                                    {{ nutrient_levels|get_dict_value:level }}
-                                                                                                {% endif %}
-                                                                                            {% endfor %}
-                            </p>
+                            <div class="{{ nutriment_data.sugars.color }}"></div> 
+                            <div>{{ product_detail.sugars_value|floatformat }}g : sucres en {{ nutriment_data.sugars.quantity }}</div>
                         </div>
                     {% endif %}
-                    {% if product_detail.salt_levels %}
+                    {% if product_detail.salt_level %}
                         <div>
-                            <p>
-                                <img src="{% get_static_prefix %}dist/assets/img/nutrient_levels/{{ product_detail.salt_levels }}.svg" alt="" /> 
-                                {{ product_detail.salt_value|floatformat }}g : sel en {% for level in nutrient_levels %}
-                                                                                        {% if product_detail.salt_levels == level %}
-                                                                                            {{ nutrient_levels|get_dict_value:level }}
-                                                                                        {% endif %}
-                                                                                    {% endfor %}
-                            </p>
+                            <div class="{{ nutriment_data.salt.color }}"></div>
+                            <div>{{ product_detail.salt_value|floatformat }}g : sel en {{ nutriment_data.salt.quantity }}</div>
                         </div>
                     {% endif %}
                 </div>

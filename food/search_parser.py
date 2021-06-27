@@ -131,5 +131,5 @@ class SearchParser:
         cleaned_data_list = self.get_cleaned_data_list(no_special_characters_data)
         # A tuple is retrieved from the list of filtered words
         clean_stopwords_list = self.get_clean_stopwords_list()
-        
+
         return list(tuple(self.remove_stopwords(cleaned_data_list, clean_stopwords_list)))

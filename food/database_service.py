@@ -53,13 +53,13 @@ class DatabaseService:
                             barcode = prod_dict['code'],
                             nutriscore = prod_dict['nutriscore_grade'].capitalize(),
                             fat_value = self.get_field_value(prod_dict, 'fat'),
-                            fat_levels = self.transcribe_nutrient_level(prod_dict, 'fat'),
+                            fat_level = self.transcribe_nutrient_level(prod_dict, 'fat'),
                             saturated_fat_value = self.get_field_value(prod_dict, 'saturated-fat'),
-                            saturated_fat_levels = self.transcribe_nutrient_level(prod_dict, 'saturated-fat'),
+                            saturated_fat_level = self.transcribe_nutrient_level(prod_dict, 'saturated-fat'),
                             sugars_value = self.get_field_value(prod_dict, 'sugars'),
-                            sugars_levels = self.transcribe_nutrient_level(prod_dict, 'sugars'),
+                            sugars_level = self.transcribe_nutrient_level(prod_dict, 'sugars'),
                             salt_value = self.get_field_value(prod_dict, 'salt'),
-                            salt_levels = self.transcribe_nutrient_level(prod_dict, 'salt'),
+                            salt_level = self.transcribe_nutrient_level(prod_dict, 'salt'),
                             url = prod_dict['url'],
                             image_url = self.get_image_url(prod_dict, 'image_url')
                         )

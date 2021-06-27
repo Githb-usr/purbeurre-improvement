@@ -22,28 +22,28 @@ class Product(models.Model):
     brand = models.CharField(max_length=60)
     nutriscore = models.CharField(max_length=1)
     fat_value = models.FloatField(null=True)
-    fat_levels = models.CharField(
+    fat_level = models.CharField(
         max_length=2,
         choices=NUTRIENT_LEVELS,
         default=None,
         null=True
         )
     saturated_fat_value = models.FloatField(null=True)
-    saturated_fat_levels = models.CharField(
+    saturated_fat_level = models.CharField(
         max_length=2,
         choices=NUTRIENT_LEVELS,
         default=None,
         null=True
         )
     sugars_value = models.FloatField(null=True)
-    sugars_levels = models.CharField(
+    sugars_level = models.CharField(
         max_length=2,
         choices=NUTRIENT_LEVELS,
         default=None,
         null=True
         )
     salt_value = models.FloatField(null=True)
-    salt_levels = models.CharField(
+    salt_level = models.CharField(
         max_length=2,
         choices=NUTRIENT_LEVELS,
         default=None,
