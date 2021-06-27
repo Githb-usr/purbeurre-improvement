@@ -1,0 +1,31 @@
+<!-- purbeurre/users/templates/dashboard.html -->
+
+{% extends 'base_template.html' %}
+{% block header %}
+    <!-- Masthead-->
+    <header class="simple-header d-flex align-items-center">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center align-content-between text-center">
+                <div class="col-lg-8">
+                    <h1 class="d-inline-flex align-middle text-white font-weight-bold header-title">Mon compte personnel Pur Beurre</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+{% block content %}
+<main>
+    <section id="intro-section">
+        <p>Mes informations</p>
+        <p>Prénom : {{user.first_name}}</p>
+        <p>Nom : {{user.last_name}}</p>
+        <p>Pseudonyme : {{user.username}}</p>
+        <p>Email : {{user.email}}</p>
+        <p>Date d'inscription : {{user.date_joined}}</p>
+        <p>Dernière connexion au site : {{user.last_login}}</p>
+    <section class="container" id="main-section">
+
+    </section>
+</main>
+{% endblock content %}
+{% block contact %}{% endblock contact %}

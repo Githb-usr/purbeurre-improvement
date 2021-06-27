@@ -30,14 +30,19 @@
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <form class="col-lg-2 nav-form-div form-inline nav-search-form ms-auto mr-5" action="/product_list/" method="get">
                             <div class="input-group" id="nav-search-form">                                
-                                {{ form }}
+                                {{ search_form }}
                             </div>
                         </form>
                         <div class="col-2">
                             <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                                <li class="nav-item"><a class="nav-link" href="#services"><i class="fas fa-user" title="Mon compte"></i></a></li>
-                                <li class="nav-item"><a class="nav-link" href="#portfolio"><i class="fas fa-carrot" title="Mes aliments"></i></a></li>
-                                <li class="nav-item"><a class="nav-link" href="#contact"><i class="fas fa-power-off" title="Déconnexion"></i></a></li>
+                                {% if user.is_authenticated %}
+                                    <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-user" title="Mon compte"></i></a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{% url 'substitutes' %}"><i class="fas fa-carrot" title="Mes aliments"></i></a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-power-off" title="Déconnexion"></i></a></li>
+                                {% else %}
+                                    <a href="{% url 'login_url' %}" class="connect-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Connexion à mon compte">Se connecter</a>
+                                    <a href="{% url 'registration_url' %}" class="register-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Créer un compte">S'inscrire</a>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

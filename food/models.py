@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
@@ -49,7 +51,12 @@ class Product(models.Model):
         )
     url = models.URLField(max_length=200)
     image_url = models.URLField(max_length=150)
-    
+    substitutes = models.ManyToManyField(
+        'food.Product',
+        through='users.Substitute',
+        symmetrical = False
+    )
+
     def __str__(self):
         """String for representing the MyModelName object (in Admin site etc.)."""
         return self.designation
