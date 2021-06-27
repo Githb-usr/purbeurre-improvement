@@ -64,15 +64,17 @@ class User(AbstractUser):
         
         return self.email.split('@')[0]
 
-# class Substitute(models.Model):
-#     """
-#         xxx
-#     """
-
-#     Users = models.ManyToManyField(User, related_name='substitutes')
+class Substitute(models.Model):
+    """
+        xxx
+    """
+    initial_product = models.ForeignKey('food.Product', related_name='initial_product', on_delete=models.CASCADE)
+    substituted_product = models.ForeignKey('food.Product', related_name='substituted_product', on_delete=models.CASCADE)
+    users = models.ManyToManyField(User, related_name='substitutes')
+    creation_date = models.DateField(auto_now_add=True)
     
-#     def __str__(self):
-#         return self.username
+    def __str__(self):
+        return self.username
     
-#     class Meta:
-#         verbose_name_plural = "substitutes"
+    class Meta:
+        verbose_name_plural = "substitutes"
