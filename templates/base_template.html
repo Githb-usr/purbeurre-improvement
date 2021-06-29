@@ -30,7 +30,7 @@
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <form class="col-lg-2 nav-form-div form-inline nav-search-form ms-auto mr-5" action="/product_list/" method="get">
                             <div class="input-group" id="nav-search-form">                                
-                                {{ search_form }}
+                                {{ nav_search_form }}
                             </div>
                         </form>
                         <div class="col-2">
@@ -58,7 +58,7 @@
                 <div class="container px-4 px-lg-5">
                     <div class="row">
                         <div class="col-6 text-center text-white">
-                            Mentions légales
+                            <a href="{% url 'homepage' %}">Mentions légales</a>
                         </div>
                         <div class="col-6 text-center text-white">
                             <a href="{% url 'homepage' %}#page-contact">Contact</a>
