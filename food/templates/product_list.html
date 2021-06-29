@@ -21,13 +21,17 @@
     {% if product_search_result is none or product_search_result == 'NO_DATA' %}
         <section class="intro-section">
             <div class="product-list-instructions">
-                <span class="text-center text-body text-danger">Il n'y a aucun produit correspondant à votre recherche.</span>
+                <span class="text-center text-body text-danger">
+                    Il n'y a aucun produit correspondant à votre recherche.
+                </span>
             </div>
         </section>
     {% else %}
         <section class="intro-section">
             <div class="product-list-instructions">
-                <p class="text-center text-body">Passez la souris sur les boutons des produits pour savoir où ils vous emmèneront ;)</p>
+                <p class="text-center text-body">
+                    Passez la souris sur les boutons des produits pour savoir où ils vous emmèneront ;)
+                </p>
             </div>
         </section>
         <section class="container" id="main-section">
@@ -42,8 +46,16 @@
                                 <p class="card-title">{{ product.designation }}</p>
                             </div>
                             <div class="card-footer">
-                                <a href="{% url 'product_detail' barcode=product.barcode %}" class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Afficher les informations sur ce produit">Fiche détaillée</a>
-                                <a href="#" class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Afficher les substituts plus sains">Choisir ce produit</a>
+                                <a href="{% url 'product_detail' barcode=product.barcode %}"
+                                   class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                   title="Afficher les informations sur ce produit">
+                                    Fiche détaillée
+                                </a>
+                                <a href="{% url 'substitute_list' barcode=product.barcode %}"
+                                   class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="Afficher les substituts plus sains">
+                                    Choisir ce produit
+                                </a>
                             </div>
                         </div>
                     </div>
