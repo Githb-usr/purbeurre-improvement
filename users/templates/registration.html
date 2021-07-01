@@ -6,16 +6,23 @@
     <header class="simple-header d-flex align-items-center">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center align-content-between text-center">
-                <div class="col-lg-8">
-                    <h1 class="d-inline-flex align-middle text-white font-weight-bold header-title">Création de votre compte Pur Beurre</h1>
+                <div class="col">
+                    <h1 class="fs-1 text-center">Création de votre compte Pur Beurre</h1>
                 </div>
             </div>
         </div>
     </header>
 {% endblock header %}
 {% block content %}
-<main>
-    <section class="container" id="main-section">
+<main class="container">
+    <section class="intro-section">
+        <div class="main-instructions">
+            <p class="font-weight-bold  text-body">
+                Inscrivez-vous au site Pur Beurre pour profiter de ses avantages !
+            </p>
+        </div>
+    </section>
+    <section class="main-section">
         <form method="POST">
             {% csrf_token %}
             {{registration_form.as_p}}

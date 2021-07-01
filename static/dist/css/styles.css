@@ -10846,12 +10846,17 @@ body {
   color: #212529;
 }
 
+main {
+  flex-grow: 1;
+  padding: 3rem 0 4rem 0;
+}
+
 .col, .col-4 {
   padding: 0;
   margin: 0;
 }
 
-div, p, li {
+section, div, p, li {
   font-family: "Scope One", sans-serif;
 }
 
@@ -10896,12 +10901,22 @@ a:hover {
 }
 
 .simple-header {
-  height: 20rem;
-  background-color: #E8A75D;
+  background: linear-gradient(to bottom, rgba(232, 167, 93, 0.8) 0%, rgba(232, 167, 93, 0.8) 100%), url("../assets/img/background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  height: 18rem;
   color: #fff;
+  font-weight: bold;
   vertical-align: middle;
-  padding-top: calc(4.5rem + 3rem);
+  padding-top: calc(4.5rem + 1.5rem);
   padding-bottom: 1rem;
+}
+
+header .row, header h1, header .h1 {
+  margin: 0;
+  padding: 0;
 }
 
 .index-about-title {
@@ -10911,22 +10926,18 @@ a:hover {
 
 main section {
   padding: 0 0 2rem 0;
-  font-size: 1.2rem;
 }
 
 .product-detail-infos {
-  background-color: #DE9440;
-  border: 2px solid #C45525;
+  height: 100%;
   font-weight: bold;
-  color: #fff;
-  margin-top: 4rem;
 }
 
 .product-detail-img {
   background-color: #fff;
   height: 500px;
-  margin: 0;
-  padding: 1rem;
+  margin: 0 3rem 0 0;
+  padding: 1.5rem;
 }
 
 .product-detail-image {
@@ -10936,43 +10947,68 @@ main section {
 
 .product-detail-data {
   margin: 0;
-  padding: 1.5rem;
-  border-left: 2px solid #C45525;
-}
-
-.product-detail-nutriment {
-  padding-top: 2rem;
-  font-size: 1rem;
+  padding: 1.5rem 0 0 0;
 }
 
 .product-detail-identification p {
-  margin-bottom: 0.5rem;
+  margin: 1rem 0;
+}
+
+.product-detail-nutriment {
+  padding-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.product-detail-nutriment .col-8, .product-detail-nutriment .col-3, .product-detail-data .col-6 {
+  margin: 0;
+  padding: 0;
 }
 
 .product-detail-nutriment-title {
   padding: 0 0 1.5rem 0;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
+}
+
+.product-detail-nutriment-row {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.nutriscore-img {
+  width: 100%;
+}
+
+.product_detail-links a {
+  display: block;
+  color: #6c757d;
+  text-decoration: none;
+}
+.product_detail-links .btn {
+  margin-right: 1rem;
 }
 
 .green-dot {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: 20px;
   background: green;
+  margin-left: 0.7rem;
 }
 
 .orange-dot {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: 20px;
   background: orange;
+  margin-left: 0.7rem;
 }
 
 .red-dot {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: 20px;
   background: red;
+  margin-left: 0.7rem;
 }
 
 #page-contact {
@@ -10988,11 +11024,30 @@ footer, footer a {
   font-size: large;
 }
 
+.main-instructions {
+  padding-left: 0;
+}
+
 .intro-section {
   display: flex;
   flex-direction: column;
-  padding: 2.5rem 0 2rem 0;
-  font-size: 1.2rem;
+  padding: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.product-list-intro-section {
+  margin-bottom: 2rem;
+  font-size: 1.3rem;
+}
+
+.last-block-element {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.main-section {
+  margin: 0;
+  padding: 0;
 }
 
 main section i {
@@ -11015,41 +11070,86 @@ main section i {
 }
 
 .card {
-  border: 2px solid #C45525;
-}
-
-.card-body, .card-footer {
-  background-color: #DE9440;
-  padding: 0.5rem;
+  border: 2px solid #E8A75D;
+  border-radius: 0.5rem;
 }
 
 .card-body {
-  height: 80px;
+  background-color: #DE9440;
+  padding: 0.5rem;
+  height: 100px;
   color: #fff;
+  font-weight: bold;
 }
 
 main section div div .card-body {
-  border-top: 2px solid #C45525;
+  border-top: 2px solid #E8A75D;
 }
 
 .card-footer {
+  background-color: #DE9440;
   border-top: none;
+  padding: 0 0.8rem 0.8rem 0.8rem;
 }
 
-.card-footer .btn {
-  background-color: #C45525;
-  margin-right: 0.3rem;
+.card-footer .btn, .product-detail-btn {
+  margin-right: 0.5rem;
   color: #f3f3f3;
+  font-size: 0.9rem;
+}
+
+.btn-detail {
+  background-color: #C45525;
+}
+
+.btn-choice {
+  background-color: #345A61;
 }
 
 .card-title {
   margin: 0;
+  font-size: 1rem;
 }
 
 .product-card {
+  position: relative;
+  width: 75%;
   height: 500px;
-  margin-bottom: 3rem;
-  margin-right: 3rem;
+  margin-bottom: 3.5rem;
+  margin-right: 3.5rem;
+}
+
+.card-score {
+  position: absolute;
+  top: -2rem;
+  left: 91%;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  padding-top: 0.5rem;
+  font-size: 2.1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.card-score-color-A {
+  background: #038141;
+}
+
+.card-score-color-B {
+  background: #85BB2F;
+}
+
+.card-score-color-C {
+  background: #FECB02;
+}
+
+.card-score-color-D {
+  background: #E77D00;
+}
+
+.card-score-color-E {
+  background: #E63E11;
 }
 
 .product-img {
@@ -11066,6 +11166,57 @@ main section div div .card-body {
 
 .index-title-block {
   margin-top: 4rem;
+}
+
+.dashboard-infos {
+  padding-left: 0;
+}
+
+main section form label {
+  width: 9rem;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+main section form input {
+  margin-right: 1rem;
+  vertical-align: middle;
+}
+
+main section form button {
+  background-color: #345A61;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  margin: 1rem 0.5rem 0 0;
+  padding: 0.375rem 0.75rem;
+  vertical-align: middle;
+  line-height: 1.5;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #f3f3f3;
+}
+
+.connect-link, .register-link {
+  line-height: 1.5;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #f3f3f3;
+}
+
+.connect-link {
+  margin-right: 1rem;
+}
+
+.user-img {
+  border: 1px #212529 solid;
+  margin: 0 2rem 0 0.7rem;
+}
+
+.user-image {
+  height: 90%;
+  width: auto;
+  margin: 0 auto;
+  padding: 0.5rem;
 }
 
 .btn-xl {
@@ -11103,6 +11254,9 @@ hr.divider-gray {
   font-size: 2em;
   font-weight: 700;
   color: #fff;
+}
+#mainNav .navbar-nav {
+  width: 100%;
 }
 #mainNav .navbar-nav .nav-item .nav-link {
   color: #6c757d;
@@ -11157,7 +11311,7 @@ hr.divider-gray {
 }
 
 #nav-search-form {
-  padding-right: 2rem;
+  padding-right: 0;
 }
 
 header.masthead {
@@ -11174,8 +11328,8 @@ header.masthead h1, header.masthead .h1 {
 }
 @media (min-width: 992px) {
   header.masthead {
-    height: 50vh;
-    min-height: 25rem;
+    height: 45vh;
+    min-height: 20rem;
     padding-top: 4.5rem;
     padding-bottom: 0;
   }
