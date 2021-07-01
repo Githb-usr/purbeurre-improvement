@@ -11,4 +11,4 @@ class UserCreationForm(auth_forms.UserCreationForm):
     
     class Meta(auth_forms.UserCreationForm.Meta):
         model = get_user_model()
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('email', 'first_name', 'last_name', 'username')

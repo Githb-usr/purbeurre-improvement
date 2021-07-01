@@ -6,53 +6,52 @@
     <header class="simple-header d-flex align-items-center">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 align-items-center justify-content-center text-center">
-                <div class="col-lg-8 align-content-between">
-                    <p class="d-inline-flex fs-2 align-self-baseline header-title-intro">Produits correspondant à votre recherche</p>
-                    <h1 class="d-inline-flex align-middle text-white font-weight-bold header-title">
-                        "{{ query }}"
-                    </h1>
+                <div class="col">
+                    <h1 class="fs-1 text-center">Résultat de votre recherche de produit à remplacer</h1>
                 </div>
             </div>
         </div>
     </header>
 {% endblock header %}
 {% block content %}
-<main class="text-body">
+<main class="container text-body">
     {% if product_search_result is none or product_search_result == 'NO_DATA' %}
         <section class="intro-section">
-            <div class="product-list-instructions">
-                <span class="text-center text-body text-danger">
+            <div class="main-instructions">
+                <span class="font-weight-bold text-body text-danger">
                     Il n'y a aucun produit correspondant à votre recherche.
                 </span>
             </div>
         </section>
     {% else %}
-        <section class="intro-section">
-            <div class="product-list-instructions">
-                <p class="text-center text-body">
-                    Passez la souris sur les boutons des produits pour savoir où ils vous emmèneront ;)
+        <section class="product-list-intro-section">
+            <div class="main-instructions">
+                <p class="font-weight-bold text-body">
+                    Vous souhaitez remplacer un produit correspondant à "{{ query }}", voici ceux que nous avons trouvé. Sélectionnez celui qui vous intéresse et cliquez sur "Choisir ce produit" pour découvrir quels substituts nous vous proposons à la place. 
                 </p>
             </div>
         </section>
-        <section class="container" id="main-section">
+        <section class="main-section">
             <div class="row">
                 {% for product in product_search_result %}
                     <div class="col-4 col-card">
                         <div class="card product-card">
+                            <div class="card-score card-score-color-{{ product.nutriscore }} text-center" data-bs-toggle="tooltip" data-bs-placement="right" 
+                                   title="Nutriscore, de A (très bon) à ''E'' (Très mauvais)">{{ product.nutriscore }}</div>
                             <img src="{{ product.image_url }}" 
                                 alt="{{ product.designation }}" 
                                 class="card-img-top product-img img-fluid rounded d-block align-middle" />
-                            <div class="card-body text-center">
+                            <div class="d-flex justify-content-center align-items-center card-body text-center">
                                 <p class="card-title">{{ product.designation }}</p>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer text-center">
                                 <a href="{% url 'product_detail' barcode=product.barcode %}"
-                                   class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                   class="btn btn-detail" data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                    title="Afficher les informations sur ce produit">
                                     Fiche détaillée
                                 </a>
                                 <a href="{% url 'substitute_list' barcode=product.barcode %}"
-                                   class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   class="btn btn-choice" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                    title="Afficher les substituts plus sains">
                                     Choisir ce produit
                                 </a>

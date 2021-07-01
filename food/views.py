@@ -50,14 +50,16 @@ def show_search_result(request):
             product_search_by_name = Product.objects.filter(designation__unaccent__icontains=cleaned_query[i])
             product_search_by_barcode = Product.objects.filter(barcode=cleaned_query[0])
 
+            if len(product_search_by_name) == 1:
+                nutriment_level_data = determine_nutriment_level_data(product_search_by_name[0])
+                return render(request, 'product_detail.html', { 'product_detail': product_search_by_name[0], 'nutriment_data': nutriment_level_data, 'query': query })
             # If there are any matches, we send them to the template
-            if product_search_by_name:
+            elif len(product_search_by_name) > 1:
                 return render(request, 'product_list.html', { 'product_search_result': product_search_by_name, 'query': query })
-            
             # If the user has entered a very specific product name or barcode, and there is only one result
             elif product_search_by_barcode:
-                return render(request, 'product_list.html', { 'product_search_result': product_search_by_barcode, 'query': query })
-                # return render(request, 'product_detail.html', { 'product_search_result': product_search_by_barcode, 'search_form': search_form, 'query': query })
+                nutriment_level_data = determine_nutriment_level_data(product_search_by_barcode[0])
+                return render(request, 'product_detail.html', { 'product_detail': product_search_by_barcode[0], 'nutriment_data': nutriment_level_data, 'query': query })
 
             return render(request, 'product_list.html', { 'product_search_result': 'NO_DATA', 'query': query })
         
@@ -88,7 +90,6 @@ def show_substitute_choice_list(request, barcode):
                         .order_by('nutriscore').distinct()
 
     if substitute_search:
-        print('toto', substitute_search)
         return render(request, 'substitute_list.html', {
             'initial_product': initial_product,
             'substitute_search_result': substitute_search
@@ -124,9 +125,17 @@ def determine_nutriment_level_data(product):
         :param product: xxx
         :return: xxxx
     """
-    return {
-        'fat': determine_level_data(product.fat_level),
-        'saturated_fat': determine_level_data(product.saturated_fat_level),
-        'sugars': determine_level_data(product.sugars_level),
-        'salt': determine_level_data(product.salt_level)
-    }
+    nutriment_level_data = {}
+    if product.fat_level:
+        nutriment_level_data['fat'] = determine_level_data(product.fat_level)
+    
+    if product.fat_level:
+        nutriment_level_data['saturated_fat'] = determine_level_data(product.saturated_fat_level)
+    
+    if product.fat_level:
+        nutriment_level_data['sugars'] = determine_level_data(product.sugars_level)
+    
+    if product.fat_level:
+        nutriment_level_data['salt'] = determine_level_data(product.salt_level)
+
+    return nutriment_level_data
