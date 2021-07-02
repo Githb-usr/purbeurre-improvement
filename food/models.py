@@ -1,0 +1,95 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from django.conf import settings
+from django.db import models
+from django.urls import reverse
+
+class Product(models.Model):
+    """
+        xxx
+    """
+    LOW_LEVEL = 'LO'
+    MODERATE_LEVEL = 'MO'
+    HIGH_LEVEL = 'HI'
+    NUTRIENT_LEVELS = [
+        (LOW_LEVEL, 'faible quantité'),
+        (MODERATE_LEVEL, 'quantité modérée'),
+        (HIGH_LEVEL, 'quantité élevée'),
+    ]
+    designation = models.CharField(max_length=250)
+    barcode = models.CharField(max_length=13)
+    brand = models.CharField(max_length=60)
+    nutriscore = models.CharField(max_length=1)
+    fat_value = models.FloatField(null=True)
+    fat_level = models.CharField(
+        max_length=2,
+        choices=NUTRIENT_LEVELS,
+        default=None,
+        null=True
+        )
+    saturated_fat_value = models.FloatField(null=True)
+    saturated_fat_level = models.CharField(
+        max_length=2,
+        choices=NUTRIENT_LEVELS,
+        default=None,
+        null=True
+        )
+    sugars_value = models.FloatField(null=True)
+    sugars_level = models.CharField(
+        max_length=2,
+        choices=NUTRIENT_LEVELS,
+        default=None,
+        null=True
+        )
+    salt_value = models.FloatField(null=True)
+    salt_level = models.CharField(
+        max_length=2,
+        choices=NUTRIENT_LEVELS,
+        default=None,
+        null=True
+        )
+    url = models.URLField(max_length=200)
+    image_url = models.URLField(max_length=150)
+    substitutes = models.ManyToManyField(
+        'food.Product',
+        through='users.Substitute',
+        symmetrical = False
+    )
+
+    def __str__(self):
+        """String for representing the MyModelName object (in Admin site etc.)."""
+        return self.designation
+    
+    def get_absolute_url(self):
+        """Returns the url to access a particular instance of the model."""
+        return reverse('show_product_detail', args=[str(self.id)])
+    
+    class Meta:
+        verbose_name_plural = "products"
+
+class Category(models.Model):
+    """
+        xxx
+    """
+    designation = models.CharField(max_length=150, unique=True)
+    products = models.ManyToManyField(Product, related_name='categories')
+    
+    def __str__(self):
+        return self.designation
+    
+    class Meta:
+        verbose_name_plural = "categories"
+
+class Store(models.Model):
+    """
+        xxx
+    """
+    designation = models.CharField(max_length=200, unique=True)
+    products = models.ManyToManyField(Product, related_name='stores')
+    
+    def __str__(self):
+        return self.designation
+    
+    class Meta:
+        verbose_name_plural = "stores"

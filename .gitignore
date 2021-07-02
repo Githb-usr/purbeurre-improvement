@@ -1,1 +1,8 @@
+.env
+.vscode
+__pycache__
+envp8/
 get-pip.py
+static/node_modules
+static/scripts
+static/src

@@ -1,0 +1,77 @@
+<!-- purbeurre/food/templates/substitute_list.html -->
+
+{% extends 'base_template.html' %}
+{% block header %}
+    <!-- Masthead-->
+    <header class="simple-header d-flex align-items-center">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center align-content-between text-center">
+                <div class="col">
+                    <h1 class="fs-1 text-center">Produits de substitution</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+{% block content %}
+<main class="container">
+    {% if substitute_search_result is none or substitute_search_result == 'NO_DATA' %}
+        <section class="intro-section">
+            <div class="main-instructions">
+                <p class="font-weight-bold text-body text-danger">
+                    Le produit que vous avez choisi est déjà le meilleur produit dans sa catégorie, nous n'avons donc aucun substitut à vous proposer.
+                </p>
+            </div>
+        </section>
+    {% else %}
+        <section class="product-list-intro-section">
+            <div class="main-instructions">
+                <p class="font-weight-bold text-body">
+                    Vous souhaitez remplacer le produit "<strong>{{ initial_product.designation }}</strong>". Voici donc les substituts que nous vous proposons.
+                    Sélectionnez celui qui vous intéresse et cliquez sur "Sauvegarder" pour l'enregistrer dans vos favoris. 
+                </p>
+            </div>
+        </section>
+        <section class="main-section">
+            <div class="row">
+                {% for substitute in substitute_search_result %}
+                    <div class="col-4 col-card">
+                        <div class="card product-card">
+                            <div class="card-score card-score-color-{{ substitute.nutriscore }} text-center" data-bs-toggle="tooltip" data-bs-placement="right" 
+                                   title="Nutriscore, de A (très bon) à ''E'' (Très mauvais)">{{ substitute.nutriscore }}</div>
+                            <img src="{{ substitute.image_url }}" 
+                                alt="{{ substitute.designation }}" 
+                                class="card-img-top product-img img-fluid rounded d-block align-middle" />
+                            <div class="d-flex justify-content-center align-items-center card-body text-center">
+                                <p class="card-title">{{ substitute.designation }}</p>
+                            </div>
+                            <div class="card-footer d-flex">
+                                <a href="{% url 'product_detail' barcode=substitute.barcode %}"
+                                   class="btn btn-detail" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="Afficher les informations sur ce substitut">
+                                    Fiche détaillée
+                                </a>
+                                <form action="/users/substitutes/" method="post">
+                                    {% csrf_token %}
+                                    {{hidden_form}}
+                                    {% comment %} <input type="hidden" id="user-id" name="user-id" value="{{ request.session['_auth_user_id'] }}">
+                                    <input type="hidden" id="initial-product-id" name="initial-product-id" value="{{ initial_product.id }}">
+                                    <input type="hidden" id="substitute-id" name="substitute-id" value="{{ substitute.id }}"> {% endcomment %}
+                                    <input type="submit" value="Sauvegarder" id="save-substitute-btn" class="btn btn-choice"
+                                           data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enregistrer ce substitut dans vos favoris" />
+                                </form>
+                                {% comment %} <a href="{% url 'substitutes' %}"
+                                   class="btn btn-choice" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="Enregistrer ce substitut dans vos favoris">
+                                    Sauvegarder {% endcomment %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+</main>
+{% endblock content %}
+{% block contact %}{% endblock contact %}

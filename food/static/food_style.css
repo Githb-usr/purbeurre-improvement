@@ -1,0 +1,19 @@
+a {
+    color:blue;
+}
+
+.col-card {
+    margin-right: 1rem;
+}
+
+.product-card {
+    width: 90%;
+    min-height: 50rem;
+    margin-bottom: 2.5rem;
+}
+
+.product-img {
+    height: 100px;
+    width: 100px;
+    vertical-align: middle;
+}
