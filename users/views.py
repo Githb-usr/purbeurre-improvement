@@ -2,52 +2,59 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm as DjangoUcf
 
 from food.forms import SearchForm
-from users.forms import UserCreationForm as CustomUcf
+from users.forms import SavedSubstituteForm, UserCreationForm
 
 def loginView(request):
     """
         We display the xxx
         :return: index template
     """    
-    search_form = SearchForm()
-    
-    return render(request,'login.html', { 'search_form': search_form })
+   
+    return render(request,'login.html')
 
 @login_required()
 def dashboardView(request):
     """
         We display the xxx
         :return: index template
-    """
-    search_form = SearchForm()
-    
-    return render(request,'dashboard.html', { 'search_form': search_form })
+    """  
+    return render(request,'dashboard.html')
 
 def registrationView(request):
     """
         We display the xxx
         :return: index template
-    """
-    search_form = SearchForm()
-    
+    """    
     if request.method == "POST":
-        form = CustomUcf(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login_url')
     else:
-        form = CustomUcf()
-    return render(request,'registration.html',{'search_form': search_form, 'registration_form':form})
+        form = UserCreationForm()
+    return render(request,'registration.html',{'registration_form':form})
 
-def substitutesView(request):
+@login_required()
+def savedSubstitutesView(request):
     """
         We display the xxx
         :return: index template
     """
-    search_form = SearchForm()
+    form = SavedSubstituteForm()
     
-    return render(request,'my_substitutes.html', { 'search_form': search_form })
+    if request.method == "POST":
+        form = SavedSubstituteForm(request.POST)
+        print('TOTO', form)
+        if form.is_valid():
+            new_substitute = form.save()
+            messages.success(request, 'Nouveau substitut enregistré en favoris')
+            context = {'new_substitute': new_substitute }
+            
+            return redirect('substitutes', context)
+
+    return render(request,'my_substitutes.html')

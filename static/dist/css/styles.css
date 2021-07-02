@@ -11119,6 +11119,14 @@ main section div div .card-body {
   margin-right: 3.5rem;
 }
 
+.product-img {
+  min-height: 375px;
+  max-height: 390px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
 .card-score {
   position: absolute;
   top: -2rem;
@@ -11150,13 +11158,6 @@ main section div div .card-body {
 
 .card-score-color-E {
   background: #E63E11;
-}
-
-.product-img {
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  padding: 1rem;
 }
 
 .contact-intro {
@@ -11217,6 +11218,10 @@ main section form button {
   width: auto;
   margin: 0 auto;
   padding: 0.5rem;
+}
+
+.product-form-btn {
+  width: 50%;
 }
 
 .btn-xl {
