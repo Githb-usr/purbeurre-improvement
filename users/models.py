@@ -72,8 +72,8 @@ class Substitute(models.Model):
     users = models.ManyToManyField(User, related_name='substitutes')
     creation_date = models.DateField(auto_now_add=True)
     
-    def __str__(self):
-        return self.username
+    # def __str__(self):
+    #     return self.username
     
     class Meta:
         verbose_name_plural = "substitutes"
