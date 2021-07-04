@@ -6,30 +6,28 @@ from django.shortcuts import render, redirect, get_list_or_404
 from django.views.generic import TemplateView, ListView
 
 from food.database_service import DatabaseService
-from food.forms import SearchForm
+from food.forms import SmallSearchForm, LargeSearchForm
 from food.models import Product, Category, Store
 from food.search_parser import SearchParser
 from food.settings import NUTRIENT_LEVELS
 
-def nav_search_form(request):
+def small_search_form(request):
     """
-        We display xxx
-        :return: xxx
+       We display xxx
+       :return: xxx
     """
-    nav_search_form = SearchForm()
-    
-    return {
-        "nav_search_form": nav_search_form,
-    }
-    
+    small_search_form = SmallSearchForm()
+
+    return { "small_search_form": small_search_form }
+
 def show_index(request):
     """
         We display the home page of the site
         :return: index template
     """
-    search_form = SearchForm()
-    
-    return render(request, 'index.html', { 'search_form': search_form })
+    large_search_form = LargeSearchForm()
+
+    return render(request, 'index.html', { 'large_search_form': large_search_form })
 
 def show_search_result(request):
     """
