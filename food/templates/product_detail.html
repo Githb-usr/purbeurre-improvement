@@ -25,16 +25,11 @@
             <div class="col-7 product-detail-data">
                 <div class="row">
                     <div class="col-6 product-detail-identification">
-                        <h2 class="d-inline-flex align-middle font-weight-bold header-title">
+                        <h2 class="d-inline-flex align-middle font-weight-bold header-title text-capitalize">
                             {{ product_detail.designation }}
                         </h2>
                         <p>Marque : {{ product_detail.brand }}</p>
                         <p>EAN : {{ product_detail.barcode }}</p>
-                    </div>
-                    <div class="col-6 product-detail-categories">
-                        {% comment %} {% for category in product_detail.category %}
-                            <div class="btn-category">{{ category }}</div>
-                        {% endfor %} {% endcomment %}
                     </div>
                 </div>
                 <div class="row product-detail-nutriment">
@@ -82,9 +77,19 @@
             </div>
         </div>
         <div class="row product_detail-links">
-            <div class="d-flex product-detail-btn text-muted align-self-end text-center mt-4">
-                <a href="javascript:history.back()" class="btn btn-detail text-white" target="_self">Revenir à la page précédente</a>
-                <a href="{{ product_detail.url }}" class="btn btn-detail text-white" target="_blank">Voir la fiche complète sur OpenFood Fact</a>
+            <div class="d-flex product-detail-btn align-self-end text-center mt-4">
+                <a type="button" href="javascript:history.back()" target="_self"
+                    class="d-flex justify-content-center align-items-center btn btn-link btn-detail text-white"
+                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Revenir à la page précédente">
+                    <i class="bi bi-skip-backward-circle card-footer-icon"></i>
+                </a>
+                <a type="button" href="{{ product_detail.url }}" target="_blank"
+                    class="d-flex justify-content-center align-items-center btn btn-link btn-detail btn-off text-white"
+                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Voir la fiche complète sur OpenFood Fact">
+                    <i class="bi bi-info-circle card-footer-icon card-footer-icon-off"></i> OFF
+                </a>
                 <a href="" class="btn btn-choice text-white" target="_self">Choisir</a>
             </div>
         </div>

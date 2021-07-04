@@ -7,9 +7,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('registration/', views.registrationView, name="registration_url"),
-    path('login/', LoginView.as_view(template_name="login.html", redirect_field_name='/'), name="login_url"),
+    path('registration/', views.registrationView, name='registration_url'),
+    path('login/', LoginView.as_view(template_name='login.html', redirect_field_name='/'), name='login_url'),
     path('dashboard/', views.dashboardView, name="dashboard"),
-    path('substitutes/', views.savedSubstitutesView, name="substitutes"),
-    path('logout/', LogoutView.as_view(redirect_field_name='/'), name="logout"),
+    path('my_substitutes/', views.savedSubstitutesView, name='substitutes'),
+    path('my_substitutes/deleting/', views.deletedSubstitutesView, name='delete_substitutes'),
+    path('logout/', LogoutView.as_view(redirect_field_name='/'), name='logout'),
 ]

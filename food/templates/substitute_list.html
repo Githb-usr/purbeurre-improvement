@@ -2,7 +2,6 @@
 
 {% extends 'base_template.html' %}
 {% block header %}
-    <!-- Masthead-->
     <header class="simple-header d-flex align-items-center">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center align-content-between text-center">
@@ -43,28 +42,26 @@
                                 alt="{{ substitute.designation }}" 
                                 class="card-img-top product-img img-fluid rounded d-block align-middle" />
                             <div class="d-flex justify-content-center align-items-center card-body text-center">
-                                <p class="card-title">{{ substitute.designation }}</p>
+                                <p class="card-title text-capitalize">{{ substitute.designation|truncatechars:30 }}</p>
                             </div>
-                            <div class="card-footer d-flex">
-                                <a href="{% url 'product_detail' barcode=substitute.barcode %}"
-                                   class="btn btn-detail" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            <div class="card-footer d-flex align-items-center">
+                                <a type="button" href="{% url 'product_detail' barcode=substitute.barcode %}"
+                                   class="d-flex justify-content-center align-items-center btn btn-link btn-detail"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom"
                                    title="Afficher les informations sur ce substitut">
-                                    Fiche détaillée
+                                    <i class="bi bi-info-circle card-footer-icon"></i>
                                 </a>
-                                <form action="/users/substitutes/" method="post">
-                                    {% csrf_token %}
-                                    {{hidden_form}}
-                                    {% comment %} <input type="hidden" id="user-id" name="user-id" value="{{ request.session['_auth_user_id'] }}">
-                                    <input type="hidden" id="initial-product-id" name="initial-product-id" value="{{ initial_product.id }}">
-                                    <input type="hidden" id="substitute-id" name="substitute-id" value="{{ substitute.id }}"> {% endcomment %}
-                                    <input type="submit" value="Sauvegarder" id="save-substitute-btn" class="btn btn-choice"
-                                           data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enregistrer ce substitut dans vos favoris" />
-                                </form>
-                                {% comment %} <a href="{% url 'substitutes' %}"
-                                   class="btn btn-choice" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                   title="Enregistrer ce substitut dans vos favoris">
-                                    Sauvegarder {% endcomment %}
-                                </a>
+                                <div class="d-flex">
+                                    <form action="{% url 'substitutes' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="initial-product-id" value="{{ initial_product.id }}">
+                                        <input type="hidden" name="substituted-product-id" value="{{ substitute.id }}">
+                                        <button type="submit" class="d-flex justify-content-center align-items-center btn btn-link btn-choice"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enregistrer ce substitut dans vos favoris">
+                                            <i class="bi bi-star card-footer-icon"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

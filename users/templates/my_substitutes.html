@@ -20,16 +20,65 @@
     {% endfor %}
 {% endif %}
 <main class="container">
-    <section class="intro-section">
-        <div class="main-instructions">
-            <p class="font-weight-bold text-body">
-                Consultez et gérez vos substituts !
-            </p>
-        </div>
-    </section>
-    <section class="main-section">
-        xxx
-    </section>
+    {% if not favourites %}
+        <section class="intro-section">
+            <div class="main-instructions">
+                <p class="font-weight-bold text-body text-danger">
+                    Vous n'avez pas encore enregistré de substitut dans vos favoris.
+                </p>
+            </div>
+        </section>
+    {% else %}
+        <section class="intro-section">
+            <div class="main-instructions">
+                <p class="font-weight-bold text-body">
+                    Consultez et gérez vos substituts !
+                </p>
+            </div>
+        </section>
+        <section class="main-section">
+            <div class="row">
+                {% for fav in favourites %}
+                    <div class="col-4 col-card">
+                        <div class="card product-card">
+                            <div class="card-score card-score-color-{{ fav.substituted_product.nutriscore }} text-center" data-bs-toggle="tooltip" data-bs-placement="right" 
+                                   title="Nutriscore, de A (très bon) à ''E'' (Très mauvais)">{{ fav.substituted_product.nutriscore }}</div>
+                            <img src="{{ fav.substituted_product.image_url }}" 
+                                alt="{{ fav.substituted_product.designation }}" 
+                                class="card-img-top product-img img-fluid rounded d-block align-middle" />
+                            <div class="d-flex justify-content-center align-items-center card-body text-center">
+                                <p class="card-title text-capitalize">{{ fav.substituted_product.designation|truncatechars:30 }}</p>
+                            </div>
+                            <div class="card-footer d-flex">
+                                <a type="button" href="{% url 'product_detail' barcode=fav.substituted_product.barcode %}"
+                                   class="d-flex justify-content-center align-items-center btn btn-link btn-detail"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="Afficher les informations sur ce substitut">
+                                    <i class="bi bi-info-circle card-footer-icon"></i>
+                                </a>
+                                <a type="button" href="{% url 'product_detail' barcode=fav.initial_product.barcode %}"
+                                    class="d-flex justify-content-center align-items-center btn btn-link btn-detail"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Voir le produit initial">
+                                    <i class="bi bi-emoji-angry card-footer-icon"></i>
+                                </a>
+                                <div class="d-flex">
+                                    <form action="{% url 'delete_substitutes' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="substitute-id" value="{{ fav.id }}">
+                                        <button type="submit" id="{{ fav.id }}" class="d-flex justify-content-center align-items-center btn btn-link btn-choice"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer ce substitut de vos favoris">
+                                            <i class="bi bi-trash card-footer-icon"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
 </main>
 {% endblock content %}
 {% block contact %}{% endblock contact %}

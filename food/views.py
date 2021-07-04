@@ -7,7 +7,6 @@ from django.views.generic import TemplateView, ListView
 
 from food.database_service import DatabaseService
 from food.forms import SearchForm
-from users.forms import SavedSubstituteForm
 from food.models import Product, Category, Store
 from food.search_parser import SearchParser
 from food.settings import NUTRIENT_LEVELS
@@ -85,7 +84,6 @@ def show_substitute_choice_list(request, barcode):
         :param field_string: xxx
         :return: xxxx
     """
-    hidden_form = SavedSubstituteForm()
     
     initial_product = Product.objects.get(barcode=barcode)
     initial_product_categories = initial_product.categories.all()
@@ -97,7 +95,6 @@ def show_substitute_choice_list(request, barcode):
         return render(request, 'substitute_list.html', {
             'initial_product': initial_product,
             'substitute_search_result': substitute_search,
-            "hidden_form": hidden_form,
             })
 
     return render(request, 'substitute_list.html', {
