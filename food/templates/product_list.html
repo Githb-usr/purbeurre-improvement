@@ -57,18 +57,20 @@
                                 alt="{{ product.designation }}" 
                                 class="card-img-top product-img img-fluid rounded d-block align-middle" />
                             <div class="d-flex justify-content-center align-items-center card-body text-center">
-                                <p class="card-title">{{ product.designation }}</p>
+                                <p class="card-title text-capitalize">{{ product.designation|truncatechars:35 }}</p>
                             </div>
-                            <div class="card-footer text-center">
-                                <a href="{% url 'product_detail' barcode=product.barcode %}"
-                                   class="btn btn-detail" data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                            <div class="card-footer d-flex">
+                                <a type="button" href="{% url 'product_detail' barcode=product.barcode %}"
+                                   class="d-flex justify-content-center align-items-center btn btn-link btn-detail"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                    title="Afficher les informations sur ce produit">
-                                    Fiche détaillée
+                                   <i class="bi bi-info-circle card-footer-icon"></i>
                                 </a>
-                                <a href="{% url 'substitute_list' barcode=product.barcode %}"
-                                   class="btn btn-choice" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a type="button" href="{% url 'substitute_list' barcode=product.barcode %}"
+                                   class="d-flex justify-content-center align-items-center btn btn-link btn-choice"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom"
                                    title="Afficher les substituts plus sains">
-                                    Choisir ce produit
+                                   <i class="bi bi-check-circle card-footer-icon"></i>
                                 </a>
                             </div>
                         </div>
