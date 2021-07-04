@@ -24,3 +24,12 @@ class SearchForm(forms.Form):
             xxx
         """
         return self.cleaned_data['query']
+    
+
+class FoodForm(ModelForm):
+    """
+        xxx
+    """
+    class Meta:
+        model = Product
+        fields = ['designation', 'brand', 'barcode', 'nutriscore', 'url']
