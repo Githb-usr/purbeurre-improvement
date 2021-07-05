@@ -34,7 +34,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=30, blank=True, null=True, verbose_name='Nom')
     # Contact
     email = models.EmailField(
-        verbose_name='Adresse email',
+        verbose_name='Adresse email *',
         max_length=255,
         unique=True
         )
