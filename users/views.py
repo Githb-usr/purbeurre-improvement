@@ -6,10 +6,25 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm as DjangoUcf
 from django.shortcuts import render, redirect
 
-from food.forms import SearchForm
 from food.models import Product
 from users.forms import UserCreationForm
 from users.models import User, Substitute
+
+def registrationView(request):
+    """
+        We display the xxx
+        :return: index template
+    """    
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Votre compte a bien été créé, vous pouvez vous connecter.')
+            return redirect('login_url')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'registration.html', {'registration_form':form})
 
 def loginView(request):
     """
@@ -26,20 +41,6 @@ def dashboardView(request):
         :return: index template
     """  
     return render(request,'dashboard.html')
-
-def registrationView(request):
-    """
-        We display the xxx
-        :return: index template
-    """    
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login_url')
-    else:
-        form = UserCreationForm()
-    return render(request,'registration.html',{'registration_form':form})
 
 @login_required()
 def savedSubstitutesView(request):
@@ -92,7 +93,7 @@ def deletedSubstitutesView(request):
         substitute_id = request.POST.get('substitute-id')
         print('AAA', substitute_id)
         substitute = Substitute.objects.filter(pk=substitute_id)
-        print('FLOUP', substitute)
+        print('BBB', substitute)
         if substitute.exists():
             substitute[0].delete()
 

@@ -31,7 +31,7 @@
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <form class="col-lg-3 nav-form-div form-inline nav-search-form ms-auto mr-5" action="/product_list/" method="get">
                             <div class="input-group" id="nav-search-form">                                
-                                {{ nav_search_form }}
+                                {{ small_search_form }}
                             </div>
                         </form>
                         <div class="col-3">
@@ -59,7 +59,7 @@
                 <div class="container px-4 px-lg-5">
                     <div class="row">
                         <div class="col-6 text-center text-white">
-                            <a href="{% url 'homepage' %}">Mentions légales</a>
+                            <a href="{% url 'legal_notices' %}">Mentions légales</a>
                         </div>
                         <div class="col-6 text-center text-white">
                             <a href="{% url 'homepage' %}#page-contact">Contact</a>
@@ -77,10 +77,5 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
         <!-- Core theme JS-->
         <script src="{% static 'dist/js/scripts.js' %}"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>

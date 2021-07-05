@@ -29,21 +29,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.environ.get("ENV", "development") == "production" else True
 
-DEBUG_TOOLBAR_PANELS = [
-'debug_toolbar.panels.versions.VersionsPanel',
-'debug_toolbar.panels.timer.TimerPanel',
-'debug_toolbar.panels.settings.SettingsPanel',
-'debug_toolbar.panels.headers.HeadersPanel',
-'debug_toolbar.panels.request.RequestPanel',
-'debug_toolbar.panels.sql.SQLPanel',
-'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-'debug_toolbar.panels.templates.TemplatesPanel',
-'debug_toolbar.panels.cache.CachePanel',
-'debug_toolbar.panels.signals.SignalsPanel',
-'debug_toolbar.panels.logging.LoggingPanel',
-'debug_toolbar.panels.redirects.RedirectsPanel',
-]
-
 ALLOWED_HOSTS = [".herokuapps.com", "localhost", "127.0.0.1"]
 
 
@@ -57,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'users',
     'food',
 ]
@@ -70,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -86,7 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'food.views.nav_search_form'
+                'food.views.small_search_form'
             ],
         },
     },
