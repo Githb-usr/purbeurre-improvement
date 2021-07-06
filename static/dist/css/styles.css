@@ -10938,12 +10938,17 @@ main section {
   padding: 0 0 2rem 0;
 }
 
+.msg-icon {
+  margin-right: 0.5rem;
+}
+
 .page-section {
-  padding: 3rem 0;
+  padding: 0;
 }
 
 .large-search-form {
   width: 50%;
+  margin: 1.5rem 0;
 }
 
 .index-about-title {
@@ -10953,6 +10958,7 @@ main section {
 
 #page-contact {
   background: #E8A75D;
+  padding: 1rem;
 }
 
 #contact-mail a, #contact-mail a:hoover {
@@ -10966,7 +10972,7 @@ main section {
 }
 
 .index-title-block {
-  margin-top: 4rem;
+  margin-top: 2.5rem;
 }
 
 .btn-detail {
@@ -11094,7 +11100,7 @@ header.masthead h1, header.masthead .h1 {
 }
 @media (min-width: 992px) {
   header.masthead {
-    height: 45vh;
+    height: 38vh;
     min-height: 20rem;
     padding-top: 4.5rem;
     padding-bottom: 0;
@@ -11114,10 +11120,6 @@ header.masthead h1, header.masthead .h1 {
   header.masthead h2, header.masthead .h2 {
     font-size: 1.5rem;
   }
-}
-
-#big-search-form {
-  margin-top: 2rem;
 }
 
 #portraits-intro {
@@ -11349,4 +11351,8 @@ main section form button {
   font-size: 1rem;
   font-weight: bold;
   color: #f3f3f3;
+}
+
+.further-instructions p {
+  margin: 1.5rem 0 0 0;
 }

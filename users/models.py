@@ -13,7 +13,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Vous devez entrer un email valide')
 
         user = self.model(
-            username=self.normalize_username(username),
+            username=self.model.normalize_username(username),
             first_name=first_name,
             last_name=last_name,
             email=self.normalize_email(email),
@@ -34,7 +34,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=30, blank=True, null=True, verbose_name='Nom')
     # Contact
     email = models.EmailField(
-        verbose_name='Adresse email *',
+        verbose_name='Adresse email',
         max_length=255,
         unique=True
         )

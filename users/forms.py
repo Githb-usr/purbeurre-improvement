@@ -11,7 +11,7 @@ class UserCreationForm(auth_forms.UserCreationForm):
     """
         Form used for the creation of new users
     """
-    
+
     class Meta(auth_forms.UserCreationForm.Meta):
         model = get_user_model()
         fields = ('email', 'first_name', 'last_name', 'username')

@@ -63,7 +63,6 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-
 // AJAX for delete a user favourite
 // const productCard = document.getElementById('authors');
 // document.querySelector("#ajax-call").addEventListener("click", event => {
