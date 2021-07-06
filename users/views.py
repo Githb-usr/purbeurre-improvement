@@ -4,12 +4,14 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm as DjangoUcf
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+import json
 
 from food.models import Product
 from users.forms import UserCreationForm
 from users.models import User, Substitute
-from users.settings import REGISTRATION_ALERT_SUCCESS_MSG, LOGIN_ALERT_SUCCESS_MSG, SAVE_SUBSTITUTE_MSG, ALREADY_EXISTS_SUBSTITUTE_MSG, DELETE_SUBSTITUTE_MSG
+from users.settings import REGISTRATION_ALERT_SUCCESS_MSG, LOGIN_ALERT_SUCCESS_MSG, LOGOUT_MSG, SAVE_SUBSTITUTE_MSG, ALREADY_EXISTS_SUBSTITUTE_MSG, DELETE_SUBSTITUTE_MSG
 
 def registrationView(request):
     """
@@ -87,18 +89,22 @@ def deletedSubstitutesView(request):
     """
     
     favourites = Substitute.objects.all()
-    for fav in favourites:
-        print(fav.id)
     
     if request.method == "POST":
-        substitute_id = request.POST.get('substitute-id')
-        print('AAA', substitute_id)
+        print('hello')
+        body = json.loads(request.body.decode("utf-8"))
+        print(body)
+        substitute_id = body['substituteId']
+        print(substitute_id)
         substitute = Substitute.objects.filter(pk=substitute_id)
-        print('BBB', substitute)
+        print(substitute)
         if substitute.exists():
             substitute[0].delete()
             messages.success(request, DELETE_SUBSTITUTE_MSG)
-
-            return render(request, 'my_substitutes.html', { 'favourites': favourites })
-
-    return render(request, 'my_substitutes.html', { 'favourites': favourites })
+            print("deleted")
+            return HttpResponse(status=204)
+        else:
+            print("not found")
+            return HttpResponse(status=404)
+    print("301")
+    return HttpResponse(status=301)

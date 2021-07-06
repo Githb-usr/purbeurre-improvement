@@ -63,10 +63,8 @@
                                     <i class="bi bi-emoji-angry card-footer-icon"></i>
                                 </a>
                                 <div class="d-flex">
-                                    <form action="{% url 'delete_substitutes' %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="substitute-id" value="{{ fav.id }}">
-                                        <button type="submit" id="{{ fav.id }}" class="d-flex justify-content-center align-items-center btn btn-link btn-choice"
+                                    <form class="delete-form">
+                                        <button type="submit" id="{{ fav.id }}" class="d-flex justify-content-center align-items-center btn btn-link btn-choice btn-delete"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer ce substitut de vos favoris">
                                             <i class="bi bi-trash card-footer-icon"></i>
                                         </button>
