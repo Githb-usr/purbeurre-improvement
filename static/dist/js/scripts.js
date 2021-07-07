@@ -63,43 +63,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-// AJAX for delete a user favourite
-function deleteSubstitute(id) {
-    const myHeaders = new Headers();
-    myHeaders.append("X-CSRFToken", getCookie('csrftoken'));
-    myHeaders.append("Content-Type", "application/json");
-    const request = new Request('/user/delete_substitutes/', {method: 'POST', headers: myHeaders, body: {substituteId: id}}) 
-
-    fetch('/user/delete_substitutes/', {
-        method: 'POST',
-        headers: {
-            "X-CSRFToken": getCookie('csrftoken'),
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({substituteId: id})
-    })
-    .then((response) => {
-        const statusCode = response.status;
-        if (statusCode === 204) {
-            console.log("Good")
-            location.reload();
-            
-        } else if (statusCode === 301) {
-            // Do nothing
-            console.log("301")
-        } else if (statusCode === 404) {
-            console.log("404")
-            alert("Le produit n'a pas pu être supprimé !")
-        }
-    })
-}
-
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
+// AJAX for delete a user substitute favourite
 $(document).ready(function() { 
     $( ".btn-delete" ).click(function() {
         const substituteId = $(this).attr('id');
@@ -110,3 +74,33 @@ $(document).ready(function() {
         e.preventDefault();
     });
 });
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+function deleteSubstitute(id) {
+    fetch('/user/delete_substitutes/', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken'),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({substituteId: id})
+    })
+    .then((response) => {
+        const statusCode = response.status;
+        // If the database deletion returns a status of 204, the page is refreshed
+        if (statusCode === 204) {
+            location.reload();
+        // If the database deletion returns a status of 301, nothing is done
+        } else if (statusCode === 301) {
+            // Do nothing
+        // If the database deletion returns a status of 404, a warning message is sent
+        } else if (statusCode === 404) {
+            alert("Le substitut favori n'a pas pu être supprimé ! Il a déjà dû être supprimé précédemment.")
+        }
+    })
+}

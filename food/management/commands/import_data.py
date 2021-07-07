@@ -11,10 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: xxx
+            We populate the database with data retrieved via the Open Food Facts API
         """
         database_service = DatabaseService()
         # Extract raw data from API

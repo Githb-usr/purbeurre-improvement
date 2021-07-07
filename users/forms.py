@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 
 from users.models import Substitute
 
-class UserCreationForm(auth_forms.UserCreationForm):
+class UserRegistrationForm(auth_forms.UserCreationForm):
     """
         Form used for the creation of new users
     """

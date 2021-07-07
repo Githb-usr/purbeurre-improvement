@@ -18,7 +18,7 @@ class LargeSearchForm(forms.Form):
                     "placeholder": "Produit à remplacer",
                     "aria-label": "Recherche",
                 })
-    
+
     def clean_search(self):
         """
             Cleaning of received data
@@ -37,7 +37,7 @@ class SmallSearchForm(forms.Form):
                     "placeholder": "Produit à remplacer",
                     "aria-label": "Recherche",
                 })
-    
+
     def clean_search(self):
         """
             Cleaning of received data
