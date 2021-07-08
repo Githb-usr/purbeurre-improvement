@@ -58,7 +58,7 @@ class SearchParser:
         no_quote_letter_data = re.sub(r"(\s[a-z])'", " ", raw_string)
         # We delete the special characters except the hyphen
         return re.sub(r'[^\-\'\,\w\s]','',no_quote_letter_data)
-    
+
     def get_cleaned_data_list(self, raw_string):
         """
             Cutting the string into words
@@ -77,7 +77,7 @@ class SearchParser:
         cleaned_data_list = [i for i in cleaned_data_list if i != value_to_delete]
 
         return cleaned_data_list
-    
+
     def get_clean_stopwords_list(self):
         """
             Remove accents in predefined stopwords list

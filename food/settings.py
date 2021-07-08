@@ -3,7 +3,7 @@
 
 """
     Settings file
-    To manage application constants
+    To manage food application constants
 """
 
 # Basic url for connecting to the Open Food Facts API

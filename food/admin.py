@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 from django.contrib import admin
 
 from .models import Product, Category, Store
 
 class ProductAdmin(admin.ModelAdmin):
     """
-        xxx
+        Display of products in the back office
     """
     list_display = ('designation', 'brand', 'barcode', 'nutriscore',
                     'fat_value', 'fat_level',
@@ -14,16 +15,16 @@ class ProductAdmin(admin.ModelAdmin):
                     'sugars_value', 'sugars_level',
                     'salt_value', 'salt_level',
                     'url', 'image_url')
-    
+
 class CategoryAdmin(admin.ModelAdmin):
     """
-        xxx
+        Display of categories in the back office
     """
     list_display = ('designation',)
-    
+
 class StoreAdmin(admin.ModelAdmin):
     """
-        xxx
+        Display of stores in the back office
     """
     list_display = ('designation',)
 

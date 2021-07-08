@@ -28,6 +28,11 @@
             {{registration_form.as_p}}
             <button>Créer mon compte</button>
         </form>
+        <div class="further-instructions">
+            <p class="text-body">
+                Vous avez déjà un compte ? <a href="{% url 'login_url' %}" class="text-body fw-bold text-decoration-underline">Connectez-vous</a> !
+            </p>
+        </div>
     </section>
 </main>
 {% endblock content %}

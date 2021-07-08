@@ -1,4 +1,4 @@
-<!-- purbeurre/food/templates/product_list.html -->
+<!-- purbeurre/food/templates/food/product_list.html -->
 
 {% extends 'base_template.html' %}
 {% block header %}
@@ -17,9 +17,9 @@
 <main class="container text-body">
     {% if product_search_result is none or product_search_result == 'NO_DATA' %}
         <section class="intro-section">
-            <div class="main-instructions">
+            <div class="main-instructions d-flex justify-content-center">
                 <span class="font-weight-bold text-body text-danger">
-                    Il n'y a aucun produit correspondant à votre recherche.
+                    Il n'y a aucun produit correspondant à votre recherche "<span class="important-words">{{ query }}</span>".
                 </span>
             </div>
         </section>
@@ -27,7 +27,7 @@
         <section class="product-list-intro-section">
             <div class="main-instructions">
                 <p class="font-weight-bold text-body">
-                    Vous souhaitez remplacer un produit correspondant à "{{ query }}", voici ceux que nous avons trouvé. Sélectionnez celui qui vous intéresse et cliquez sur "Choisir ce produit" pour découvrir quels substituts nous vous proposons à la place. 
+                    Vous souhaitez remplacer un produit correspondant à "<span class="important-words">{{ query }}</span>", voici ceux que nous avons trouvé.<br>Sélectionnez celui qui vous intéresse et cliquez sur "Choisir ce produit" pour découvrir quels substituts nous vous proposons à la place. 
                 </p>
             </div>
         </section>

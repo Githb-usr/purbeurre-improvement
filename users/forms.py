@@ -7,11 +7,11 @@ from django.contrib.auth import get_user_model
 
 from users.models import Substitute
 
-class UserCreationForm(auth_forms.UserCreationForm):
+class UserRegistrationForm(auth_forms.UserCreationForm):
     """
         Form used for the creation of new users
     """
-    
+
     class Meta(auth_forms.UserCreationForm.Meta):
         model = get_user_model()
         fields = ('email', 'first_name', 'last_name', 'username')

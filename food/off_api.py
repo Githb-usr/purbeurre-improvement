@@ -43,7 +43,7 @@ class OffApi:
                 try:
                     data = result.json()
                     # Only the value of the 'products' key is kept (there are other keys in the JSON object).
-                    return data['products'] 
+                    return data['products']
                 except KeyError:
                     print("JSON does not contain products_data.")
                     raise OffJsonError
@@ -51,7 +51,7 @@ class OffApi:
     def get_full_api_products(self):
         """
             We recover as many pages of raw data as defined in the application configuration
-            (see settings file).
+            (see food/settings.py file).
             :return: json data
             :rtype: list()
         """
@@ -61,7 +61,7 @@ class OffApi:
             products_data = self.get_api_products(i)
             for data in products_data:
                 full_products_data.append(data)
-                
+
             time.sleep(1)
 
         return full_products_data

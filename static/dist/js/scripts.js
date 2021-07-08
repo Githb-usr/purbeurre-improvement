@@ -63,45 +63,50 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-
 // AJAX for delete a user favourite
-// const productCard = document.getElementById('authors');
-// document.querySelector("#ajax-call").addEventListener("click", event => {
-//     let formData = new FormData();
-//     formData.append('a', document.querySelector("#a").value);
-// })
+function deleteSubstitute(id) {
+    const myHeaders = new Headers();
+    myHeaders.append("X-CSRFToken", getCookie('csrftoken'));
+    myHeaders.append("Content-Type", "application/json");
+    const request = new Request('/user/delete_substitutes/', {method: 'POST', headers: myHeaders, body: {substituteId: id}}) 
 
-let btn = $('form button');
-let input = $('form input');
+    fetch('/user/delete_substitutes/', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken'),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({substituteId: id})
+    })
+    .then((response) => {
+        const statusCode = response.status;
+        if (statusCode === 204) {
+            console.log("Good")
+            location.reload();
+            
+        } else if (statusCode === 301) {
+            // Do nothing
+            console.log("301")
+        } else if (statusCode === 404) {
+            console.log("404")
+            alert("Le produit n'a pas pu être supprimé !")
+        }
+    })
+}
 
-$.each((btn), function(){
-  $(this).click(function(){
-    //  console.log($(this).prev().value)
-    let formData = new FormData();
-    formData.append('substitute-id', $(this).prev().value);
-  })
-})
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
-const request = new Request('{% url "delete_substitutes" %}', {method: 'POST', body: formData});
+$(document).ready(function() { 
+    $( ".btn-delete" ).click(function() {
+        const substituteId = $(this).attr('id');
+        deleteSubstitute(substituteId)
+    });
 
-fetch(request)
-.then(function(response) {
-    if(response.ok) {
-        response.json()
-        .then(function(data) {
-
-        })
-    }
-})
-.catch(error => console.log('The fetch function does not work properly', error));
-
-
-// function refleshPage() {
-//     location.reload(true);
-// }
-
-// $(document).ready(function(){
-//     $("button").click(function(){
-//         location.reload(true);
-//     });
-//   });
+    $(".delete-form").submit(function(e){
+        e.preventDefault();
+    });
+});

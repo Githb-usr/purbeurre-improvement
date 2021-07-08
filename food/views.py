@@ -13,8 +13,9 @@ from food.settings import NUTRIENT_LEVELS
 
 def small_search_form(request):
     """
-       We display xxx
-       :return: xxx
+       We display the small search form in all navbar of all pages.
+       (through the context_processors in config/settings.py)
+       :return: a dictionary
     """
     small_search_form = SmallSearchForm()
 
@@ -22,8 +23,8 @@ def small_search_form(request):
 
 def show_index(request):
     """
-        We display the home page of the site
-        :return: index template
+        We display the homepage of the application
+        :return: a template
     """
     large_search_form = LargeSearchForm()
 
@@ -31,8 +32,8 @@ def show_index(request):
 
 def show_search_result(request):
     """
-        xxx
-        :return: xxxx
+        We display the products that match the user's search for a product to replace.
+        :return: a template with product(s) data do display
     """
     paginate_by = 6
     searchParser = SearchParser()
@@ -51,36 +52,36 @@ def show_search_result(request):
 
             if len(product_search_by_name) == 1:
                 nutriment_level_data = determine_nutriment_level_data(product_search_by_name[0])
-                return render(request, 'product_detail.html', { 'product_detail': product_search_by_name[0], 'nutriment_data': nutriment_level_data, 'query': query })
+                return render(request, 'food/product_detail.html', { 'product_detail': product_search_by_name[0], 'nutriment_data': nutriment_level_data, 'query': query })
             # If there are any matches, we send them to the template
             elif len(product_search_by_name) > 1:
-                return render(request, 'product_list.html', { 'product_search_result': product_search_by_name, 'query': query })
+                return render(request, 'food/product_list.html', { 'product_search_result': product_search_by_name, 'query': query })
             # If the user has entered a very specific product name or barcode, and there is only one result
             elif product_search_by_barcode:
                 nutriment_level_data = determine_nutriment_level_data(product_search_by_barcode[0])
-                return render(request, 'product_detail.html', { 'product_detail': product_search_by_barcode[0], 'nutriment_data': nutriment_level_data, 'query': query })
+                return render(request, 'food/product_detail.html', { 'product_detail': product_search_by_barcode[0], 'nutriment_data': nutriment_level_data, 'query': query })
 
-            return render(request, 'product_list.html', { 'product_search_result': 'NO_DATA', 'query': query })
+            return render(request, 'food/product_list.html', { 'product_search_result': 'NO_DATA', 'query': query })
         
 def show_product_detail(request, barcode):
     """
-        xxx
-        :param barcode: xxx
-        :return: xxxx
+        We display the detailed sheet of a product.
+        :param barcode: the barcode of the product to display
+        :return: a template with the product data to display
     """
     product_detail = Product.objects.get(barcode=barcode)
     nutriment_level_data = determine_nutriment_level_data(product_detail)
 
-    return render(request, 'product_detail.html', {
+    return render(request, 'food/product_detail.html', {
         'product_detail': product_detail,
         'nutriment_data': nutriment_level_data
         })
 
 def show_substitute_choice_list(request, barcode):
     """
-        xxx
-        :param field_string: xxx
-        :return: xxxx
+        We display products that are healthier than the product selected by the user.
+        :param barcode: the barcode of the product to replace by a substitute
+        :return: a template with substitute(s) data do display
     """
     
     initial_product = Product.objects.get(barcode=barcode)
@@ -90,21 +91,22 @@ def show_substitute_choice_list(request, barcode):
                         .order_by('nutriscore').distinct()
 
     if substitute_search:
-        return render(request, 'substitute_list.html', {
+        return render(request, 'food/substitute_list.html', {
             'initial_product': initial_product,
             'substitute_search_result': substitute_search,
             })
 
-    return render(request, 'substitute_list.html', {
+    return render(request, 'food/substitute_list.html', {
         'initial_product': initial_product,
         'substitute_search_result': 'NO_DATA'
         })
 
 def determine_level_data(level):
     """
-        xxx
-        :param product: xxx
-        :return: xxxx
+        We convert the 2-letter code into French words and colour.
+        :param level: the original string of level data in Open Food Facts database
+        :return: a dictionary with french string of level and the corresponding colour
+        :rtype: dict()
     """
     level_data = {}
     if level == 'LO':
@@ -121,9 +123,11 @@ def determine_level_data(level):
 
 def determine_nutriment_level_data(product):
     """
-        xxx
-        :param product: xxx
-        :return: xxxx
+        We associate product nutrients with their level information.
+        This information will be used on the template proposing the detailed product sheet.
+        :param product: one product object
+        :return: a dictionary with all nutriments data of the product.
+        :rtype: dict()
     """
     nutriment_level_data = {}
     if product.fat_level:
