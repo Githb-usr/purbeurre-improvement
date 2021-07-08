@@ -28,7 +28,7 @@ def registrationView(request):
     else:
         form = UserRegistrationForm()
 
-    return render(request, 'registration.html', {'registration_form':form})
+    return render(request, 'users/registration.html', {'registration_form':form})
 
 def loginView(request):
     """
@@ -37,7 +37,7 @@ def loginView(request):
     """
     messages.success(request, LOGIN_ALERT_SUCCESS_MSG)
 
-    return render(request,'login.html')
+    return render(request,'users/login.html')
 
 @login_required()
 def dashboardView(request):
@@ -45,7 +45,7 @@ def dashboardView(request):
         We display the user's dashboard
         :return: a template with the user's informations
     """
-    return render(request,'dashboard.html')
+    return render(request,'users/dashboard.html')
 
 @login_required()
 def savedSubstitutesView(request):
@@ -77,14 +77,14 @@ def savedSubstitutesView(request):
             # We add a confirmation message
             messages.success(request, SAVE_SUBSTITUTE_MSG)
 
-            return render(request, 'my_substitutes.html', { 'favourites': favourites })
+            return render(request, 'users/my_substitutes.html', { 'favourites': favourites })
 
         # If the substitute already exist in the favourites, the user is warned.
         messages.success(request, ALREADY_EXISTS_SUBSTITUTE_MSG)
-        return render(request, 'my_substitutes.html', { 'favourites': favourites })
+        return render(request, 'users/my_substitutes.html', { 'favourites': favourites })
 
     # If it's a GET, it simply displays the page with the favourites already saved.
-    return render(request, 'my_substitutes.html', { 'favourites': favourites })
+    return render(request, 'users/my_substitutes.html', { 'favourites': favourites })
 
 @login_required()
 def deletedSubstitutesView(request):

@@ -63,25 +63,13 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-// AJAX for delete a user substitute favourite
-$(document).ready(function() { 
-    $( ".btn-delete" ).click(function() {
-        const substituteId = $(this).attr('id');
-        deleteSubstitute(substituteId)
-    });
-
-    $(".delete-form").submit(function(e){
-        e.preventDefault();
-    });
-});
-
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
+// AJAX for delete a user favourite
 function deleteSubstitute(id) {
+    const myHeaders = new Headers();
+    myHeaders.append("X-CSRFToken", getCookie('csrftoken'));
+    myHeaders.append("Content-Type", "application/json");
+    const request = new Request('/user/delete_substitutes/', {method: 'POST', headers: myHeaders, body: {substituteId: id}}) 
+
     fetch('/user/delete_substitutes/', {
         method: 'POST',
         headers: {
@@ -92,15 +80,33 @@ function deleteSubstitute(id) {
     })
     .then((response) => {
         const statusCode = response.status;
-        // If the database deletion returns a status of 204, the page is refreshed
         if (statusCode === 204) {
+            console.log("Good")
             location.reload();
-        // If the database deletion returns a status of 301, nothing is done
+            
         } else if (statusCode === 301) {
             // Do nothing
-        // If the database deletion returns a status of 404, a warning message is sent
+            console.log("301")
         } else if (statusCode === 404) {
-            alert("Le substitut favori n'a pas pu être supprimé ! Il a déjà dû être supprimé précédemment.")
+            console.log("404")
+            alert("Le produit n'a pas pu être supprimé !")
         }
     })
 }
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+$(document).ready(function() { 
+    $( ".btn-delete" ).click(function() {
+        const substituteId = $(this).attr('id');
+        deleteSubstitute(substituteId)
+    });
+
+    $(".delete-form").submit(function(e){
+        e.preventDefault();
+    });
+});

@@ -52,16 +52,16 @@ def show_search_result(request):
 
             if len(product_search_by_name) == 1:
                 nutriment_level_data = determine_nutriment_level_data(product_search_by_name[0])
-                return render(request, 'product_detail.html', { 'product_detail': product_search_by_name[0], 'nutriment_data': nutriment_level_data, 'query': query })
+                return render(request, 'food/product_detail.html', { 'product_detail': product_search_by_name[0], 'nutriment_data': nutriment_level_data, 'query': query })
             # If there are any matches, we send them to the template
             elif len(product_search_by_name) > 1:
-                return render(request, 'product_list.html', { 'product_search_result': product_search_by_name, 'query': query })
+                return render(request, 'food/product_list.html', { 'product_search_result': product_search_by_name, 'query': query })
             # If the user has entered a very specific product name or barcode, and there is only one result
             elif product_search_by_barcode:
                 nutriment_level_data = determine_nutriment_level_data(product_search_by_barcode[0])
-                return render(request, 'product_detail.html', { 'product_detail': product_search_by_barcode[0], 'nutriment_data': nutriment_level_data, 'query': query })
+                return render(request, 'food/product_detail.html', { 'product_detail': product_search_by_barcode[0], 'nutriment_data': nutriment_level_data, 'query': query })
 
-            return render(request, 'product_list.html', { 'product_search_result': 'NO_DATA', 'query': query })
+            return render(request, 'food/product_list.html', { 'product_search_result': 'NO_DATA', 'query': query })
         
 def show_product_detail(request, barcode):
     """
@@ -72,7 +72,7 @@ def show_product_detail(request, barcode):
     product_detail = Product.objects.get(barcode=barcode)
     nutriment_level_data = determine_nutriment_level_data(product_detail)
 
-    return render(request, 'product_detail.html', {
+    return render(request, 'food/product_detail.html', {
         'product_detail': product_detail,
         'nutriment_data': nutriment_level_data
         })
@@ -91,12 +91,12 @@ def show_substitute_choice_list(request, barcode):
                         .order_by('nutriscore').distinct()
 
     if substitute_search:
-        return render(request, 'substitute_list.html', {
+        return render(request, 'food/substitute_list.html', {
             'initial_product': initial_product,
             'substitute_search_result': substitute_search,
             })
 
-    return render(request, 'substitute_list.html', {
+    return render(request, 'food/substitute_list.html', {
         'initial_product': initial_product,
         'substitute_search_result': 'NO_DATA'
         })

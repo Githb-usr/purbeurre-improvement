@@ -1,8 +1,7 @@
-<!-- purbeurre/food/templates/product_list.html -->
+<!-- purbeurre/food/templates/food/product_list.html -->
 
 {% extends 'base_template.html' %}
 {% load static %}
-{% load food_custom_filters %}
 {% block header %}
     <!-- Masthead-->
     <header class="simple-header d-flex align-items-center">
@@ -77,20 +76,19 @@
             </div>
         </div>
         <div class="row product_detail-links">
-            <div class="d-flex product-detail-btn align-self-end text-center mt-4">
+            <div class="d-flex justify-content-center mt-4">
                 <a type="button" href="javascript:history.back()" target="_self"
-                    class="d-flex justify-content-center align-items-center btn btn-link btn-detail text-white"
+                    class="d-flex align-items-center btn btn-link btn-detail-detail text-white"
                     data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="Revenir à la page précédente">
-                    <i class="bi bi-skip-backward-circle card-footer-icon"></i>
+                    <i class="bi bi-skip-backward-circle card-footer-icon card-footer-icon-mgr"></i> Retour
                 </a>
                 <a type="button" href="{{ product_detail.url }}" target="_blank"
-                    class="d-flex justify-content-center align-items-center btn btn-link btn-detail btn-off text-white"
+                    class="d-flex align-items-center btn btn-link btn-detail-detail btn-off text-white"
                     data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="Voir la fiche complète sur OpenFood Fact">
-                    <i class="bi bi-info-circle card-footer-icon card-footer-icon-off"></i> OFF
+                    <i class="bi bi-info-circle card-footer-icon card-footer-icon-mgr"></i> Voir sur Open Food Facts
                 </a>
-                <a href="" class="btn btn-choice text-white" target="_self">Choisir</a>
             </div>
         </div>
     </section>
