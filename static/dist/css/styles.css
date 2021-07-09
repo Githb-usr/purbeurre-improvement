@@ -5555,7 +5555,7 @@ textarea.form-control-lg {
 .bs-tooltip-top .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
   top: -1px;
   border-width: 0.4rem 0.4rem 0;
-  border-top-color: #000;
+  border-top-color: #212529;
 }
 
 .bs-tooltip-end, .bs-tooltip-auto[data-popper-placement^=right] {
@@ -5569,7 +5569,7 @@ textarea.form-control-lg {
 .bs-tooltip-end .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
   right: -1px;
   border-width: 0.4rem 0.4rem 0.4rem 0;
-  border-right-color: #000;
+  border-right-color: #212529;
 }
 
 .bs-tooltip-bottom, .bs-tooltip-auto[data-popper-placement^=bottom] {
@@ -5581,7 +5581,7 @@ textarea.form-control-lg {
 .bs-tooltip-bottom .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
   bottom: -1px;
   border-width: 0 0.4rem 0.4rem;
-  border-bottom-color: #000;
+  border-bottom-color: #212529;
 }
 
 .bs-tooltip-start, .bs-tooltip-auto[data-popper-placement^=left] {
@@ -5595,7 +5595,7 @@ textarea.form-control-lg {
 .bs-tooltip-start .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow::before {
   left: -1px;
   border-width: 0.4rem 0 0.4rem 0.4rem;
-  border-left-color: #000;
+  border-left-color: #212529;
 }
 
 .tooltip-inner {
@@ -5603,7 +5603,7 @@ textarea.form-control-lg {
   padding: 0.25rem 0.5rem;
   color: #fff;
   text-align: center;
-  background-color: #000;
+  background-color: #212529;
   border-radius: 0.25rem;
 }
 
@@ -10878,8 +10878,8 @@ a:hover {
   text-decoration: underline;
 }
 
-.page-section {
-  padding: 3rem 0;
+.important-words {
+  font-weight: bold;
 }
 
 .text-white-75 {
@@ -11055,14 +11055,17 @@ main section i {
   padding: 0 0.5rem 1rem 0;
 }
 
-.info1, .info2 {
-  flex-direction: row;
-  justify-content: flex-start;
+.msg-icon {
+  margin-right: 0.5rem;
 }
 
-.info1 p, .info2 p {
-  display: inline;
-  padding-bottom: 1rem;
+.page-section {
+  padding: 0;
+}
+
+.large-search-form {
+  width: 50%;
+  margin: 1.5rem 0;
 }
 
 .fa-long-arrow-alt-right {
@@ -11111,12 +11114,9 @@ main section div div .card-body {
   font-size: 1rem;
 }
 
-.product-card {
-  position: relative;
-  width: 75%;
-  height: 500px;
-  margin-bottom: 3.5rem;
-  margin-right: 3.5rem;
+#page-contact {
+  background: #E8A75D;
+  padding: 1rem;
 }
 
 .product-img {
@@ -11166,7 +11166,7 @@ main section div div .card-body {
 }
 
 .index-title-block {
-  margin-top: 4rem;
+  margin-top: 2.5rem;
 }
 
 .dashboard-infos {
@@ -11197,11 +11197,23 @@ main section form button {
   color: #f3f3f3;
 }
 
-.connect-link, .register-link {
-  line-height: 1.5;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #f3f3f3;
+#legal-notices u {
+  font-style: italic;
+  text-decoration: none;
+}
+#legal-notices h2, #legal-notices .h2 {
+  font-size: 1.5rem;
+}
+#legal-notices a {
+  color: #C45525;
+  text-decoration: underline;
+}
+#legal-notices section:last-child {
+  padding-bottom: 0;
+}
+
+#footer-copyright {
+  margin-top: 1rem;
 }
 
 .connect-link {
@@ -11246,7 +11258,7 @@ hr.divider-light {
 }
 
 hr.divider-gray {
-  background-color: #212529;
+  background-color: #6c757d;
 }
 
 #mainNav {
@@ -11333,7 +11345,7 @@ header.masthead h1, header.masthead .h1 {
 }
 @media (min-width: 992px) {
   header.masthead {
-    height: 45vh;
+    height: 38vh;
     min-height: 20rem;
     padding-top: 4.5rem;
     padding-bottom: 0;
@@ -11355,10 +11367,6 @@ header.masthead h1, header.masthead .h1 {
   }
 }
 
-#big-search-form {
-  margin-top: 2rem;
-}
-
 #portraits-intro {
   margin-bottom: 1rem;
 }
@@ -11374,9 +11382,45 @@ header.masthead h1, header.masthead .h1 {
 #portfolio .container-fluid, #portfolio .container-sm, #portfolio .container-md, #portfolio .container-lg, #portfolio .container-xl, #portfolio .container-xxl {
   max-width: 1920px;
 }
-#portfolio .container-fluid .portfolio-box, #portfolio .container-sm .portfolio-box, #portfolio .container-md .portfolio-box, #portfolio .container-lg .portfolio-box, #portfolio .container-xl .portfolio-box, #portfolio .container-xxl .portfolio-box {
+
+.initial-product-thumbnail {
+  height: 5rem;
+  margin-right: 1.5rem;
+}
+
+.main-instructions p {
+  margin: 0;
+  padding: 1rem 0 0 0;
+  vertical-align: middle;
+}
+
+.card {
+  border: 2px solid #E8A75D;
+  border-radius: 0.5rem;
+}
+
+.product-card {
   position: relative;
-  display: block;
+  width: 65%;
+  height: 26rem;
+  margin-bottom: 3.5rem;
+}
+
+.card-body {
+  background-color: #DE9440;
+  padding: 0.5rem;
+  height: 3rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+main section div div .card-body {
+  border-top: 2px solid #E8A75D;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1rem;
 }
 #portfolio .container-fluid .portfolio-box .portfolio-box-caption, #portfolio .container-sm .portfolio-box .portfolio-box-caption, #portfolio .container-md .portfolio-box .portfolio-box-caption, #portfolio .container-lg .portfolio-box .portfolio-box-caption, #portfolio .container-xl .portfolio-box .portfolio-box-caption, #portfolio .container-xxl .portfolio-box .portfolio-box-caption {
   display: flex;
@@ -11384,7 +11428,61 @@ header.masthead h1, header.masthead .h1 {
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.card-footer {
+  background-color: #DE9440;
+  border-top: none;
+  padding: 0 0.8rem 0.8rem 0.8rem;
+}
+
+.card-footer .btn, .product-detail-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 0.5rem 0 0;
+  color: #f3f3f3;
+}
+
+.card-footer-icon {
+  font-size: 1.4rem;
+}
+
+.btn-locked {
+  background-color: lightgray;
+}
+
+.btn-locked i {
+  color: darkgray;
+}
+
+.pagination-top {
+  margin: 0 0 2rem 0;
+}
+
+.pagination-top a, .pagination-bottom a {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 0.5rem 0 0;
+  background-color: #33383d;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.pagination-top a:hover, .pagination-bottom a:hover {
+  background-color: #DE9440;
+  color: #fff;
+}
+
+.pagination-top a .current-page, .pagination-bottom a .current-page {
+  background-color: #DE9440;
+  color: #fff;
+}
+
+.card-score {
   position: absolute;
   bottom: 0;
   text-align: center;
@@ -11394,15 +11492,166 @@ header.masthead h1, header.masthead .h1 {
   transition: opacity 0.25s ease;
   text-align: center;
 }
-#portfolio .container-fluid .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-sm .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-md .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-lg .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-xl .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-xxl .portfolio-box .portfolio-box-caption .project-category {
-  font-family: "Open Sans", sans-serif, "Scope One", sans-serif, "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
+
+.card-score-color-A {
+  background: #038141;
+}
+
+.card-score-color-B {
+  background: #85BB2F;
+}
+
+.card-score-color-C {
+  background: #FECB02;
+}
+
+.card-score-color-D {
+  background: #E77D00;
+}
+
+.card-score-color-E {
+  background: #E63E11;
+}
+
+.product-detail-infos {
+  height: 100%;
+  font-weight: bold;
+}
+
+.product-detail-img {
+  background-color: #fff;
+  height: 500px;
+  margin: 0 3rem 0 0;
+  padding: 1.5rem;
+}
+
+.product-detail-image {
+  height: 100%;
+  width: 100%;
+}
+
+.product-detail-data {
+  margin: 0;
+  padding: 1.5rem 0 0 0;
+}
+
+.product-detail-identification p {
+  margin: 1rem 0;
+}
+
+.product-detail-nutriment {
+  padding-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.product-detail-nutriment .col-8, .product-detail-nutriment .col-3, .product-detail-data .col-6 {
+  margin: 0;
+  padding: 0;
+}
+
+.product-detail-nutriment-title {
+  padding: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+}
+
+.product-detail-nutriment-row {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.nutriscore-img {
+  width: 100%;
+}
+
+.product_detail-links a {
+  display: block;
+  color: #6c757d;
+  text-decoration: none;
+}
+.product_detail-links .btn {
+  margin-right: 1rem;
+}
+
+.btn-detail-detail {
+  background-color: #DE9440;
+}
+
+.card-footer-icon-mgr {
+  margin-right: 0.5rem;
+}
+
+.green-dot, .orange-dot, .red-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 20px;
+  margin-left: 0.7rem;
+}
+
+.green-dot {
+  background: green;
+}
+
+.orange-dot {
+  background: orange;
+}
+
+.red-dot {
+  background: red;
+}
+
+.dashboard-infos {
+  padding-left: 0;
+}
+
+.user-img {
+  border: 1px #212529 solid;
+  margin: 0 2rem 0 0.7rem;
+}
+
+.user-image {
+  height: 90%;
+  width: auto;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+.last-block-element {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+main section form label {
+  width: 9rem;
+  font-weight: bold;
+  vertical-align: middle;
 }
 #portfolio .container-fluid .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-sm .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-md .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-lg .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-xl .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-xxl .portfolio-box .portfolio-box-caption .project-name {
   font-size: 1.2rem;
 }
-#portfolio .container-fluid .portfolio-box:hover .portfolio-box-caption, #portfolio .container-sm .portfolio-box:hover .portfolio-box-caption, #portfolio .container-md .portfolio-box:hover .portfolio-box-caption, #portfolio .container-lg .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xl .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xxl .portfolio-box:hover .portfolio-box-caption {
-  opacity: 1;
+
+main section form button {
+  background-color: #345A61;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  margin: 1rem 0.5rem 0 0;
+  padding: 0.375rem 0.75rem;
+  vertical-align: middle;
+  line-height: 1.5;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #f3f3f3;
+}
+
+.further-instructions p {
+  margin: 1.5rem 0 0 0;
+}
+
+.fav-intro-section {
+  margin-bottom: 2rem;
+  font-size: 1.3rem;
+}
+
+.add-date {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
 }

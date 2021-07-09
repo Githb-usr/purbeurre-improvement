@@ -1,0 +1,59 @@
+<!-- purbeurre/users/templates/login.html -->
+
+{% extends 'base_template.html' %}
+{% block header %}
+    <!-- Masthead-->
+    <header class="simple-header d-flex align-items-center">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center align-content-between text-center">
+                <div class="col">
+                    <h1 class="fs-1 text-center">Connexion à votre compte Pur Beurre</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+{% block content %}
+<main class="container">
+    <section class="intro-section">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle-fill msg-icon"></i> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if form.errors %}
+            <p>Votre mail et votre mot de passe ne correspondent pas. Merci de réessayer.</p>
+        {% endif %}
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p class="alert alert-warning"><i class="bi bi-exclamation-triangle-fill"></i> Votre compte n'a pas accès à cette page. Pour continuer, veuillez vous connecter avec un compte autorisé.</p>
+            {% else %}
+                <p class="alert alert-warning"><i class="bi bi-exclamation-triangle-fill"></i> Vous devez être connecté(e) pour voir cette page.</p>
+            {% endif %}
+        {% endif %}
+        <div class="main-instructions">
+            <p class="font-weight-bold text-body">
+                Connectez-vous à votre compte Pur Beurre !
+            </p>
+        </div>
+    </section>
+    <section class="main-section">
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button>Connexion</button>
+        </form>
+        <div class="further-instructions">
+            <p class="text-body">
+                Vous n'avez pas encore de compte ? <a href="{% url 'registration_url' %}" class="text-body fw-bold text-decoration-underline">Inscrivez-vous</a>, c'est simple et rapide ^^
+            </p>
+        </div>
+    </section>
+</main>
+{% endblock content %}
+{% block contact %}{% endblock contact %}

@@ -1,0 +1,50 @@
+<!-- purbeurre/users/templates/dashboard.html -->
+{% extends 'base_template.html' %}
+{% load static %}
+{% block header %}
+    <!-- Masthead-->
+    <header class="simple-header d-flex align-items-center">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center align-content-between text-center">
+                <div class="col-12">
+                    <h1 class="fs-1 text-center">Mon compte personnel Pur Beurre</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+{% block content %}
+<main class="container">
+    <section class="intro-section">
+        <div class="main-instructions">
+            <p class="font-weight-bold text-body">
+                Vos informations personnelles enregistrées sur le site Pur Beurre : 
+            </p>
+        </div>
+    </section>
+    <section class="main-section">
+        <div class="row dashboard-infos">
+            <div class="col-2 user-img d-flex align-items-center">
+                <img src="{% static 'dist/assets/img/default_user.png' %}" alt="{{user.username}}" class="user-image img-fluid d-block align-middle" />
+            </div>
+            <div class="col-3">
+                <p>Email</p>
+                <p>Prénom</p>
+                <p>Nom</p>
+                <p>Pseudonyme</p>
+                <p>Date d'inscription</p>
+                <p class="last-block-element">Dernière connexion au site</p>
+            </div>
+            <div class="col-3">
+                <p>{{user.email}}</p>
+                <p>{{user.first_name}}</p>
+                <p>{{user.last_name}}</p>
+                <p>{{user.username}}</p>
+                <p>{{user.date_joined}}</p>
+                <p class="last-block-element">{{user.last_login}}</p>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}
+{% block contact %}{% endblock contact %}

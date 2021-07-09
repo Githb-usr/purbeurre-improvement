@@ -24,10 +24,7 @@ class DatabaseService:
 
     def get_api_data(self):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: xxx
+            We get the data from the API and then clean it up
         """
         self.raw_data = self.off_api.get_full_api_products()
         self.products_dict_list = self.data_cleaner.create_products_dict_list(self.raw_data)
@@ -35,10 +32,7 @@ class DatabaseService:
 
     def populate_database_with_products(self):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: dict()
+            We populate the "food_product" table of the database
         """
         all_products = {}
         # Save the products in database
@@ -64,43 +58,46 @@ class DatabaseService:
                             image_url = self.get_image_url(prod_dict, 'image_url')
                         )
                         product.save()
-                        all_products = Product.objects.all().order_by('id')
-
-        return all_products
 
     def get_field_value(self, prod_dict, field):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: dict()
+            We recover the amount of each nutrient in a product
+            :param prod_dict: Dictionary containing all the data of a product
+            :param field: the name of nutrient (in Open Food Fact database)
+            :return: quantity of nutrient for 100g
+            :rtype: float
         """
         try:
             if prod_dict['nutriments'][field]:
                 return prod_dict['nutriments'][field]
+            # No value = 0g of nutrient
             return 0
+        # No key = nutrient missing from the product
         except KeyError:
                 return None
 
-    def get_image_url(self, prod_dict, url):
+    def get_image_url(self, prod_dict, url_field_name):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: dict()
+            We get the URL of the product to display its picture
+            :param prod_dict: Dictionary containing all the data of a product
+            :param url_field_name: the name of picture URL field (in Open Food Fact database)
+            :return: an URL
+            :rtype: string
         """
         try:
-            if prod_dict[url]:
-                return prod_dict[url]
+            if prod_dict[url_field_name]:
+                return prod_dict[url_field_name]
+        # If there is no image, we put a default image
         except KeyError:
             return os.path.join(BASE_DIR, 'static/dist/assets/img/default_product_img.png')
 
     def transcribe_nutrient_level(self, prod_dict, nutriment):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: dict()
+            The nutrient level is offered a full word. We store it as a 2-letter abbreviation.
+            :param prod_dict: Dictionary containing all the data of a product
+            :param nutriment: the name of nutrient (in Open Food Fact database)
+            :return: the nutrient level
+            :rtype: string
         """
         try:
             level = prod_dict['nutrient_levels'][nutriment]
@@ -115,30 +112,21 @@ class DatabaseService:
 
     def populate_database_with_categories(self):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: dict()
+            We populate the "food_category" table of the database
         """
         all_categories = {}
         # Save the categories in database
         for clean_cat in self.clean_product_fields['clean_categories']:
             category_to_create = Category.objects.filter(designation=clean_cat).exists()
-            if category_to_create == False:        
+            if category_to_create == False:
                 category = Category(
                     designation = clean_cat
                 )
                 category.save()
-                all_categories = Category.objects.all().order_by('id')
-                
-        return all_categories
-    
+
     def populate_database_with_category_products(self):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: dict()
+            We populate the "category_products" table of the database
         """
         # Create the product_category objects
         # For 1 tuple 'product barcode/category list'
@@ -155,13 +143,10 @@ class DatabaseService:
                         if category_to_link == True and product_to_link == True:
                             # We save product id and category id in the category_products table
                             category_objet.products.add(Product.objects.get(barcode=category_prod[0]))
-    
+
     def populate_database_with_stores(self):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: dict()
+            We populate the "food_store" table of the database
         """
         all_stores = {}
         # Save the stores in database
@@ -172,18 +157,11 @@ class DatabaseService:
                     designation = clean_sto
                 )
                 store.save()
-                all_stores = Store.objects.all().order_by('-id')
-
-        return all_stores
 
     def populate_database_with_store_products(self):
         """
-            xxx
-            :param field_string: xxx
-            :return: xxxx
-            :rtype: dict()
+            We populate the "store_products" table of the database
         """
-        # Save the store_product in database
         # For 1 tuple 'product barcode/store list'
         for store_prod in self.clean_product_fields['stores_of_products']:
             # For 1 store of store list

@@ -62,3 +62,56 @@ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
+
+// AJAX for delete a user favourite
+function deleteSubstitute(id) {
+    const myHeaders = new Headers();
+    myHeaders.append("X-CSRFToken", getCookie('csrftoken'));
+    myHeaders.append("Content-Type", "application/json");
+    const request = new Request('/user/delete_substitutes/', {method: 'POST', headers: myHeaders, body: {substituteId: id}}) 
+
+    fetch('/user/delete_substitutes/', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken'),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({substituteId: id})
+    })
+    .then((response) => {
+        const statusCode = response.status;
+        if (statusCode === 204) {
+            console.log("Good")
+            location.reload();
+            
+        } else if (statusCode === 301) {
+            // Do nothing
+            console.log("301")
+        } else if (statusCode === 404) {
+            console.log("404")
+            alert("Le produit n'a pas pu être supprimé !")
+        }
+    })
+}
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+$(document).ready(function() { 
+    $( ".btn-delete" ).click(function() {
+        const substituteId = $(this).attr('id');
+        deleteSubstitute(substituteId)
+    });
+
+    $(".delete-form").submit(function(e){
+        e.preventDefault();
+    });
+});
+
+// We prevent the forms from being resubmitted when the page is refresh
+if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+}

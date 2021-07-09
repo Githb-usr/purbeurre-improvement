@@ -9,7 +9,7 @@ from food.settings import FIELDS_OF_PRODUCT_LIST
 
 class ApiDataCleaner:
     """
-        DataCleaner class
+        ApiDataCleaner class
         To manage data cleaning from the Open Food Facts API
     """
 
@@ -28,19 +28,25 @@ class ApiDataCleaner:
         self.products_dict_list = [
         product for product in raw_data
         if len(product) == (len(FIELDS_OF_PRODUCT_LIST) + 2) and all(product.values())
-        ]        
+        ]
 
         return self.products_dict_list
 
     def extract_strings_field(self, products_dict_list):
-        """ Retrieving multiple data contained in strings """
+        """ 
+            Retrieving multiple data contained in strings for brands, categories and stores
+            :return: A dictionary of lists. For brands, categories and stores, there are : 
+            -> xxx_of_products list = list with separated and cleaned words + barcode to associate them with a given product
+            -> clean_xxx list = list with all items to create the corresponding table in the database
+            :rtype: dict()
+        """
         brand_of_products = []
         categories_of_products = []
         stores_of_products = []
         clean_brands = []
         clean_categories = []
         clean_stores = []
-        
+
         for product in products_dict_list:
 
             # For the 'brands' field
@@ -96,7 +102,7 @@ class ApiDataCleaner:
         clean_field_list = list(OrderedDict.fromkeys(clean_field_list))
 
         return clean_field_list
-    
+
     def clean_proper_names_fields(self, field_string):
         """
             The strings of the products_dict_list containing several values
@@ -116,7 +122,7 @@ class ApiDataCleaner:
         clean_field_list = list(set(clean_field_list))
 
         return clean_field_list
-    
+
     def clean_brands_field(self, field_string):
         """
             Strings in the product brand field containing several values are transformed

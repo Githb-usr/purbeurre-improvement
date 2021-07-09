@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             name='Substitute',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('creation_date', models.DateField(auto_now_add=True)),
+                ('creation_date', models.DateTimeField(auto_now_add=True)),
                 ('initial_product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='initial_product', to='food.product')),
                 ('substituted_product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='substituted_product', to='food.product')),
                 ('users', models.ManyToManyField(related_name='substitutes', to=settings.AUTH_USER_MODEL)),
