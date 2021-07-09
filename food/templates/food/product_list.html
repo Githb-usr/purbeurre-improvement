@@ -15,7 +15,7 @@
 {% endblock header %}
 {% block content %}
 <main class="container text-body">
-    {% if product_search_result is none or product_search_result == 'NO_DATA' %}
+    {% if search_result is none or search_result == 'NO_DATA' %}
         <section class="intro-section">
             <div class="main-instructions d-flex justify-content-center">
                 <span class="font-weight-bold text-body text-danger">
@@ -24,32 +24,39 @@
             </div>
         </section>
     {% else %}
+        {% if search_result.paginator.num_pages > 1 %}
+            <nav class="d-flex justify-content-center pagination-top">
+                <span class="d-flex align-items-center step-links">
+                    {% if search_result.has_previous and search_result.paginator.num_pages > 3 %}
+                        <a type="button"  class="d-flex justify-content-center align-items-center"
+                            href="?query={{ query|urlencode }}&page=1">&lt;&lt;</a>
+                        <a type="button"  class="d-flex justify-content-center align-items-center"
+                            href="?query={{ query|urlencode }}&page={{ search_result.previous_page_number }}">&lt;</a>
+                    {% endif %}
+                    {% for i in search_result.paginator.page_range %}
+                        <a type="button" class="d-flex justify-content-center align-items-center"
+                            href="?query={{ query|urlencode }}&page={{i}}">{{i}}</a>
+                    {% endfor %}
+                    {% if search_result.has_next and search_result.paginator.num_pages > 3 %}
+                        <a type="button" class="d-flex justify-content-center align-items-center"
+                            href="?query={{ query|urlencode }}&page={{ search_result.next_page_number }}">&gt;</a>
+                        <a type="button" class="d-flex justify-content-center align-items-center"
+                            href="?query={{ query|urlencode }}&page={{ search_result.paginator.num_pages }}">&gt;&gt;</a>
+                    {% endif %}
+                </span>
+            </nav>
+        {% endif %}
         <section class="product-list-intro-section">
             <div class="main-instructions">
                 <p class="font-weight-bold text-body">
-                    Vous souhaitez remplacer un produit correspondant à "<span class="important-words">{{ query }}</span>", voici ceux que nous avons trouvé.<br>Sélectionnez celui qui vous intéresse et cliquez sur "Choisir ce produit" pour découvrir quels substituts nous vous proposons à la place. 
+                    Vous avez saisi "<span class="important-words">{{ query }}</span>", nous avons trouvé {{ search_result.paginator.count }} produits qui peuvent correspondre à votre recherche.<br>Sélectionnez celui qui vous intéresse et cliquez sur "Choisir ce produit" pour découvrir quels substituts nous vous proposons à la place. 
                 </p>
             </div>
         </section>
         <section class="main-section">
-            {% if is_paginated %}
-                <div class="pagination">
-                    <span class="page-links">
-                        {% if page_obj.has_previous %}
-                            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">précedente</a>
-                        {% endif %}
-                        <span class="page-current">
-                            Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
-                        </span>
-                        {% if page_obj.has_next %}
-                            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">suivante</a>
-                        {% endif %}
-                    </span>
-                </div>
-            {% endif %}
             <div class="row">
-                {% for product in product_search_result %}
-                    <div class="col-4 col-card">
+                {% for product in search_result %}
+                    <div class="col-4 d-flex col-card justify-content-center">
                         <div class="card product-card">
                             <div class="card-score card-score-color-{{ product.nutriscore }} text-center" data-bs-toggle="tooltip" data-bs-placement="right" 
                                    title="Nutriscore, de A (très bon) à ''E'' (Très mauvais)">{{ product.nutriscore }}</div>
@@ -79,20 +86,27 @@
             </div>
         </section>
     {% endif %}
-    {% if is_paginated %}
-        <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">précedente</a>
+    {% if search_result.paginator.num_pages > 1 %}
+        <nav class="d-flex justify-content-center pagination-bottom">
+            <span class="d-flex align-items-center">
+                {% if search_result.has_previous and search_result.paginator.num_pages > 3 %}
+                    <a type="button"  class="d-flex justify-content-center align-items-center"
+                        href="?query={{ query|urlencode }}&page=1">&lt;&lt;</a>
+                    <a type="button"  class="d-flex justify-content-center align-items-center"
+                        href="?query={{ query|urlencode }}&page={{ search_result.previous_page_number }}">&lt;</a>
                 {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">suivante</a>
+                {% for i in search_result.paginator.page_range %}
+                    <a type="button" class="d-flex justify-content-center align-items-center"
+                        href="?query={{ query|urlencode }}&page={{i}}">{{i}}</a>
+                {% endfor %}
+                {% if search_result.has_next and search_result.paginator.num_pages > 3 %}
+                    <a type="button" class="d-flex justify-content-center align-items-center"
+                        href="?query={{ query|urlencode }}&page={{ search_result.next_page_number }}">&gt;</a>
+                    <a type="button" class="d-flex justify-content-center align-items-center"
+                        href="?query={{ query|urlencode }}&page={{ search_result.paginator.num_pages }}">&gt;&gt;</a>
                 {% endif %}
             </span>
-        </div>
+        </nav>
     {% endif %}
 </main>
 {% endblock content %}
