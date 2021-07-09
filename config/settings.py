@@ -128,12 +128,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+# add for Heroku
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+#  default
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    'food/static/',
 ]
 
 # Default primary key field type
