@@ -110,3 +110,8 @@ $(document).ready(function() {
         e.preventDefault();
     });
 });
+
+// We prevent the forms from being resubmitted when the page is refresh
+if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+}

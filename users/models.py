@@ -70,7 +70,7 @@ class Substitute(models.Model):
     initial_product = models.ForeignKey('food.Product', related_name='initial_product', on_delete=models.CASCADE)
     substituted_product = models.ForeignKey('food.Product', related_name='substituted_product', on_delete=models.CASCADE)
     users = models.ManyToManyField(User, related_name='substitutes')
-    creation_date = models.DateField(auto_now_add=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = "substitutes"

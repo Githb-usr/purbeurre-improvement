@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm as DjangoUcf
-from django.http import HttpResponse
+from django.core.paginator import Paginator
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import json
 
@@ -35,6 +37,7 @@ def loginView(request):
         We display the login form
         :return: a template with the login form
     """
+    # request.session['message'] = LOGIN_ALERT_SUCCESS_MSG
     messages.success(request, LOGIN_ALERT_SUCCESS_MSG)
 
     return render(request,'users/login.html')
@@ -53,7 +56,19 @@ def savedSubstitutesView(request):
         We display the substitutes favourites page
         :return: a template with all the user's favourites
     """
-    favourites = Substitute.objects.all()
+    favourites = Substitute.objects.all().order_by("-creation_date")
+    paginator = Paginator(favourites, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    try:
+        page_obj = paginator.get_page(page_number)  # returns the desired page object
+    except PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if page is empty then return last page
+        page_obj = paginator.page(paginator.num_pages)
 
     if request.method == "POST":
         # We get the data corresponding to the user's choice
@@ -77,14 +92,14 @@ def savedSubstitutesView(request):
             # We add a confirmation message
             messages.success(request, SAVE_SUBSTITUTE_MSG)
 
-            return render(request, 'users/my_substitutes.html', { 'favourites': favourites })
+            return render(request, 'users/my_substitutes.html', { 'favourites': page_obj })
 
         # If the substitute already exist in the favourites, the user is warned.
         messages.success(request, ALREADY_EXISTS_SUBSTITUTE_MSG)
-        return render(request, 'users/my_substitutes.html', { 'favourites': favourites })
+        return render(request, 'users/my_substitutes.html', { 'favourites': page_obj })
 
     # If it's a GET, it simply displays the page with the favourites already saved.
-    return render(request, 'users/my_substitutes.html', { 'favourites': favourites })
+    return render(request, 'users/my_substitutes.html', { 'favourites': page_obj })
 
 @login_required()
 def deletedSubstitutesView(request):
