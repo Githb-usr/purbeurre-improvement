@@ -1,0 +1,142 @@
+<!-- purbeurre/food/templates/food/substitute_list.html -->
+
+{% extends 'base_template.html' %}
+{% block header %}
+    <header class="simple-header d-flex align-items-center">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center align-content-between text-center">
+                <div class="col">
+                    <h1 class="fs-1 text-center">Produits de substitution</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+{% block content %}
+<main class="container">
+    {% if search_result is none or search_result == 'NO_DATA' %}
+        <section class="intro-section">
+            <div class="main-instructions">
+                <p class="font-weight-bold text-body text-danger">
+                    Le produit que vous avez choisi est déjà le meilleur produit dans sa catégorie, nous n'avons donc aucun substitut à vous proposer.
+                </p>
+            </div>
+        </section>
+    {% else %}
+        {% if search_result.paginator.num_pages > 1 %}
+            <nav class="d-flex justify-content-center pagination-top">
+                <span class="d-flex align-items-center step-links">
+                    {% if search_result.has_previous and search_result.paginator.num_pages > 3 %}
+                        <a type="button"  class="d-flex justify-content-center align-items-center"
+                            href="?page=1">&lt;&lt;</a>
+                        <a type="button"  class="d-flex justify-content-center align-items-center"
+                            href="?page={{ search_result.previous_page_number }}">&lt;</a>
+                    {% endif %}
+                    {% for i in search_result.paginator.page_range %}
+                        <a type="button" class="d-flex justify-content-center align-items-center"
+                            href="?page={{i}}">{{i}}</a>
+                    {% endfor %}
+                    {% if search_result.has_next and search_result.paginator.num_pages > 3 %}
+                        <a type="button" class="d-flex justify-content-center align-items-center"
+                            href="?page={{ search_result.next_page_number }}">&gt;</a>
+                        <a type="button" class="d-flex justify-content-center align-items-center"
+                            href="?page={{ search_result.paginator.num_pages }}">&gt;&gt;</a>
+                    {% endif %}
+                </span>
+            </nav>
+        {% endif %}
+        <section class="product-list-intro-section">
+            <div class="d-inline-flex main-instructions">
+                <div>
+                    <img src="{{ initial_product.image_url }}" class="initial-product-thumbnail"/>
+                </div>
+                <p class="font-weight-bold text-body">
+                    Vous souhaitez remplacer le produit "<strong>{{ initial_product.designation }}</strong>". Voici donc les {{ search_result.paginator.count }} substituts que nous vous proposons.
+                    Sélectionnez celui qui vous intéresse et cliquez sur "Sauvegarder" pour l'enregistrer dans vos favoris. 
+                </p>
+            </div>
+        </section>
+        <section class="main-section">
+            <div class="row">
+                {% for substitute in search_result %}
+                    <div class="col-4 d-flex col-card justify-content-center">
+                        <div class="card product-card">
+                            <div class="card-score card-score-color-{{ substitute.nutriscore }} text-center" data-bs-toggle="tooltip" data-bs-placement="right" 
+                                   title="Nutriscore, de A (très bon) à ''E'' (Très mauvais)">{{ substitute.nutriscore }}</div>
+                            <img src="{{ substitute.image_url }}" 
+                                alt="{{ substitute.designation }}" 
+                                class="card-img-top product-img img-fluid rounded d-block align-middle" />
+                            <div class="d-flex justify-content-center align-items-center card-body text-center">
+                                <p class="card-title text-capitalize">{{ substitute.designation|truncatechars:30 }}</p>
+                            </div>
+                            <div class="card-footer d-flex align-items-center">
+                                <a type="button" href="{% url 'product_detail' barcode=substitute.barcode %}"
+                                   class="d-flex justify-content-center align-items-center btn btn-link btn-detail"
+                                   data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="Afficher les informations sur ce substitut">
+                                    <i class="bi bi-info-circle card-footer-icon"></i>
+                                </a>
+                                {% if not existing_substitutes %}
+                                    <div class="d-flex">
+                                        <form action="{% url 'substitutes' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="initial-product-id" value="{{ initial_product.id }}">
+                                            <input type="hidden" name="substituted-product-id" value="{{ substitute.id }}">
+                                            <button type="submit" class="d-flex justify-content-center align-items-center btn btn-link btn-choice"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enregistrer ce substitut dans vos favoris">
+                                                <i class="bi bi-star card-footer-icon"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                {% else %}
+                                    {% if substitute.id in existing_substitutes %}
+                                        <div class="d-flex justify-content-center align-items-center btn btn-link btn-locked"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Vous avez déjà enregistré ce substitut dans vos favoris !">
+                                            <i class="bi bi-star card-footer-icon"></i>
+                                        </div>
+                                    {% else %}
+                                        <div class="d-flex">
+                                            <form action="{% url 'substitutes' %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="initial-product-id" value="{{ initial_product.id }}">
+                                                <input type="hidden" name="substituted-product-id" value="{{ substitute.id }}">
+                                                <button type="submit" class="d-flex justify-content-center align-items-center btn btn-link btn-choice"
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enregistrer ce substitut dans vos favoris">
+                                                    <i class="bi bi-star card-footer-icon"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+    {% if search_result.paginator.num_pages > 1 %}
+        <nav class="d-flex justify-content-center pagination-bottom">
+            <span class="d-flex align-items-center step-links">
+                {% if search_result.has_previous and search_result.paginator.num_pages > 3 %}
+                    <a type="button"  class="d-flex justify-content-center align-items-center"
+                        href="?page=1">&lt;&lt;</a>
+                    <a type="button"  class="d-flex justify-content-center align-items-center"
+                        href="?page={{ search_result.previous_page_number }}">&lt;</a>
+                {% endif %}
+                {% for i in search_result.paginator.page_range %}
+                    <a type="button" class="d-flex justify-content-center align-items-center"
+                        href="?page={{i}}">{{i}}</a>
+                {% endfor %}
+                {% if search_result.has_next and search_result.paginator.num_pages > 3 %}
+                    <a type="button" class="d-flex justify-content-center align-items-center"
+                        href="?page={{ search_result.next_page_number }}">&gt;</a>
+                    <a type="button" class="d-flex justify-content-center align-items-center"
+                        href="?page={{ search_result.paginator.num_pages }}">&gt;&gt;</a>
+                {% endif %}
+            </span>
+        </nav>
+    {% endif %}
+</main>
+{% endblock content %}
+{% block contact %}{% endblock contact %}

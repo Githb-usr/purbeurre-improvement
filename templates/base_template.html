@@ -25,13 +25,13 @@
         {% block nav %}
             <!-- Navigation-->
             <nav class="bg-secondary text-white navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-                <div class="container px-4 px-lg-5">
+                <div class="container px-4 px-lg-3">
                     <a class="navbar-brand" href="/"><img src="{% static 'dist/assets/img/logo.png' %}" alt="Logo Pur Beurre" id="pb-img-logo" />Pur Beurre</a>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <form class="col-lg-3 nav-form-div form-inline nav-search-form ms-auto mr-5" action="/product_list/" method="get">
                             <div class="input-group" id="nav-search-form">                                
-                                {{ nav_search_form }}
+                                {{ small_search_form }}
                             </div>
                         </form>
                         <div class="col-3">
@@ -59,7 +59,7 @@
                 <div class="container px-4 px-lg-5">
                     <div class="row">
                         <div class="col-6 text-center text-white">
-                            <a href="{% url 'homepage' %}">Mentions légales</a>
+                            <a href="{% url 'legal_notices' %}">Mentions légales</a>
                         </div>
                         <div class="col-6 text-center text-white">
                             <a href="{% url 'homepage' %}#page-contact">Contact</a>
@@ -73,14 +73,11 @@
         {% endblock footer %}
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- JQUERY JS-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- SimpleLightbox plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
         <!-- Core theme JS-->
         <script src="{% static 'dist/js/scripts.js' %}"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>

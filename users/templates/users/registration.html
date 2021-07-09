@@ -1,0 +1,39 @@
+<!-- purbeurre/users/templates/registration.html -->
+
+{% extends 'base_template.html' %}
+{% block header %}
+    <!-- Masthead-->
+    <header class="simple-header d-flex align-items-center">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center align-content-between text-center">
+                <div class="col">
+                    <h1 class="fs-1 text-center">Création de votre compte Pur Beurre</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+{% block content %}
+<main class="container">
+    <section class="intro-section">
+        <div class="main-instructions">
+            <p class="font-weight-bold  text-body">
+                Inscrivez-vous au site Pur Beurre pour profiter de ses avantages !
+            </p>
+        </div>
+    </section>
+    <section class="main-section">
+        <form method="POST">
+            {% csrf_token %}
+            {{registration_form.as_p}}
+            <button>Créer mon compte</button>
+        </form>
+        <div class="further-instructions">
+            <p class="text-body">
+                Vous avez déjà un compte ? <a href="{% url 'login_url' %}" class="text-body fw-bold text-decoration-underline">Connectez-vous</a> !
+            </p>
+        </div>
+    </section>
+</main>
+{% endblock content %}
+{% block contact %}{% endblock contact %}
