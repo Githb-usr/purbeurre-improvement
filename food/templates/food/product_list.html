@@ -28,20 +28,41 @@
             <nav class="d-flex justify-content-center pagination-top">
                 <span class="d-flex align-items-center step-links">
                     {% if search_result.has_previous and search_result.paginator.num_pages > 3 %}
-                        <a type="button"  class="d-flex justify-content-center align-items-center"
-                            href="?query={{ query|urlencode }}&page=1">&lt;&lt;</a>
-                        <a type="button"  class="d-flex justify-content-center align-items-center"
-                            href="?query={{ query|urlencode }}&page={{ search_result.previous_page_number }}">&lt;</a>
+                        {% if search_result.paginator.num_pages > 8 %}
+                            <li class="page-item d-flex justify-content-center align-items-center">
+                                <a class="page-link" href="?query={{ query|urlencode }}&page=1">&lt;&lt;</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item d-flex justify-content-center align-items-center">
+                            <a class="page-link" href="?query={{ query|urlencode }}&page={{ search_result.previous_page_number }}">&lt;</a>
+                        </li>
                     {% endif %}
-                    {% for i in search_result.paginator.page_range %}
-                        <a type="button" class="d-flex justify-content-center align-items-center"
-                            href="?query={{ query|urlencode }}&page={{i}}">{{i}}</a>
+                    {% for i in search_result.paginator.page_range|default_if_none:search_result.paginator.get_elided_page_range %}
+                        {% if search_result.number == i %}
+                            <li class="active page-item d-flex justify-content-center align-items-center">
+                                <span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+                            </li>
+                        {% else %}
+                            {% if i == search_result.paginator.ELLIPSIS %}
+                                <li class="page-item d-flex justify-content-center align-items-center">
+                                    <span class="page-link">{{ i }}</span>
+                                </li>
+                            {% else %}
+                                <li class="page-item d-flex justify-content-center align-items-center">
+                                    <a class="page-link" href="?query={{ query|urlencode }}&page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
                     {% endfor %}
                     {% if search_result.has_next and search_result.paginator.num_pages > 3 %}
-                        <a type="button" class="d-flex justify-content-center align-items-center"
-                            href="?query={{ query|urlencode }}&page={{ search_result.next_page_number }}">&gt;</a>
-                        <a type="button" class="d-flex justify-content-center align-items-center"
-                            href="?query={{ query|urlencode }}&page={{ search_result.paginator.num_pages }}">&gt;&gt;</a>
+                        <li class="page-item d-flex justify-content-center align-items-center">
+                            <a class="page-link" href="?query={{ query|urlencode }}&page={{ search_result.next_page_number }}">&gt;</a>
+                        </li>
+                        {% if search_result.paginator.num_pages > 8 %}
+                            <li class="page-item d-flex justify-content-center align-items-center">
+                                <a class="page-link" href="?query={{ query|urlencode }}&page={{ search_result.paginator.num_pages }}">&gt;&gt;</a>
+                            </li>
+                        {% endif %}
                     {% endif %}
                 </span>
             </nav>
@@ -56,7 +77,7 @@
         <section class="main-section">
             <div class="row">
                 {% for product in search_result %}
-                    <div class="col-4 d-flex col-card justify-content-center">
+                    <div class="col-lg-4 col-sm-1 d-flex col-card justify-content-center">
                         <div class="card product-card">
                             <div class="card-score card-score-color-{{ product.nutriscore }} text-center" data-bs-toggle="tooltip" data-bs-placement="right" 
                                    title="Nutriscore, de A (très bon) à ''E'' (Très mauvais)">{{ product.nutriscore }}</div>
@@ -88,22 +109,43 @@
     {% endif %}
     {% if search_result.paginator.num_pages > 1 %}
         <nav class="d-flex justify-content-center pagination-bottom">
-            <span class="d-flex align-items-center">
+            <span class="d-flex align-items-center step-links">
                 {% if search_result.has_previous and search_result.paginator.num_pages > 3 %}
-                    <a type="button"  class="d-flex justify-content-center align-items-center"
-                        href="?query={{ query|urlencode }}&page=1">&lt;&lt;</a>
-                    <a type="button"  class="d-flex justify-content-center align-items-center"
-                        href="?query={{ query|urlencode }}&page={{ search_result.previous_page_number }}">&lt;</a>
+                    {% if search_result.paginator.num_pages > 8 %}
+                        <li class="page-item d-flex justify-content-center align-items-center">
+                            <a class="page-link" href="?query={{ query|urlencode }}&page=1">&lt;&lt;</a>
+                        </li>
+                    {% endif %}
+                    <li class="page-item d-flex justify-content-center align-items-center">
+                        <a class="page-link" href="?query={{ query|urlencode }}&page={{ search_result.previous_page_number }}">&lt;</a>
+                    </li>
                 {% endif %}
-                {% for i in search_result.paginator.page_range %}
-                    <a type="button" class="d-flex justify-content-center align-items-center"
-                        href="?query={{ query|urlencode }}&page={{i}}">{{i}}</a>
+                {% for i in search_result.paginator.page_range|default_if_none:search_result.paginator.get_elided_page_range %}
+                    {% if search_result.number == i %}
+                        <li class="active page-item d-flex justify-content-center align-items-center">
+                            <span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+                        </li>
+                    {% else %}
+                        {% if i == search_result.paginator.ELLIPSIS %}
+                            <li class="page-item d-flex justify-content-center align-items-center">
+                                <span class="page-link">{{ i }}</span>
+                            </li>
+                        {% else %}
+                            <li class="page-item d-flex justify-content-center align-items-center">
+                                <a class="page-link" href="?query={{ query|urlencode }}&page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
                 {% endfor %}
                 {% if search_result.has_next and search_result.paginator.num_pages > 3 %}
-                    <a type="button" class="d-flex justify-content-center align-items-center"
-                        href="?query={{ query|urlencode }}&page={{ search_result.next_page_number }}">&gt;</a>
-                    <a type="button" class="d-flex justify-content-center align-items-center"
-                        href="?query={{ query|urlencode }}&page={{ search_result.paginator.num_pages }}">&gt;&gt;</a>
+                    <li class="page-item d-flex justify-content-center align-items-center">
+                        <a class="page-link" href="?query={{ query|urlencode }}&page={{ search_result.next_page_number }}">&gt;</a>
+                    </li>
+                    {% if search_result.paginator.num_pages > 8 %}
+                        <li class="page-item d-flex justify-content-center align-items-center">
+                            <a class="page-link" href="?query={{ query|urlencode }}&page={{ search_result.paginator.num_pages }}">&gt;&gt;</a>
+                        </li>
+                    {% endif %}
                 {% endif %}
             </span>
         </nav>
