@@ -15,7 +15,7 @@ class LargeSearchForm(forms.Form):
                     "id": "large-search-form",
                     "class": "form-control form-control-lg",
                     "type": "search",
-                    "placeholder": "Produit à remplacer",
+                    "placeholder": "Produit",
                     "aria-label": "Recherche",
                 })
 
@@ -34,7 +34,7 @@ class SmallSearchForm(forms.Form):
                     "id": "small-search-form",
                     "class": "form-control form-control-lg",
                     "type": "search",
-                    "placeholder": "Produit à remplacer",
+                    "placeholder": "Produit",
                     "aria-label": "Recherche",
                 })
 

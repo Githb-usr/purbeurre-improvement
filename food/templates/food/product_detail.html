@@ -15,16 +15,16 @@
     </header>
 {% endblock header %}
 {% block content %}
-<main class="container">
+<main class="container main-product_detail">
     <section class="main-section">
         <div class="row product-detail-infos text-muted">
-            <div class="col-4 product-detail-img">
+            <div class="col-lg-4 col-sm-1 product-detail-img">
                 <img src="{{ product_detail.image_url }}" alt="{{ product_detail.designation }}" class="product-detail-image img-fluid d-block align-middle" />
             </div>
-            <div class="col-7 product-detail-data">
+            <div class="col-lg-7 col-sm-1 product-detail-data">
                 <div class="row">
-                    <div class="col-6 product-detail-identification">
-                        <h2 class="d-inline-flex align-middle font-weight-bold header-title">
+                    <div class="col-lg-6 col-sm-1 product-detail-identification">
+                        <h2 class="d-inline-flex align-middle font-weight-bold header-title text-capitalize">
                             {{ product_detail.designation }}
                         </h2>
                         <p>Marque : {{ product_detail.brand }}</p>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="row product-detail-nutriment">
-                    <div class="col-8">
+                    <div class="col-lg-8 col-sm-1">
                         <h2 class="product-detail-nutriment-title">Repères nutritionnels pour 100g</h2>
                         {% if product_detail.fat_level %}
                             <div class="row product-detail-nutriment-row">
@@ -64,7 +64,7 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-3 product-detail-nutriscore">
+                    <div class="col-lg-3 col-sm-1 product-detail-nutriscore">
                         {% if product_detail.nutriscore == "A" %}
                             <img src="{% static 'dist/assets/img/nutriscore/nutriscore-a.svg' %}" alt="Nutriscore A" class="nutriscore-img"/>
                         {% elif product_detail.nutriscore == "B" %}
