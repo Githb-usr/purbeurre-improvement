@@ -30,6 +30,11 @@
                         <p>Marque : {{ product_detail.brand }}</p>
                         <p>EAN : {{ product_detail.barcode }}</p>
                     </div>
+                    <div class="col-6 product-detail-categories">
+                        {% comment %} {% for category in product_detail.category %}
+                            <div class="btn-category">{{ category }}</div>
+                        {% endfor %} {% endcomment %}
+                    </div>
                 </div>
                 <div class="row product-detail-nutriment">
                     <div class="col-lg-8 col-sm-1">
