@@ -38,20 +38,41 @@
             <nav class="d-flex justify-content-center pagination-top">
                 <span class="d-flex align-items-center step-links">
                     {% if favourites.has_previous and favourites.paginator.num_pages > 3 %}
-                        <a type="button"  class="d-flex justify-content-center align-items-center"
-                            href="?page=1">&lt;&lt;</a>
-                        <a type="button"  class="d-flex justify-content-center align-items-center"
-                            href="?page={{ favourites.previous_page_number }}">&lt;</a>
+                        {% if favourites.paginator.num_pages > 8 %}
+                            <li class="page-item d-flex justify-content-center align-items-center">
+                                <a class="page-link" href="?page=1">&lt;&lt;</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item d-flex justify-content-center align-items-center">
+                            <a class="page-link" href="?page={{ favourites.previous_page_number }}">&lt;</a>
+                        </li>
                     {% endif %}
-                    {% for i in favourites.paginator.page_range %}
-                        <a type="button" class="d-flex justify-content-center align-items-center"
-                            href="?page={{i}}">{{i}}</a>
+                    {% for i in favourites.paginator.page_range|default_if_none:favourites.paginator.get_elided_page_range %}
+                        {% if favourites.number == i %}
+                            <li class="active page-item d-flex justify-content-center align-items-center">
+                                <span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+                            </li>
+                        {% else %}
+                            {% if i == favourites.paginator.ELLIPSIS %}
+                                <li class="page-item d-flex justify-content-center align-items-center">
+                                    <span class="page-link">{{ i }}</span>
+                                </li>
+                            {% else %}
+                                <li class="page-item d-flex justify-content-center align-items-center">
+                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
                     {% endfor %}
                     {% if favourites.has_next and favourites.paginator.num_pages > 3 %}
-                        <a type="button" class="d-flex justify-content-center align-items-center"
-                            href="?page={{ favourites.next_page_number }}">&gt;</a>
-                        <a type="button" class="d-flex justify-content-center align-items-center"
-                            href="?page={{ favourites.paginator.num_pages }}">&gt;&gt;</a>
+                        <li class="page-item d-flex justify-content-center align-items-center">
+                            <a class="page-link" href="?page={{ favourites.next_page_number }}">&gt;</a>
+                        </li>
+                        {% if favourites.paginator.num_pages > 8 %}
+                            <li class="page-item d-flex justify-content-center align-items-center">
+                                <a class="page-link" href="?page={{ favourites.paginator.num_pages }}">&gt;&gt;</a>
+                            </li>
+                        {% endif %}
                     {% endif %}
                 </span>
             </nav>
@@ -122,22 +143,43 @@
     {% endif %}
     {% if favourites.paginator.num_pages > 1 %}
         <nav class="d-flex justify-content-center pagination-bottom">
-            <span class="d-flex align-items-center">
+            <span class="d-flex align-items-center step-links">
                 {% if favourites.has_previous and favourites.paginator.num_pages > 3 %}
-                    <a type="button"  class="d-flex justify-content-center align-items-center"
-                        href="?page=1">&lt;&lt;</a>
-                    <a type="button"  class="d-flex justify-content-center align-items-center"
-                        href="?page={{ favourites.previous_page_number }}">&lt;</a>
+                    {% if favourites.paginator.num_pages > 8 %}
+                        <li class="page-item d-flex justify-content-center align-items-center">
+                            <a class="page-link" href="?page=1">&lt;&lt;</a>
+                        </li>
+                    {% endif %}
+                    <li class="page-item d-flex justify-content-center align-items-center">
+                        <a class="page-link" href="?page={{ favourites.previous_page_number }}">&lt;</a>
+                    </li>
                 {% endif %}
-                {% for i in favourites.paginator.page_range %}
-                    <a type="button" class="d-flex justify-content-center align-items-center"
-                        href="?page={{i}}">{{i}}</a>
+                {% for i in favourites.paginator.page_range|default_if_none:favourites.paginator.get_elided_page_range %}
+                    {% if favourites.number == i %}
+                        <li class="active page-item d-flex justify-content-center align-items-center">
+                            <span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+                        </li>
+                    {% else %}
+                        {% if i == favourites.paginator.ELLIPSIS %}
+                            <li class="page-item d-flex justify-content-center align-items-center">
+                                <span class="page-link">{{ i }}</span>
+                            </li>
+                        {% else %}
+                            <li class="page-item d-flex justify-content-center align-items-center">
+                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
                 {% endfor %}
                 {% if favourites.has_next and favourites.paginator.num_pages > 3 %}
-                    <a type="button" class="d-flex justify-content-center align-items-center"
-                        href="?page={{ favourites.next_page_number }}">&gt;</a>
-                    <a type="button" class="d-flex justify-content-center align-items-center"
-                        href="?page={{ favourites.paginator.num_pages }}">&gt;&gt;</a>
+                    <li class="page-item d-flex justify-content-center align-items-center">
+                        <a class="page-link" href="?page={{ favourites.next_page_number }}">&gt;</a>
+                    </li>
+                    {% if favourites.paginator.num_pages > 8 %}
+                        <li class="page-item d-flex justify-content-center align-items-center">
+                            <a class="page-link" href="?page={{ favourites.paginator.num_pages }}">&gt;&gt;</a>
+                        </li>
+                    {% endif %}
                 {% endif %}
             </span>
         </nav>

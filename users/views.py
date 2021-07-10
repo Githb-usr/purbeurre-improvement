@@ -58,8 +58,11 @@ def savedSubstitutesView(request):
         :return: a template with all the user's favourites
     """
     favourites = Substitute.objects.all().order_by("-creation_date")
-    paginator = Paginator(favourites, 6)
+    
     page_number = request.GET.get('page')
+    paginator = Paginator(favourites, 6)
+    # Management of the shortened display of the pagination
+    page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
     page_obj = paginator.get_page(page_number)
     
     try:
@@ -86,10 +89,21 @@ def savedSubstitutesView(request):
                 initial_product=initial_product[0],
                 substituted_product=substituted_product[0]
             )
+            # We update the Substitute table
             substitute.save()
 
+            # We update the user's account with this favourite
             user = User.objects.filter(pk=user_id)
             substitute.users.add(user[0])
+            
+            # We update the list of favourites
+            favourites = Substitute.objects.all().order_by("-creation_date")
+            page_number = request.GET.get('page')
+            paginator = Paginator(favourites, 6)
+            # Management of the shortened display of the pagination
+            page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
+            page_obj = paginator.get_page(page_number)
+            
             # We add a confirmation message
             messages.success(request, SAVE_SUBSTITUTE_MSG)
 
