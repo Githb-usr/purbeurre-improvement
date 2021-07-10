@@ -11146,7 +11146,7 @@ main section div div .card-body {
   margin: 0 0 2rem 0;
 }
 
-.pagination-top .page-link, .pagination-bottom nav span li {
+.pagination-top .page-link, .pagination-bottom .page-link {
   width: 2.5rem;
   height: 2.5rem;
   padding: 0.5rem 0.85rem;
@@ -11212,6 +11212,22 @@ main section div div .card-body {
   width: auto;
   margin: 0 auto;
   padding: 0.5rem;
+}
+
+.user-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-data-line {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.9rem;
+}
+
+.dashboard-label {
+  width: 10.5rem;
+  font-weight: bold;
 }
 
 .last-block-element {
@@ -11619,8 +11635,10 @@ footer, footer a {
     padding: 0.5rem;
   }
 
-  .dashboard-label {
-    font-weight: bold;
+  .user-data-line {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
   }
 
   .product-list-intro-section {
@@ -11716,7 +11734,7 @@ footer, footer a {
   }
 
   .nutriscore-img {
-    width: 90%;
+    width: 50%;
   }
 
   .product_detail-links div {
@@ -11733,3 +11751,255 @@ footer, footer a {
 /* ******************** */
 /* Responsive : tablets */
 /* ******************** */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  #mainNav .navbar-brand {
+    font-size: 1.7rem;
+  }
+
+  #pb-img-logo {
+    width: 1.7rem;
+  }
+
+  #nav-search-form {
+    margin-top: 1rem;
+  }
+
+  #mainNav .navbar-nav {
+    flex-direction: row;
+  }
+
+  #mainNav .navbar-nav .nav-item .nav-link,
+#mainNav .navbar-nav .nav-item .nav-link:hover,
+#mainNav .navbar-nav .nav-item .nav-link:active {
+    color: #fff;
+  }
+
+  #mainNav .nav-item {
+    display: flex;
+    align-content: center;
+    margin: 0 1.5rem;
+  }
+
+  .connect-link, .register-link {
+    margin-top: 1rem;
+  }
+
+  .content-wrap {
+    padding-bottom: 8rem;
+  }
+
+  footer {
+    height: 8rem;
+  }
+
+  header.masthead {
+    padding-bottom: 1rem;
+  }
+
+  .index-title-block {
+    margin-top: 3.5rem;
+  }
+
+  .index-title-block h2, .index-title-block .h2 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .large-search-form {
+    width: 100%;
+    margin: 1rem 0 0 0;
+  }
+
+  #portraits-intro div p {
+    margin: 0 0 0.5rem 0;
+    padding: 0;
+  }
+
+  .avatars {
+    justify-content: start;
+  }
+
+  .avatars .col-sm-1 {
+    width: 50%;
+    padding: 0;
+  }
+
+  .avatar-colette p, .avatar-remy p {
+    margin-top: 0.3rem;
+  }
+
+  #page-contact h2, #page-contact .h2 {
+    font-size: 1.5rem;
+  }
+
+  .contact-intro {
+    font-size: 1.05rem;
+    padding: 1rem 0 1rem 0;
+  }
+
+  #contact-phone {
+    margin-bottom: 1rem;
+  }
+
+  #contact-mail {
+    margin-bottom: 0.5rem;
+  }
+
+  #contact-phone i {
+    margin-bottom: 0.7rem;
+  }
+
+  main {
+    flex-grow: 1;
+    padding: 1rem 0 1rem 0;
+  }
+
+  main section {
+    padding: 0 0 1rem 0;
+  }
+
+  .intro-section {
+    font-size: 1.2rem;
+  }
+
+  .main-instructions p {
+    padding: 0;
+  }
+
+  .regitration-main-section form ul {
+    padding-left: 1rem;
+  }
+
+  .regitration-main-section form #id_password2 {
+    margin-right: 3rem;
+  }
+
+  .regitration-main-section form button {
+    margin-top: 0;
+  }
+
+  .user-img {
+    width: 90%;
+    border: 1px #212529 solid;
+    margin: 0 1rem 1rem 1rem;
+  }
+
+  .user-image {
+    height: auto;
+    margin: 0 auto;
+    padding: 0.5rem;
+  }
+
+  .user-data-line {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-list-intro-section {
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .product-card {
+    position: relative;
+    width: 85%;
+    margin-bottom: 2rem;
+  }
+
+  .card-score {
+    position: absolute;
+    top: -1.25rem;
+    left: 94%;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    padding-top: 0.2rem;
+    font-size: 1.6rem;
+  }
+
+  .product-list-intro-section .main-instructions {
+    flex-direction: column;
+  }
+
+  .product-list-intro-section .main-instructions div {
+    display: flex;
+    justify-content: center;
+  }
+
+  .initial-product-thumbnail {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .product-detail-img {
+    background-color: #fff;
+    max-height: 25rem;
+    margin: 0;
+    padding: 1rem;
+  }
+
+  .main-product_detail {
+    margin: 0;
+    padding: 0 1rem;
+  }
+
+  .product-detail-data {
+    margin: 0 1rem;
+    padding-top: 0;
+  }
+
+  .product-detail-data h2, .product-detail-data .h2 {
+    font-size: 1.2rem;
+  }
+
+  .product-detail-identification {
+    width: 100%;
+  }
+
+  .product-detail-identification p {
+    margin: 0 0 0.7rem 0;
+  }
+
+  .product-detail-nutriment-title {
+    padding: 0;
+    font-size: 1.1rem;
+  }
+
+  .product-detail-nutriment {
+    padding-top: 1rem;
+  }
+
+  .product-detail-nutriment-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .green-dot, .orange-dot, .red-dot {
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    margin-left: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .product-detail-nutriscore {
+    margin: 0;
+    padding: 0;
+  }
+
+  .nutriscore-img {
+    width: 50%;
+  }
+
+  .product_detail-links div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product_detail-links div a {
+    width: 100%;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+}
