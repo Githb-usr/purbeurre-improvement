@@ -57,9 +57,11 @@ def show_search_result(request):
         for i in range(len(cleaned_query)):
             product_search_by_name = Product.objects.filter(designation__unaccent__icontains=cleaned_query[i]).order_by('nutriscore')
 
-        paginator = Paginator(product_search_by_name, 6)
         # getting the desired page number from url
-        page_number = request.GET.get('page')
+        page_number = request.GET.get('page', 1)
+        paginator = Paginator(product_search_by_name, 6)
+        # Management of the shortened display of the pagination
+        page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
         try:
             page_obj = paginator.get_page(page_number)  # returns the desired page object
         except PageNotAnInteger:
@@ -112,8 +114,10 @@ def show_substitute_choice_list(request, barcode):
     
     if substitute_search:
         paginator = Paginator(substitute_search, 6)
-        page_number = request.GET.get('page')
+        page_number = request.GET.get('page', 1)
         page_obj = paginator.get_page(page_number)
+        # Management of the shortened display of the pagination
+        page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
         
         try:
             page_obj = paginator.get_page(page_number)  # returns the desired page object

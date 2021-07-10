@@ -14,7 +14,7 @@
     </header>
 {% endblock header %}
 {% block content %}
-<main class="container">
+<main class="container main-registration">
     <section class="intro-section">
         <div class="main-instructions">
             <p class="font-weight-bold  text-body">
@@ -22,7 +22,7 @@
             </p>
         </div>
     </section>
-    <section class="main-section">
+    <section class="regitration-main-section">
         <form method="POST">
             {% csrf_token %}
             {{registration_form.as_p}}

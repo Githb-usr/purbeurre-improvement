@@ -24,24 +24,16 @@
     </section>
     <section class="main-section">
         <div class="row dashboard-infos">
-            <div class="col-2 user-img d-flex align-items-center">
+            <div class="col-lg-2 col-sm-1 user-img d-flex align-items-center">
                 <img src="{% static 'dist/assets/img/default_user.png' %}" alt="{{user.username}}" class="user-image img-fluid d-block align-middle" />
             </div>
-            <div class="col-3">
-                <p>Email</p>
-                <p>Prénom</p>
-                <p>Nom</p>
-                <p>Pseudonyme</p>
-                <p>Date d'inscription</p>
-                <p class="last-block-element">Dernière connexion au site</p>
-            </div>
-            <div class="col-3">
-                <p>{{user.email}}</p>
-                <p>{{user.first_name}}</p>
-                <p>{{user.last_name}}</p>
-                <p>{{user.username}}</p>
-                <p>{{user.date_joined}}</p>
-                <p class="last-block-element">{{user.last_login}}</p>
+            <div class="col-lg-3 col-sm-1">
+                <div class="dashboard-label">Email</div><div>{{user.email}}</div>
+                <div class="dashboard-label">Prénom</div><div>{{user.first_name}}</div>
+                <div class="dashboard-label">Nom</div><div>{{user.last_name}}</div>
+                <div class="dashboard-label">Pseudonyme</div><div>{{user.username}}</div>
+                <div class="dashboard-label">Date d'inscription</div><div>{{user.date_joined}}</div>
+                <div class="dashboard-label last-block-element">Dernière connexion au site</div><div class="last-block-element">{{user.last_login}}</div>
             </div>
         </div>
     </section>
