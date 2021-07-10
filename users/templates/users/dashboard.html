@@ -27,13 +27,25 @@
             <div class="col-lg-2 col-sm-1 user-img d-flex align-items-center">
                 <img src="{% static 'dist/assets/img/default_user.png' %}" alt="{{user.username}}" class="user-image img-fluid d-block align-middle" />
             </div>
-            <div class="col-lg-3 col-sm-1">
-                <div class="dashboard-label">Email</div><div>{{user.email}}</div>
-                <div class="dashboard-label">Prénom</div><div>{{user.first_name}}</div>
-                <div class="dashboard-label">Nom</div><div>{{user.last_name}}</div>
-                <div class="dashboard-label">Pseudonyme</div><div>{{user.username}}</div>
-                <div class="dashboard-label">Date d'inscription</div><div>{{user.date_joined}}</div>
-                <div class="dashboard-label last-block-element">Dernière connexion au site</div><div class="last-block-element">{{user.last_login}}</div>
+            <div class="col-lg-6 col-sm-1 user-data">
+                <li class="user-data-line">
+                    <div class="dashboard-label">Email</div><div class="user-value">{{user.email}}</div>
+                </li>
+                <li class="user-data-line">
+                    <div class="dashboard-label">Prénom</div><div class="user-value">{{user.first_name}}</div>
+                </li>
+                <li class="user-data-line">
+                    <div class="dashboard-label">Nom</div><div class="user-value">{{user.last_name}}</div>
+                </li>
+                <li class="user-data-line">
+                    <div class="dashboard-label">Pseudonyme</div><div class="user-value">{{user.username}}</div>
+                </li>
+                <li class="user-data-line">
+                    <div class="dashboard-label">Date d'inscription</div><div class="user-value">{{user.date_joined}}</div>
+                </li>
+                <li class="user-data-line">
+                    <div class="dashboard-label last-block-element">Dernière connexion</div><div class="user-value last-block-element">{{user.last_login}}</div>
+                </li>
             </div>
         </div>
     </section>

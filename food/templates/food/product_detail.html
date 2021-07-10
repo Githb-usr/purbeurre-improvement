@@ -23,17 +23,12 @@
             </div>
             <div class="col-lg-7 col-sm-1 product-detail-data">
                 <div class="row">
+                    <h2 class="d-inline-flex align-middle font-weight-bold header-title text-capitalize">
+                        {{ product_detail.designation }}
+                    </h2>
                     <div class="col-lg-6 col-sm-1 product-detail-identification">
-                        <h2 class="d-inline-flex align-middle font-weight-bold header-title text-capitalize">
-                            {{ product_detail.designation }}
-                        </h2>
                         <p>Marque : {{ product_detail.brand }}</p>
                         <p>EAN : {{ product_detail.barcode }}</p>
-                    </div>
-                    <div class="col-6 product-detail-categories">
-                        {% comment %} {% for category in product_detail.category %}
-                            <div class="btn-category">{{ category }}</div>
-                        {% endfor %} {% endcomment %}
                     </div>
                 </div>
                 <div class="row product-detail-nutriment">
