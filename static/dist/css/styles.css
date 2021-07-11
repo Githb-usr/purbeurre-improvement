@@ -10872,7 +10872,7 @@ hr.divider-gray {
   color: #fff;
 }
 #mainNav .navbar-nav {
-  width: 100%;
+  width: 15rem;
   justify-content: center;
 }
 #mainNav .navbar-nav .nav-item .nav-link {
@@ -10925,10 +10925,6 @@ hr.divider-gray {
   #mainNav.navbar-shrink .navbar-nav .nav-item .nav-link:hover {
     color: #DE9440;
   }
-}
-
-#nav-search-form {
-  padding-right: 0;
 }
 
 #portraits-intro {
@@ -11352,6 +11348,10 @@ a:hover {
   padding-bottom: 0.4rem;
 }
 
+#nav-search-form {
+  padding-right: 0;
+}
+
 .connect-link, .register-link {
   line-height: 1.5;
   font-size: 1rem;
@@ -11404,6 +11404,14 @@ main section {
 
 .msg-icon {
   margin-right: 0.5rem;
+}
+
+header.masthead h1, header.masthead .h1 {
+  font-size: 2rem;
+}
+
+header.masthead h2, header.masthead .h2 {
+  font-size: 1.5rem;
 }
 
 .page-section {
@@ -11541,6 +11549,10 @@ footer, footer a {
     padding-bottom: 1rem;
   }
 
+  header.masthead h1, header.masthead .h1 {
+    font-size: 1.9rem;
+  }
+
   .index-title-block {
     margin-top: 3.5rem;
   }
@@ -11564,7 +11576,7 @@ footer, footer a {
     justify-content: start;
   }
 
-  .avatars .col-sm-1 {
+  .avatars .col-sm-12 {
     width: 50%;
     padding: 0;
   }
@@ -11603,8 +11615,16 @@ footer, footer a {
     padding: 0 0 1rem 0;
   }
 
+  .simple-header {
+    height: 13rem;
+  }
+
   .intro-section {
     font-size: 1.2rem;
+  }
+
+  .fav-intro-section {
+    font-size: 1.05rem;
   }
 
   .main-instructions p {
@@ -11624,7 +11644,7 @@ footer, footer a {
   }
 
   .user-img {
-    width: 90%;
+    width: 85%;
     border: 1px #212529 solid;
     margin: 0 1rem 1rem 1rem;
   }
@@ -11689,7 +11709,7 @@ footer, footer a {
   }
 
   .product-detail-data {
-    margin: 0 1rem;
+    margin: 0 0 0 1rem;
     padding-top: 0;
   }
 
@@ -11729,6 +11749,8 @@ footer, footer a {
   }
 
   .product-detail-nutriscore {
+    display: flex;
+    flex-direction: row;
     margin: 0;
     padding: 0;
   }
@@ -11751,7 +11773,7 @@ footer, footer a {
 /* ******************** */
 /* Responsive : tablets */
 /* ******************** */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
   #mainNav .navbar-brand {
     font-size: 1.7rem;
   }
@@ -11819,7 +11841,7 @@ footer, footer a {
     justify-content: start;
   }
 
-  .avatars .col-sm-1 {
+  .avatars .col-sm-12 {
     width: 50%;
     padding: 0;
   }
@@ -11854,12 +11876,20 @@ footer, footer a {
     padding: 1rem 0 1rem 0;
   }
 
+  .simple-header {
+    height: 13rem;
+  }
+
   main section {
     padding: 0 0 1rem 0;
   }
 
   .intro-section {
     font-size: 1.2rem;
+  }
+
+  .fav-intro-section {
+    font-size: 1.05rem;
   }
 
   .main-instructions p {
@@ -11939,7 +11969,7 @@ footer, footer a {
   }
 
   .main-product_detail {
-    margin: 0;
+    margin: 0 0 0 1rem;
     padding: 0 1rem;
   }
 
@@ -11984,21 +12014,24 @@ footer, footer a {
   }
 
   .product-detail-nutriscore {
+    display: flex;
+    flex-direction: row;
     margin: 0;
     padding: 0;
   }
 
   .nutriscore-img {
-    width: 50%;
+    width: 35%;
   }
 
   .product_detail-links div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
   }
 
   .product_detail-links div a {
-    width: 100%;
+    width: 50%;
     margin-bottom: 1rem;
     justify-content: center;
   }
