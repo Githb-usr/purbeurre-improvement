@@ -30,12 +30,12 @@
                         <a class="navbar-brand" href="/"><img src="{% static 'dist/assets/img/logo.png' %}" alt="Logo Pur Beurre" id="pb-img-logo" />Pur Beurre</a>
                         <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarResponsive">
-                            <form class="col-lg-3 col-sm-1 nav-form-div form-inline nav-search-form ms-auto mr-5" action="/product_list/" method="get">
+                            <form class="col-lg-3 col-sm-12 nav-form-div form-inline nav-search-form ms-auto mr-5" action="/product_list/" method="get">
                                 <div class="input-group" id="nav-search-form">                                
                                     {{ small_search_form }}
                                 </div>
                             </form>
-                            <div class="col-lg-3 col-sm-1" id="user-menu">
+                            <div class="col-lg-3 col-sm-12" id="user-menu">
                                 <ul class="navbar-nav ms-auto my-2 my-lg-0 d-flex">
                                     {% if user.is_authenticated %}
                                         <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-user" title="Mon compte"></i></a></li>
@@ -61,10 +61,10 @@
                 <footer class="bg-secondary py-3">
                     <div class="container px-4 px-lg-5">
                         <div class="row">
-                            <div class="col-lg-6 col-sm-1 text-center text-white">
+                            <div class="col-lg-6 col-sm-12 text-center text-white">
                                 <a href="{% url 'legal_notices' %}">Mentions légales</a>
                             </div>
-                            <div class="col-lg-6 col-sm-1 text-center text-white">
+                            <div class="col-lg-6 col-sm-12 text-center text-white">
                                 <a href="{% url 'homepage' %}#page-contact">Contact</a>
                             </div>
                             <div class="small text-center text-white" id="footer-copyright">
