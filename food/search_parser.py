@@ -25,9 +25,10 @@ class SearchParser:
             or consists of spaces
             :rtype: string
         """
-        trim_raw_string = raw_string.strip()
-        if re.match(r"^(?![\s\S])", trim_raw_string):
+        if not raw_string or raw_string.strip() == "":
             return NO_DATA
+        else:
+            return raw_string
 
     def remove_accented_characters(self, raw_string):
         """

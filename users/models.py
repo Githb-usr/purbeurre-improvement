@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
@@ -53,15 +54,15 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+    def get_full_name(self):
+        if self.first_name:
+            return f'{self.first_name} {self.last_name}'
+
+        return self.email.split('@')[0]
 
     class Meta:
         ordering = ('-date_joined', '-updated_at', )
-
-    def get_full_name(self):
-        if self.first_name:
-            return f'{self.first_name}  {self.last_name}'
-
-        return self.email.split('@')[0]
 
 class Substitute(models.Model):
     """
