@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.views.generic import TemplateView, ListView
 
 from food.database_service import DatabaseService
@@ -29,13 +29,6 @@ def show_index(request):
         :return: a template
     """
     large_search_form = LargeSearchForm()
-    message = ''
-    try:
-        if request.session['message']:
-            message = request.session['message']
-            return render(request, 'index.html', { 'large_search_form': large_search_form, 'message': message })
-    except KeyError:
-        pass
 
     return render(request, 'index.html', { 'large_search_form': large_search_form })
 
@@ -49,19 +42,20 @@ def show_search_result(request):
     query = request.GET.get('query')
     # We parse the string sent by the user (we obtain a list of words)
     cleaned_query = searchParser.get_cleaned_string(query)
+    
     # If there is at least 1 word
-    if len(cleaned_query) > 0:
+    if cleaned_query != 'no_data' and len(cleaned_query) > 0:
         # if query = barcode only
         product_search_by_barcode = Product.objects.filter(barcode=cleaned_query[0])
         # We look for matches with all the words
         for i in range(len(cleaned_query)):
             product_search_by_name = Product.objects.filter(designation__unaccent__icontains=cleaned_query[i]).order_by('nutriscore')
-
         # getting the desired page number from url
         page_number = request.GET.get('page', 1)
         paginator = Paginator(product_search_by_name, 6)
         # Management of the shortened display of the pagination
         page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
+        
         try:
             page_obj = paginator.get_page(page_number)  # returns the desired page object
         except PageNotAnInteger:
@@ -73,12 +67,23 @@ def show_search_result(request):
     
         # If there are any matches, we send them to the template
         if len(product_search_by_name) > 0:
-            return render(request, 'food/product_list.html', { 'search_result': page_obj, 'query': query })
+            return render(request, 'food/product_list.html', {
+                'search_result': page_obj,
+                'page_range': page_range,
+                'query': query
+                })
         # If the user has entered a barcode
         elif product_search_by_barcode:
-            return render(request, 'food/product_list.html', { 'search_result': product_search_by_barcode, 'query': query })
+            return render(request, 'food/product_list.html', {
+                'search_result': product_search_by_barcode,
+                'page_range': page_range,
+                'query': query
+                })
 
-    return render(request, 'food/product_list.html', { 'search_result': 'NO_DATA', 'query': query })
+    return render(request, 'food/product_list.html', {
+        'search_result': 'NO_DATA',
+        'query': query
+        })
         
 def show_product_detail(request, barcode):
     """
@@ -86,7 +91,7 @@ def show_product_detail(request, barcode):
         :param barcode: the barcode of the product to display
         :return: a template with the product data to display
     """
-    product_detail = Product.objects.get(barcode=barcode)
+    product_detail = get_object_or_404(Product, barcode=barcode)
     nutriment_level_data = determine_nutriment_level_data(product_detail)
 
     return render(request, 'food/product_detail.html', {
@@ -100,7 +105,7 @@ def show_substitute_choice_list(request, barcode):
         :param barcode: the barcode of the product to replace by a substitute
         :return: a template with substitute(s) data do display
     """
-    initial_product = Product.objects.get(barcode=barcode)
+    initial_product = get_object_or_404(Product, barcode=barcode)
     initial_product_categories = initial_product.categories.all()
     substitute_search = Product.objects.filter(categories__in=initial_product_categories)\
                         .filter(nutriscore__lt=initial_product.nutriscore)\
@@ -115,7 +120,6 @@ def show_substitute_choice_list(request, barcode):
     if substitute_search:
         paginator = Paginator(substitute_search, 6)
         page_number = request.GET.get('page', 1)
-        page_obj = paginator.get_page(page_number)
         # Management of the shortened display of the pagination
         page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
         
@@ -131,6 +135,7 @@ def show_substitute_choice_list(request, barcode):
         return render(request, 'food/substitute_list.html', {
             'initial_product': initial_product,
             'search_result': page_obj,
+            'page_range': page_range,
             'existing_substitutes': existing_substitutes,
             })
 

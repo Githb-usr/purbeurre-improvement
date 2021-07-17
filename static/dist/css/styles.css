@@ -11151,12 +11151,7 @@ main section div div .card-body {
   text-decoration: none;
 }
 
-.pagination-top a:hover, .pagination-bottom a:hover {
-  background-color: #DE9440;
-  color: #fff;
-}
-
-.pagination-top a .current-page, .pagination-bottom a .current-page {
+.pagination-top a:hover, .pagination-bottom a:hover, .pagination-top a .current-page, .pagination-bottom a .current-page {
   background-color: #DE9440;
   color: #fff;
 }

@@ -2,8 +2,8 @@
 .vscode
 __pycache__
 envp8/
-geckodriver.log
 get-pip.py
 static/node_modules
 static/scripts
 static/src
+staticfiles

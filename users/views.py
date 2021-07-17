@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm as DjangoUcf
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import json
@@ -52,18 +52,14 @@ def dashboardView(request):
     return render(request,'users/dashboard.html')
 
 @login_required()
-def savedSubstitutesView(request):
+def saved_substitutes_view(request):
     """
         We display the substitutes favourites page
         :return: a template with all the user's favourites
     """
     favourites = Substitute.objects.all().order_by("-creation_date")
-    
     page_number = request.GET.get('page')
     paginator = Paginator(favourites, 6)
-    # Management of the shortened display of the pagination
-    page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
-    page_obj = paginator.get_page(page_number)
     
     try:
         page_obj = paginator.get_page(page_number)  # returns the desired page object
@@ -100,9 +96,15 @@ def savedSubstitutesView(request):
             favourites = Substitute.objects.all().order_by("-creation_date")
             page_number = request.GET.get('page')
             paginator = Paginator(favourites, 6)
-            # Management of the shortened display of the pagination
-            page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
-            page_obj = paginator.get_page(page_number)
+
+            try:
+                page_obj = paginator.get_page(page_number)  # returns the desired page object
+            except PageNotAnInteger:
+                # if page_number is not an integer then assign the first page
+                page_obj = paginator.page(1)
+            except EmptyPage:
+                # if page is empty then return last page
+                page_obj = paginator.page(paginator.num_pages)
             
             # We add a confirmation message
             messages.success(request, SAVE_SUBSTITUTE_MSG)
@@ -117,7 +119,7 @@ def savedSubstitutesView(request):
     return render(request, 'users/my_substitutes.html', { 'favourites': page_obj })
 
 @login_required()
-def deletedSubstitutesView(request):
+def deleted_substitutes_view(request):
     """
         We delete a substitute (a favourite)
         :return: an HTTP response to AJAX
@@ -142,4 +144,4 @@ def deletedSubstitutesView(request):
             return HttpResponse(status=404)
 
     # If it's a GET, it simply displays the page with the favourites already saved.
-    return HttpResponse(status=301)
+    return redirect('substitutes', permanent=True)

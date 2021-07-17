@@ -68,7 +68,7 @@ class ApiDataCleaner:
 
             # For the 'stores' field
             all_product_clean_stores = self.clean_proper_names_fields(product['stores'])
-            product_clean_stores = all_product_clean_stores[3:]
+            product_clean_stores = all_product_clean_stores[0:4]
             stores_of_products.append((product['code'], product_clean_stores))
             for store in product_clean_stores:
                 if store != '':
@@ -119,7 +119,7 @@ class ApiDataCleaner:
             value_strip = value.strip().lower().title()
             clean_field_list.append(value_strip)
 
-        clean_field_list = list(set(clean_field_list))
+        clean_field_list = list(OrderedDict.fromkeys(clean_field_list))
 
         return clean_field_list
 

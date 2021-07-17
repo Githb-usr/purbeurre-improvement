@@ -68,7 +68,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a particular instance of the model."""
-        return reverse('show_product_detail', args=[str(self.id)])
+        return reverse('product_detail', args=[str(self.barcode)])
 
     class Meta:
         verbose_name_plural = "products"
