@@ -1,0 +1,5 @@
+[run]
+omit = __pycache__/*,.pytest_cache/*,.vscode/*,config/*,envp8/*,static/*,tests/*,get-pip.py,*__init__.py,*migrations*
+
+[report]
+omit = __pycache__/*,.pytest_cache/*,.vscode/*,config/*,envp8/*,static/*,tests/*,get-pip.py,*__init__.py,*migrations*

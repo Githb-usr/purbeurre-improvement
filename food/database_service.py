@@ -34,7 +34,6 @@ class DatabaseService:
         """
             We populate the "food_product" table of the database
         """
-        all_products = {}
         # Save the products in database
         for prod_dict in self.products_dict_list:
             for brand in self.clean_product_fields['brand_of_products']:
@@ -59,17 +58,17 @@ class DatabaseService:
                         )
                         product.save()
 
-    def get_field_value(self, prod_dict, field):
+    def get_field_value(self, product, field):
         """
             We recover the amount of each nutrient in a product
-            :param prod_dict: Dictionary containing all the data of a product
+            :param product: dictionary containing all the data of a product
             :param field: the name of nutrient (in Open Food Fact database)
             :return: quantity of nutrient for 100g
             :rtype: float
         """
         try:
-            if prod_dict['nutriments'][field]:
-                return prod_dict['nutriments'][field]
+            if product['nutriments'][field]:
+                return product['nutriments'][field]
             # No value = 0g of nutrient
             return 0
         # No key = nutrient missing from the product
@@ -114,7 +113,6 @@ class DatabaseService:
         """
             We populate the "food_category" table of the database
         """
-        all_categories = {}
         # Save the categories in database
         for clean_cat in self.clean_product_fields['clean_categories']:
             category_to_create = Category.objects.filter(designation=clean_cat).exists()
@@ -148,7 +146,6 @@ class DatabaseService:
         """
             We populate the "food_store" table of the database
         """
-        all_stores = {}
         # Save the stores in database
         for clean_sto in self.clean_product_fields['clean_stores']:
             store_to_create = Store.objects.filter(designation=clean_sto).exists()
@@ -167,12 +164,12 @@ class DatabaseService:
             # For 1 store of store list
             for store in store_prod[1]:
                 # For 1 store of the database
-                for store_objet in Store.objects.all():
+                for store_object in Store.objects.all():
                     # If the store of store list == the name of the database store
-                    if store == store_objet.designation:
+                    if store == store_object.designation:
                         # If product and store are in database
                         store_to_link = Store.objects.filter(designation=store).exists()
                         product_to_link = Product.objects.filter(barcode=store_prod[0]).exists()
                         if store_to_link == True and product_to_link == True:
                             # We save product id and store id in the store_products table
-                            store_objet.products.add(Product.objects.get(barcode=store_prod[0]))
+                            store_object.products.add(Product.objects.get(barcode=store_prod[0]))
