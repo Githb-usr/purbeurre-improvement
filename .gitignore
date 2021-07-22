@@ -1,9 +1,6 @@
 .env
 .vscode
 __pycache__
-envp8/
+config/settings/prod.py
+envp10/
 get-pip.py
-static/node_modules
-static/scripts
-static/src
-staticfiles

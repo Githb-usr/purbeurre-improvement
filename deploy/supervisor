@@ -1,0 +1,6 @@
+command = /home/nicolas/env/bin/gunicorn config.wsgi:application
+user = nicolas
+directory = /home/nicolas/purbeurre
+autostart = true
+autorestart = true
+environment = ENV="production"

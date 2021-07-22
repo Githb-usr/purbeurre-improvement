@@ -6,7 +6,7 @@ import os
 from unittest import mock
 from unittest.mock import patch
 
-from config.settings import BASE_DIR
+from config.settings.base import BASE_DIR
 from food.database_service import DatabaseService
 from food.models import Product, Category, Store
 import tests.config as test_result
