@@ -17,6 +17,12 @@ from django.core.wsgi import get_wsgi_application
 
 dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+env = os.getenv("ENV")
+if env == "local":
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.local')
+elif env == "travis":
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.travis')
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.prod')
 
 application = get_wsgi_application()
