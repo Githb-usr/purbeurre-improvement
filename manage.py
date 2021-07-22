@@ -4,10 +4,7 @@
 import os
 import sys
 
-import dotenv
-
 def main():
-    dotenv.read_dotenv()
     """Run administrative tasks."""
     env = os.getenv("ENV")
     if env == "local":
