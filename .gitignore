@@ -1,6 +1,9 @@
 .env
+config/.settings.py.swp
 .vscode
 __pycache__
 config/settings/prod.py
+env/
 envp10/
 get-pip.py
+staticfiles/
