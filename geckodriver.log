@@ -1513,3 +1513,29 @@ JavaScript error: https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap
 
 ###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
+1626939521550	geckodriver	INFO	Listening on 127.0.0.1:56963
+1626939524632	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\Leto\\AppData\\Local\\Temp\\rust_mozprofile5jbbBG"
+*** You are running in headless mode.
+1626939524958	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\Leto\\AppData\\Local\\Temp\\rust_mozprofile5jbbBG\\search.json.mozlz4", (void 0)))
+1626939525872	Marionette	INFO	Listening on port 56971
+1626939526196	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js, line 6: TypeError: n is null
+1626939559173	Marionette	INFO	Stopped listening on port 56971
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1626943937691	geckodriver	INFO	Listening on 127.0.0.1:50354
+1626943940740	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\Leto\\AppData\\Local\\Temp\\rust_mozprofileaHCwnw"
+*** You are running in headless mode.
+1626943940990	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\Leto\\AppData\\Local\\Temp\\rust_mozprofileaHCwnw\\search.json.mozlz4", (void 0)))
+1626943941788	Marionette	INFO	Listening on port 50362
+1626943942269	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js, line 6: TypeError: n is null
+1626943975371	Marionette	INFO	Stopped listening on port 50362
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
