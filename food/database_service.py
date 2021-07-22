@@ -3,7 +3,7 @@
 
 import os
 
-from config.settings import BASE_DIR
+from config.settings.base import BASE_DIR
 from food.api_data_cleaner import ApiDataCleaner
 from food.models import Product, Category, Store
 from food.off_api import OffApi
