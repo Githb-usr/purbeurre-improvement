@@ -21,14 +21,12 @@ install:
 before_script:
   - install-webdrivers
 
-env: 
-  global:
-    - DJANGO_SETTINGS_MODULE=config.settings.travis
+env: travis
 
 services:
   - postgresql
 
 script:
-  - ./manage.py test tests
+  - manage.py test tests
 
 
