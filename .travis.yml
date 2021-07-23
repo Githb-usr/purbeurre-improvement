@@ -28,5 +28,3 @@ services:
 
 script:
   - manage.py test tests
-
-
