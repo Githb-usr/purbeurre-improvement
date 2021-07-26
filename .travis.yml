@@ -21,7 +21,10 @@ install:
 before_script:
   - install-webdrivers
 
-env: travis
+env:
+  global:
+    - DJANGO_SETTINGS_MODULE=config.settings.travis
+    - MOZ_HEADLESS=1
 
 services:
   - postgresql
