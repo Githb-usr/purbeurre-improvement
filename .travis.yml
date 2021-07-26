@@ -30,4 +30,4 @@ services:
   - postgresql
 
 script:
-  - manage.py test tests
+  - ./manage.py test tests
