@@ -23,11 +23,11 @@ before_script:
 
 env:
   global:
-    - DJANGO_SETTINGS_MODULE=config.settings.travis
+    - ENV=travis
     - MOZ_HEADLESS=1
 
 services:
   - postgresql
 
 script:
-  - ./manage.py test tests
+  - python3 manage.py test tests
