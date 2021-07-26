@@ -23,6 +23,7 @@ install:
   - sudo mv -f ~/geckodriver /usr/local/share
   - sudo chmod +x /usr/local/share/geckodriver
   - sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
+  - export PATH=$PATH:/usr/local/share/geckodriver
   # install chrome drivers
   - wget -N https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip -P ~/
   - unzip ~/chromedriver_linux64.zip -d ~/
@@ -30,6 +31,7 @@ install:
   - sudo mv -f ~/chromedriver /usr/local/share/
   - sudo chmod +x /usr/local/share/chromedriver
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+  - export PATH=$PATH:/usr/local/share/chromedriver
 
 before_script:
   - install-webdrivers
