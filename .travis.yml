@@ -16,18 +16,40 @@ branches:
 install:
     # command to install dependencies
   - pip install -r requirements.txt
-  - pip install tchappui-webdrivers
+  # install firefox drivers
+  # - wget -N https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz -P ~/
+  # - tar -xzf ~/geckodriver-v0.26.0-linux64.tar.gz -C ~/
+  # - rm ~/geckodriver-v0.26.0-linux64.tar.gz
+  # - sudo mv -f ~/geckodriver /usr/local/share
+  # - sudo chmod +x /usr/local/share/geckodriver
+  # - sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
+  # - export PATH=$PATH:/usr/local/share/geckodriver
+  # install chrome drivers
+  # - wget -N https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip -P ~/
+  # - unzip ~/chromedriver_linux64.zip -d ~/
+  # - rm ~/chromedriver_linux64.zip
+  # - sudo mv -f ~/chromedriver /usr/local/share/
+  # - sudo chmod +x /usr/local/share/chromedriver
+  # - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+  # - export PATH=$PATH:/usr/local/share/chromedriver
+  - install-webdrivers --path webdrivers
 
 before_script:
   - install-webdrivers
 
 env:
   global:
-    - DJANGO_SETTINGS_MODULE=config.settings.travis
+    - ENV=travis
+    - DB_NAME=purbeurre
+    - DB_USER=postgres
+    - DB_PASSWORD=leto
+    - DB_HOST=localhost
+    - DB_PORT=5432
+    - SECRET_KEY=f9QbQ2QttRWNKc7ZcaFs
     - MOZ_HEADLESS=1
 
 services:
   - postgresql
 
 script:
-  - ./manage.py test tests
+  - python3 manage.py test tests
