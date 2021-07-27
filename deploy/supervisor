@@ -4,4 +4,3 @@ user = nicolas
 directory = /home/nicolas/purbeurre
 autostart = true
 autorestart = true
-environment = ENV="production"
