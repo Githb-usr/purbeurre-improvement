@@ -30,6 +30,3 @@ urlpatterns = [
     path('legal_notices/', TemplateView.as_view(template_name='legal_notices.html'), name='legal_notices'),
     path('admin/', admin.site.urls),
 ]
-
-handler404 = 'food.views.handler404'
-handler500 = 'food.views.handler500'
