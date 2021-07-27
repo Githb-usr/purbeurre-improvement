@@ -10,11 +10,12 @@ def main():
     dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
     
     env = os.getenv("ENV")
+    print('TOTO', os.getenv("ENV"))
     if env == "local":
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.local')
     elif env == "travis":
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.travis')
-    else:
+    elif env == "production":
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.prod')
 
     try:
