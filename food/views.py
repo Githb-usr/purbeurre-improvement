@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.views.generic import TemplateView, ListView
+import logging
 
 from food.database_service import DatabaseService
 from food.forms import SmallSearchForm, LargeSearchForm
@@ -12,6 +13,9 @@ from food.models import Product, Category, Store
 from food.search_parser import SearchParser
 from food.settings import NUTRIENT_LEVELS
 from users.models import Substitute
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 def small_search_form(request):
     """
@@ -67,6 +71,11 @@ def show_search_result(request):
     
         # If there are any matches, we send them to the template
         if len(product_search_by_name) > 0:
+            logger.info('New valid search by name', exc_info=True, extra={
+                # Optionally pass a request and we'll grab any information we can
+                'request': request,
+            })
+
             return render(request, 'food/product_list.html', {
                 'search_result': page_obj,
                 'page_range': page_range,
@@ -74,11 +83,21 @@ def show_search_result(request):
                 })
         # If the user has entered a barcode
         elif product_search_by_barcode:
+            logger.info('New valid search by barcode', exc_info=True, extra={
+                # Optionally pass a request and we'll grab any information we can
+                'request': request,
+            })
+            
             return render(request, 'food/product_list.html', {
                 'search_result': product_search_by_barcode,
                 'page_range': page_range,
                 'query': query
                 })
+
+    logger.info('New invalid search', exc_info=True, extra={
+        # Optionally pass a request and we'll grab any information we can
+        'request': request,
+    })
 
     return render(request, 'food/product_list.html', {
         'search_result': 'NO_DATA',
