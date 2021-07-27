@@ -20,7 +20,11 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 urlpatterns = [
+    path('sentry-debug/', trigger_error),
     path('user/',include('users.urls'), name='users'),
     path('', include('food.urls'), name='food'),
     path('legal_notices/', TemplateView.as_view(template_name='legal_notices.html'), name='legal_notices'),
