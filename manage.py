@@ -14,7 +14,7 @@ def main():
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.local')
     elif env == "travis":
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.travis')
-    else:
+    elif env == "production":
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.prod')
 
     try:
