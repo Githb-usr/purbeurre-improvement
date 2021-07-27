@@ -2,12 +2,19 @@ DEBUG = False
 
 from config.settings.base import *
 
+import logging
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
+
+sentry_logging = LoggingIntegration(
+    level=logging.INFO,        # Capture info and above as breadcrumbs
+    event_level=logging.ERROR  # Send errors as events
+)
 
 sentry_sdk.init(
     dsn="https://b70fe2ea8c6d4f6690a88850373f4b39@o927366.ingest.sentry.io/5876689",
-    integrations=[DjangoIntegration()],
+    integrations=[DjangoIntegration(), sentry_logging],
 
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
