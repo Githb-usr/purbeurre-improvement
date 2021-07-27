@@ -16,6 +16,7 @@ from users.models import Substitute
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 def small_search_form(request):
     """
