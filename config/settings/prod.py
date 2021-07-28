@@ -1,4 +1,5 @@
-DEBUG = False
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from config.settings.base import *
 
@@ -6,6 +7,8 @@ import logging
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
+
+DEBUG = False
 
 sentry_logging = LoggingIntegration(
     level=logging.INFO,        # Capture info and above as breadcrumbs
