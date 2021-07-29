@@ -35,7 +35,6 @@ class DatabaseService:
         """
             We populate the "food_product" table of the database
         """
-        product_attributs = dict()
         try:
             # Save the products in database
             for prod_dict in self.products_dict_list:
