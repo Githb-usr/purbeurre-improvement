@@ -10,10 +10,10 @@
 API_BASE_URL = "https://fr.openfoodfacts.org/cgi/search.pl"
 
 #Number of products to be downloaded each time you connect to the API
-PAGE_SIZE = 500
+PAGE_SIZE = 1000
 
 # Number of connections to the API
-PAGE_NUMBER = 3
+PAGE_NUMBER = 5
 
 # Fields of products to keep and download (It's a parameter of the connection to the API)
 FIELDS_OF_PRODUCT = 'code,product_name,brands,categories,nutriscore_grade,nutriments,nutrient_levels,stores,url,image_url'
