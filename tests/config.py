@@ -194,8 +194,8 @@ SEPARATED_DATA = {
                 ('7622210449283', ['Snacks', 'Snacks sucrés', 'Biscuits et gâteaux', 'Biscuits', 'Biscuits au chocolat'])],
             'stores_of_products': [
                 ('3274080005003', ['Carrefour', 'Leclerc', 'Auchan']),
-                ('3017620422003', ['Bi1', 'Magasins U', 'Carrefour', 'Franprix']),
-                ('7622210449283', ['Carrefour Market', 'Magasins U', 'Auchan', 'Intermarché'])
+                ('3017620422003', ['Bi1', 'Magasins U', 'Carrefour', 'Franprix', 'Auchan']),
+                ('7622210449283', ['Carrefour Market', 'Magasins U', 'Auchan', 'Intermarché', 'Carrefour'])
             ],
         }
 

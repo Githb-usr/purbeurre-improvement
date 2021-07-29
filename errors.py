@@ -15,3 +15,8 @@ class OffNetworkError(Exception):
     """
         To capture network errors from the OpenFoodFact API
     """
+
+class DatabaseError(Exception):
+    """
+        To capture database population errors
+    """
