@@ -59,7 +59,7 @@ class ApiDataCleaner:
             # For the 'categories' field
             all_product_clean_categories = self.clean_fields(product['categories'])
             # We only keep the last 5 categories, the most specific to the product
-            product_clean_categories = all_product_clean_categories[-5:]
+            product_clean_categories = all_product_clean_categories[-7:]
             categories_of_products.append((product['code'], product_clean_categories))
             for category in product_clean_categories:
                 if category != '':
@@ -68,7 +68,7 @@ class ApiDataCleaner:
 
             # For the 'stores' field
             all_product_clean_stores = self.clean_proper_names_fields(product['stores'])
-            product_clean_stores = all_product_clean_stores[0:4]
+            product_clean_stores = all_product_clean_stores[0:5]
             stores_of_products.append((product['code'], product_clean_stores))
             for store in product_clean_stores:
                 if store != '':
