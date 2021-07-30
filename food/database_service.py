@@ -3,6 +3,8 @@
 
 import os
 
+from django.db import DataError
+
 from config.settings.base import BASE_DIR
 from errors import DatabaseError
 from food.api_data_cleaner import ApiDataCleaner
@@ -60,7 +62,10 @@ class DatabaseService:
                         # If the product does not exist, it is created
                         if product_to_create == False:
                             product = Product(**product_attributs)
-                            product.save()
+                            try:
+                                product.save()
+                            except DataError:
+                                pass
                         # If the product exists, it is updated
                         else:
                             Product.objects.filter(barcode=prod_dict['code']).update(**product_attributs)
@@ -132,7 +137,7 @@ class DatabaseService:
                     )
                     category.save()
                 else:
-                    category.update(designation=clean_cat)
+                    Category.objects.filter(designation=clean_cat).update(designation=clean_cat)
         except:
             raise DatabaseError
 
@@ -173,7 +178,7 @@ class DatabaseService:
                     )
                     store.save()
                 else:
-                    store.update(designation=clean_sto)
+                    Store.objects.filter(designation=clean_sto).update(designation=clean_sto)
         except:
             raise DatabaseError
 
