@@ -10,7 +10,8 @@ def main():
     """
         Run administrative tasks.
     """
-    dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
+    # dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
+    dotenv.read_dotenv()
     
     env = os.getenv("ENV")
     if env == "local":
