@@ -3,7 +3,7 @@ python:
   - "3.8"
 
 addons:
-  chrome: 92.0.4515.107
+  chrome: stable
   firefox: latest
 
 # safelist
