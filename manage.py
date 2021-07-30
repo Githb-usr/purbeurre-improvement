@@ -6,10 +6,10 @@ import sys
 
 import dotenv
 
-dotenv.load_dotenv()
-
 def main():
-    """Run administrative tasks."""
+    """
+        Run administrative tasks.
+    """
     dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
     
     env = os.getenv("ENV")
