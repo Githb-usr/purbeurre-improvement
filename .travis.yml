@@ -13,7 +13,8 @@ branches:
     - main
 
 before_script:
-  - chromedriver-update 92.0.4515.107
+  - bundle exec rails runner "Webdrivers::Chromedriver.update"
+  - Chromedriver-update 92.0.4515.107
 
 # stuff to do before executing the script
 install:
