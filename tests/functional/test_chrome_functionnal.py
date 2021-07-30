@@ -8,10 +8,12 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from selenium import webdriver
 from selenium.webdriver import Chrome
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 
 from tests.config import USER1_EMAIL, USER1_PASSWORD, USER1_USERNAME, USER1_FIRSTNAME, USER1_LASTNAME, USER2_EMAIL, USER2_PASSWORD, USER2_USERNAME, USER2_FIRSTNAME, USER2_LASTNAME
 
+driver = webdriver.Chrome(ChromeDriverManager().install())
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('window-size=1920x1080')
