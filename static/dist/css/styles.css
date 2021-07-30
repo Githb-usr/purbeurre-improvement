@@ -10990,6 +10990,7 @@ header.masthead h1, header.masthead .h1 {
 .product-detail-image {
   height: 100%;
   width: 100%;
+  object-fit: contain;
 }
 
 .product-detail-data {
@@ -11109,6 +11110,7 @@ main section div div .card-body {
 .product-img {
   height: 19rem;
   width: 100%;
+  object-fit: contain;
   margin: 0 auto;
   padding: 1rem;
 }
