@@ -35,4 +35,11 @@ sentry_sdk.init(
     # release="myapp@1.0.0",
 )
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '161.35.78.95']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '161.35.78.95',
+    'nicolasvallet.dev',
+    'www.nicolasvallet.dev',
+    'purbeurre.nicolasvallet.dev'
+    ]
