@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name 161.35.78.95;
+    server_name 161.35.78.95 purbeurre.nicolasvallet.dev;
     root /home/nicolas/purbeurre/;
 
     location /static {
