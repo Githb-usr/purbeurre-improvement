@@ -14,10 +14,6 @@ from food.search_parser import SearchParser
 from food.settings import NUTRIENT_LEVELS
 from users.models import Substitute
 
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
 def small_search_form(request):
     """
        We display the small search form in all navbar of all pages.
@@ -72,7 +68,7 @@ def show_search_result(request):
     
         # If there are any matches, we send them to the template
         if len(product_search_by_name) > 0:
-            logger.info('New valid search by name', exc_info=True, extra={
+            logging.info('New valid search by name', exc_info=True, extra={
                 # Optionally pass a request and we'll grab any information we can
                 'request': request,
             })
@@ -84,7 +80,7 @@ def show_search_result(request):
                 })
         # If the user has entered a barcode
         elif product_search_by_barcode:
-            logger.info('New valid search by barcode', exc_info=True, extra={
+            logging.info('New valid search by barcode', exc_info=True, extra={
                 # Optionally pass a request and we'll grab any information we can
                 'request': request,
             })
@@ -95,7 +91,7 @@ def show_search_result(request):
                 'query': query
                 })
 
-    logger.info('New invalid search', exc_info=True, extra={
+    logging.info('New invalid search', exc_info=True, extra={
         # Optionally pass a request and we'll grab any information we can
         'request': request,
     })
