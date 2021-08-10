@@ -68,7 +68,7 @@ def show_search_result(request):
     
         # If there are any matches, we send them to the template
         if len(product_search_by_name) > 0:
-            logging.error('New valid search by name', exc_info=True, extra={
+            logging.info('New valid search by name', exc_info=True, extra={
                 # Optionally pass a request and we'll grab any information we can
                 'request': request,
             })
@@ -80,7 +80,7 @@ def show_search_result(request):
                 })
         # If the user has entered a barcode
         elif product_search_by_barcode:
-            logging.error('New valid search by barcode', exc_info=True, extra={
+            logging.info('New valid search by barcode', exc_info=True, extra={
                 # Optionally pass a request and we'll grab any information we can
                 'request': request,
             })
@@ -91,7 +91,7 @@ def show_search_result(request):
                 'query': query
                 })
 
-    logging.error('New invalid search', exc_info=True, extra={
+    logging.info('New invalid search', exc_info=True, extra={
         # Optionally pass a request and we'll grab any information we can
         'request': request,
     })
