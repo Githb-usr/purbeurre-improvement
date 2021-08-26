@@ -8,7 +8,7 @@ from food.models import Product
 
 class LargeSearchForm(forms.Form):
     """
-        Large search engine form on the home page
+    Large search engine form on the home page
     """
     query = forms.CharField(label="", max_length=100)
     query.widget.attrs.update({
@@ -21,13 +21,13 @@ class LargeSearchForm(forms.Form):
 
     def clean_search(self):
         """
-            Cleaning of received data
+        Cleaning of received data
         """
         return self.cleaned_data['query']
 
 class SmallSearchForm(forms.Form):
     """
-        Small search engine for the navigation bar
+    Small search engine for the navigation bar
     """
     query = forms.CharField(label="", max_length=100)
     query.widget.attrs.update({
@@ -40,15 +40,14 @@ class SmallSearchForm(forms.Form):
 
     def clean_search(self):
         """
-            Cleaning of received data
+        Cleaning of received data
         """
         return self.cleaned_data['query']
     
 
-class FoodForm(ModelForm):
+class CommentForm(ModelForm):
     """
-        xxx
+    xxx
     """
     class Meta:
-        model = Product
-        fields = ['designation', 'brand', 'barcode', 'nutriscore', 'url']
+        pass

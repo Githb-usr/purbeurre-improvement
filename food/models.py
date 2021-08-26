@@ -7,7 +7,7 @@ from django.urls import reverse
 
 class Product(models.Model):
     """
-        Model of the "food_product" table in the database
+    Model of the "food_product" table in the database
     """
     designation = models.CharField(max_length=250)
     barcode = models.CharField(max_length=13)
@@ -75,7 +75,7 @@ class Product(models.Model):
 
 class Category(models.Model):
     """
-        Model of the "food_category" table in the database
+    Model of the "food_category" table in the database
     """
     designation = models.CharField(max_length=150, unique=True)
     products = models.ManyToManyField(Product, related_name='categories')
@@ -88,7 +88,7 @@ class Category(models.Model):
 
 class Store(models.Model):
     """
-        Model of the "food_store" table in the database
+    Model of the "food_store" table in the database
     """
     designation = models.CharField(max_length=200, unique=True)
     products = models.ManyToManyField(Product, related_name='stores')
@@ -98,3 +98,13 @@ class Store(models.Model):
 
     class Meta:
         verbose_name_plural = "stores"
+        
+class Comment(models.Model):
+    """
+    Model of the "food_comment" table in the database
+    """
+    content = models.TextField()
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    deletion_date = models.DateTimeField(default=None)
