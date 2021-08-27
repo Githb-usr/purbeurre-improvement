@@ -92,6 +92,15 @@
             </div>
         </div>
     </section>
+    <hr class="separator">
+    <section class="comments-section">
+        <h3 class="comment-form-title">Laisser un commentaire</h3>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <button>OK</button>
+        </form>
+    </section>
 </main>
 {% endblock content %}
 {% block contact %}{% endblock contact %}

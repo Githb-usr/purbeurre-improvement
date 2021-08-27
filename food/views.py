@@ -115,6 +115,9 @@ def show_product_detail(request, barcode):
         'nutriment_data': nutriment_level_data
         })
 
+def show_product_comments(request, barcode):
+    pass
+
 def show_substitute_choice_list(request, barcode):
     """
         We display products that are healthier than the product selected by the user.
