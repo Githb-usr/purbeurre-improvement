@@ -103,7 +103,7 @@ class Comment(models.Model):
     """
     Model of the "food_comment" table in the database
     """
-    content = models.TextField()
+    content = models.TextField(verbose_name='')
     user = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='comments')
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='comments')
     creation_date = models.DateTimeField(auto_now_add=True)
@@ -113,4 +113,4 @@ class Comment(models.Model):
         return 'Commentaire {} de {}'.format(self.content, self.user)
 
     class Meta:
-        ordering = ['created_on']
+        ordering = ['creation_date']
