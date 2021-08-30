@@ -107,10 +107,11 @@ class Comment(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='comments')
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='comments')
     creation_date = models.DateTimeField(auto_now_add=True)
-    deletion_date = models.DateTimeField(default=None)
+    deletion_date = models.DateTimeField(null=True, default=None)
 
     def __str__(self):
         return 'Commentaire {} de {}'.format(self.content, self.user)
 
+    
     class Meta:
-        ordering = ['creation_date']
+        ordering = ['-creation_date']
