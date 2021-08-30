@@ -8,7 +8,7 @@ from django.views.generic import TemplateView, ListView
 import logging
 
 from food.database_service import DatabaseService
-from food.forms import SmallSearchForm, LargeSearchForm
+from food.forms import SmallSearchForm, LargeSearchForm, CommentForm
 from food.models import Product, Category, Store
 from food.search_parser import SearchParser
 from food.settings import NUTRIENT_LEVELS
@@ -109,14 +109,29 @@ def show_product_detail(request, barcode):
     """
     product_detail = get_object_or_404(Product, barcode=barcode)
     nutriment_level_data = determine_nutriment_level_data(product_detail)
+    
+    comments = product_detail.comments.filter(deletion_date=None)
+    new_comment = None
+    
+    # Comment posted
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.product_detail = product_detail
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
 
     return render(request, 'food/product_detail.html', {
         'product_detail': product_detail,
-        'nutriment_data': nutriment_level_data
+        'nutriment_data': nutriment_level_data,
+        'new_comment': new_comment,
+        'comment_form': comment_form
         })
-
-def show_product_comments(request, barcode):
-    pass
 
 def show_substitute_choice_list(request, barcode):
     """
