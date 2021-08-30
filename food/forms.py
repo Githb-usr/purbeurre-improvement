@@ -4,6 +4,7 @@
 from django import forms
 from django.forms import ModelForm
 
+from food.models import Comment
 from food.models import Product
 
 class LargeSearchForm(forms.Form):
@@ -45,9 +46,10 @@ class SmallSearchForm(forms.Form):
         return self.cleaned_data['query']
     
 
-class CommentForm(ModelForm):
+class CommentForm(forms.ModelForm):
     """
     Users can write a comment on a product detail sheet
     """
     class Meta:
-        pass
+        model = Comment
+        fields = ('content')
