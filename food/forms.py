@@ -47,7 +47,7 @@ class SmallSearchForm(forms.Form):
 
 class CommentForm(ModelForm):
     """
-    xxx
+    Users can write a comment on a product detail sheet
     """
     class Meta:
         pass

@@ -104,7 +104,13 @@ class Comment(models.Model):
     Model of the "food_comment" table in the database
     """
     content = models.TextField()
-    user = models.ForeignKey('users.User', on_delete=models.CASCADE)
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='comments')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='comments')
     creation_date = models.DateTimeField(auto_now_add=True)
     deletion_date = models.DateTimeField(default=None)
+
+    def __str__(self):
+        return 'Commentaire {} de {}'.format(self.content, self.user)
+
+    class Meta:
+        ordering = ['created_on']
