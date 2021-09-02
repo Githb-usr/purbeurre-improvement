@@ -116,12 +116,13 @@ function addComment(productId, content) {
     .then((response) => {
         const statusCode = response.status;
         if (statusCode === 201) {
-            console.log("Good")
+            console.log("Good");
             location.reload();
+            commentContent = "";
             
         } else {
             // Do nothing
-            console.log("Error")
+            console.log("Error");
         }
     })
 }
@@ -149,6 +150,6 @@ $(document).ready(function() {
 
     $(".comment-form").submit(function(e){
         e.preventDefault();
+        $(".comment-form")[0].reset();
     });
 });
-
