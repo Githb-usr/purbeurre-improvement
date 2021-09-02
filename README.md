@@ -1,23 +1,20 @@
 # ORIGIN #
 This project is an exercise done as part of an OpenClassrooms training course for developers in the Python language.
-It corresponds to project 10 of the training.
+It corresponds to project 11 of the training.
 
-# GOAL OF THE PROJECT 10 #
-Project 10 aims to deploy Project 8 on a blank Ubuntu server.
+# GOAL OF THE PROJECT 11 #
+Project 11 aims to improve an existing project, in this case project 10, by fixing a bug and creating a new feature.
 
 # GOAL OF THE APPLICATION #
-This application makes it possible to choose a food for which one wishes to obtain a better quality substitute, in order to improve one's diet. It's based on the Open Food Facts database. It's a free and collaborative database referencing food products from all over the world.
+This application makes it possible to choose a food for which one wishes to obtain a better quality substitute, in order to improve one's diet. It's based on the Open Food Facts database. Open Food Facts is a free and collaborative database referencing food products from all over the world.
 
 The Open Food Facts website (FR): https://fr.openfoodfacts.org/
 
-To see the full Readme of the project 8 : https://github.com/Githb-usr/purbeurre
+To see the full Readme of the project 10 : https://github.com/Githb-usr/purbeurre-deployment
 
 # GUIDELINES #
-* Use continuous integration (we choose Travis here)
-* Perform a console line deployment.
-* Use Sentry to read all logs and NewRelic to monitor the application.
-* Create a Cron task that will update the items retrieved from Open Food Facts once a week.
-* Buy a domain name and link it to the server (optional).
+* The source code is on Github and has a consistent commit history.
+* The new functionality includes unit and functional tests.
 * Code written entirely in English: functions, variables, comments, etc.
 * Use an agile project methodology to work in project mode.
 
