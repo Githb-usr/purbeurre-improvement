@@ -125,8 +125,7 @@ def show_product_detail(request, barcode):
 @login_required()
 def add_comment(request):
     """
-    We save a user's comment on the detailed sheet of a product.
-    :param barcode: the barcode of the detailed product
+    We save a user's comment on the detailed page of a product.
     """    
     if request.method == "POST":
         # We get the data
@@ -141,8 +140,9 @@ def add_comment(request):
         new_comment.save()       
         # We add a confirmation message
         messages.success(request, SAVE_COMMENT_MSG)
-        # xxx from the database generates a status code 201
+        # Adding the comment to the database generates a status code 201
         return HttpResponse(status=201)
+    return HttpResponse(status=400)
 
 def show_substitute_choice_list(request, barcode):
     """

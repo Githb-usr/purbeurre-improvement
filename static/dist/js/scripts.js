@@ -118,7 +118,6 @@ function addComment(productId, content) {
         if (statusCode === 201) {
             console.log("Good");
             location.reload();
-            commentContent = "";
             
         } else {
             // Do nothing
