@@ -1,24 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.urls import reverse
 from django.views.generic import TemplateView, ListView
+import json
 import logging
 
 from food.database_service import DatabaseService
-from food.forms import SmallSearchForm, LargeSearchForm
-from food.models import Product, Category, Store
+from food.forms import SmallSearchForm, LargeSearchForm, CommentForm
+from food.models import Product, Category, Store, Comment
 from food.search_parser import SearchParser
-from food.settings import NUTRIENT_LEVELS
+from food.settings import NUTRIENT_LEVELS, SAVE_COMMENT_MSG, NOT_SAVE_COMMENT_MSG
 from users.models import Substitute
 
 def small_search_form(request):
     """
-       We display the small search form in all navbar of all pages.
-       (through the context_processors in config/settings.py)
-       :return: a dictionary
+    We display the small search form in all navbar of all pages.
+    (through the context_processors in config/settings.py)
+    :return: a dictionary
     """
     small_search_form = SmallSearchForm()
 
@@ -26,8 +30,8 @@ def small_search_form(request):
 
 def show_index(request):
     """
-        We display the homepage of the application
-        :return: a template
+    We display the homepage of the application
+    :return: a template
     """
     large_search_form = LargeSearchForm()
 
@@ -35,8 +39,8 @@ def show_index(request):
 
 def show_search_result(request):
     """
-        We display the products that match the user's search for a product to replace.
-        :return: a template with product(s) data do display
+    We display the products that match the user's search for a product to replace.
+    :return: a template with product(s) data do display
     """
     searchParser = SearchParser()
     # We get the product name entered by the user
@@ -103,23 +107,48 @@ def show_search_result(request):
         
 def show_product_detail(request, barcode):
     """
-        We display the detailed sheet of a product.
-        :param barcode: the barcode of the product to display
-        :return: a template with the product data to display
+    We display the detailed sheet of a product.
+    :param barcode: the barcode of the product to display
+    :return: a template with the product data to display
     """
     product_detail = get_object_or_404(Product, barcode=barcode)
     nutriment_level_data = determine_nutriment_level_data(product_detail)
+    
+    comment_form = CommentForm()
 
     return render(request, 'food/product_detail.html', {
         'product_detail': product_detail,
-        'nutriment_data': nutriment_level_data
+        'nutriment_data': nutriment_level_data,
+        'comment_form': comment_form
         })
+
+@login_required()
+def add_comment(request):
+    """
+    We save a user's comment on the detailed sheet of a product.
+    :param barcode: the barcode of the detailed product
+    """    
+    if request.method == "POST":
+        # We get the data
+        body = json.loads(request.body.decode("utf-8"))
+        # Create Comment object but don't save to database yet
+        new_comment = Comment(
+            content=body['content'],
+            product_id=body['productId'],
+            user_id=request.user.id
+        )
+        # Save the comment to the database
+        new_comment.save()       
+        # We add a confirmation message
+        messages.success(request, SAVE_COMMENT_MSG)
+        # xxx from the database generates a status code 201
+        return HttpResponse(status=201)
 
 def show_substitute_choice_list(request, barcode):
     """
-        We display products that are healthier than the product selected by the user.
-        :param barcode: the barcode of the product to replace by a substitute
-        :return: a template with substitute(s) data do display
+    We display products that are healthier than the product selected by the user.
+    :param barcode: the barcode of the product to replace by a substitute
+    :return: a template with substitute(s) data do display
     """
     initial_product = get_object_or_404(Product, barcode=barcode)
     initial_product_categories = initial_product.categories.all()
@@ -166,10 +195,10 @@ def show_substitute_choice_list(request, barcode):
 
 def determine_level_data(level):
     """
-        We convert the 2-letter code into French words and colour.
-        :param level: the original string of level data in Open Food Facts database
-        :return: a dictionary with french string of level and the corresponding colour
-        :rtype: dict()
+    We convert the 2-letter code into French words and colour.
+    :param level: the original string of level data in Open Food Facts database
+    :return: a dictionary with french string of level and the corresponding colour
+    :rtype: dict()
     """
     level_data = {}
     if level == 'LO':
@@ -186,11 +215,11 @@ def determine_level_data(level):
 
 def determine_nutriment_level_data(product):
     """
-        We associate product nutrients with their level information.
-        This information will be used on the template proposing the detailed product sheet.
-        :param product: one product object
-        :return: a dictionary with all nutriments data of the product.
-        :rtype: dict()
+    We associate product nutrients with their level information.
+    This information will be used on the template proposing the detailed product sheet.
+    :param product: one product object
+    :return: a dictionary with all nutriments data of the product.
+    :rtype: dict()
     """
     nutriment_level_data = {}
     if product.fat_level:

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -18,8 +17,8 @@ from users.settings import REGISTRATION_ALERT_SUCCESS_MSG, LOGIN_ALERT_SUCCESS_M
 
 def registrationView(request):
     """
-        We display the registration form
-        :return: a template the registration form
+    We display the registration form
+    :return: a template the registration form
     """
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -35,8 +34,8 @@ def registrationView(request):
 
 def loginView(request):
     """
-        We display the login form
-        :return: a template with the login form
+    We display the login form
+    :return: a template with the login form
     """
     # request.session['message'] = LOGIN_ALERT_SUCCESS_MSG
     messages.success(request, LOGIN_ALERT_SUCCESS_MSG)
@@ -46,16 +45,16 @@ def loginView(request):
 @login_required()
 def dashboardView(request):
     """
-        We display the user's dashboard
-        :return: a template with the user's informations
+    We display the user's dashboard
+    :return: a template with the user's informations
     """
     return render(request,'users/dashboard.html')
 
 @login_required()
 def saved_substitutes_view(request):
     """
-        We display the substitutes favourites page
-        :return: a template with all the user's favourites
+    We display the substitutes favourites page
+    :return: a template with all the user's favourites
     """
     if request.method == "POST":
         # We get the data corresponding to the user's choice
@@ -122,8 +121,8 @@ def saved_substitutes_view(request):
 @login_required()
 def deleted_substitutes_view(request):
     """
-        We delete a substitute (a favourite)
-        :return: an HTTP response to AJAX
+    We delete a substitute (a favourite)
+    :return: an HTTP response to AJAX
     """
     favourites = Substitute.objects.all()
 
