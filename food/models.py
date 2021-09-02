@@ -112,6 +112,5 @@ class Comment(models.Model):
     def __str__(self):
         return 'Commentaire {} de {}'.format(self.content, self.user)
 
-    
     class Meta:
         ordering = ['-creation_date']

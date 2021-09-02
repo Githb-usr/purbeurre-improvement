@@ -4,8 +4,6 @@
 from django.contrib.auth.views import LoginView,LogoutView
 from django.urls import path
 
-from users.settings import LOGIN_ALERT_SUCCESS_MSG, LOGOUT_MSG
-
 from . import views
 
 urlpatterns = [
