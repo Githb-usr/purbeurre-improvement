@@ -63,12 +63,17 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 // AJAX for delete a user favourite
 function deleteSubstitute(id) {
     const myHeaders = new Headers();
     myHeaders.append("X-CSRFToken", getCookie('csrftoken'));
     myHeaders.append("Content-Type", "application/json");
-    const request = new Request('/user/delete_substitutes/', {method: 'POST', headers: myHeaders, body: {substituteId: id}}) 
 
     fetch('/user/delete_substitutes/', {
         method: 'POST',
@@ -94,10 +99,36 @@ function deleteSubstitute(id) {
     })
 }
 
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+// AJAX for add a comment
+function addComment(productId, content) {
+    const myHeaders = new Headers();
+    myHeaders.append("X-CSRFToken", getCookie('csrftoken'));
+    myHeaders.append("Content-Type", "application/json");
+
+    fetch('/add_comment/', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken'),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({productId, content})
+    })
+    .then((response) => {
+        const statusCode = response.status;
+        if (statusCode === 201) {
+            console.log("Good")
+            location.reload();
+            
+        } else {
+            // Do nothing
+            console.log("Error")
+        }
+    })
+}
+
+// We prevent the forms from being resubmitted when the page is refresh
+if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
 }
 
 $(document).ready(function() { 
@@ -109,9 +140,15 @@ $(document).ready(function() {
     $(".delete-form").submit(function(e){
         e.preventDefault();
     });
+
+    $( ".btn-comment" ).click(function() {
+        const productId = $("input[name=product-id]").val();
+        const content = $("textarea[name=content]").val();
+        addComment(productId, content)
+    });
+
+    $(".comment-form").submit(function(e){
+        e.preventDefault();
+    });
 });
 
-// We prevent the forms from being resubmitted when the page is refresh
-if ( window.history.replaceState ) {
-    window.history.replaceState( null, null, window.location.href );
-}
