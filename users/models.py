@@ -8,7 +8,7 @@ from django.db import models
 class UserManager(BaseUserManager):
     def create_user(self, username, first_name, last_name, email, password=None):
         """
-            Managing the creation of a user from the registration form
+        Managing the creation of a user from the registration form
         """
         if not email:
             raise ValueError('Vous devez entrer un email valide')
@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     """
-        Model of the "users_user" table in the database
+    Model of the "users_user" table in the database
     """
     # Names
     username = models.CharField(max_length=30, unique=True, verbose_name='Pseudonyme')
@@ -66,7 +66,7 @@ class User(AbstractUser):
 
 class Substitute(models.Model):
     """
-        Model of the "users_substitute" table in the database
+    Model of the "users_substitute" table in the database
     """
     initial_product = models.ForeignKey('food.Product', related_name='initial_product', on_delete=models.CASCADE)
     substituted_product = models.ForeignKey('food.Product', related_name='substituted_product', on_delete=models.CASCADE)

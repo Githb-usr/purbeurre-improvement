@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-    Settings file
-    To manage food application constants
+Settings file
+To manage food application constants
 """
 
 # Basic url for connecting to the Open Food Facts API
@@ -34,3 +34,6 @@ NUTRIENT_LEVELS = {
         'MO': 'quantité modérée',
         'HI': 'quantité élevée'
     }
+
+SAVE_COMMENT_MSG = "Votre commentaire a bien été enregistré !"
+NOT_SAVE_COMMENT_MSG = "Votre commentaire n'est pas valide et n'a pas été sauvegardé."
