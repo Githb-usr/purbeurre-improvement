@@ -11061,7 +11061,7 @@ header.masthead h1, header.masthead .h1 {
   background: red;
 }
 
-i.bi {
+i.comment-message {
   margin-right: 0.5rem;
 }
 
@@ -11829,6 +11829,10 @@ footer, footer a {
 
   .btn-comment {
     margin-bottom: 2.5rem;
+  }
+
+  h3.comment-form-title, .comment-form-title.h3 {
+    font-size: 1.1rem;
   }
 
   .pagination-comment-top {
