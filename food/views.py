@@ -117,9 +117,10 @@ def show_product_detail(request, barcode):
     # Comments
     comment_form = CommentForm()
     # Using the values() method to obtain a dictionary containing the username in addition to the comment data
-    product_comments = Comment.objects.filter(product__barcode=barcode).values(
+    product_comments = Comment.objects.filter(product__barcode=barcode).filter(deletion_date__isnull=True).values(
         'content',
         'creation_date',
+        'user_id',
         'user__username'
     )
 
