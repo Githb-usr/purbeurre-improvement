@@ -10990,7 +10990,6 @@ header.masthead h1, header.masthead .h1 {
 .product-detail-image {
   height: 100%;
   width: 100%;
-  object-fit: contain;
 }
 
 .product-detail-data {
@@ -11062,6 +11061,52 @@ header.masthead h1, header.masthead .h1 {
   background: red;
 }
 
+i.bi {
+  margin-right: 0.5rem;
+}
+
+hr.separator, .comment-separator {
+  margin: 1rem 0;
+  color: #C45525;
+}
+
+hr.separator {
+  margin: 2.5rem 0;
+  height: 0.2rem;
+}
+
+.comment-separator {
+  margin: 1rem auto;
+  width: 96%;
+}
+
+.btn-comment {
+  color: #f3f3f3;
+  text-decoration: none;
+}
+
+.pagination-comment-top {
+  margin-bottom: 2rem;
+}
+
+.pagination-comment-bottom {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+h3.comment-title, .comment-title.h3 {
+  margin-bottom: 1rem;
+}
+
+.comment-data {
+  margin-bottom: 0.6rem;
+}
+
+.comment-user {
+  font-size: large;
+  font-weight: bold;
+}
+
 .product-list-intro-section {
   margin-bottom: 2rem;
   font-size: 1.3rem;
@@ -11110,7 +11155,6 @@ main section div div .card-body {
 .product-img {
   height: 19rem;
   width: 100%;
-  object-fit: contain;
   margin: 0 auto;
   padding: 1rem;
 }
