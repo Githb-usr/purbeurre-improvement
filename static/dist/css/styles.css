@@ -11080,6 +11080,10 @@ hr.separator {
   width: 96%;
 }
 
+textarea#id_content {
+  width: 75%;
+}
+
 .btn-comment {
   color: #f3f3f3;
   text-decoration: none;
@@ -11810,6 +11814,31 @@ footer, footer a {
     margin-bottom: 1rem;
     justify-content: center;
   }
+
+  hr.separator {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  .comment-separator {
+    width: 94%;
+  }
+
+  textarea#id_content {
+    width: 100%;
+  }
+
+  .btn-comment {
+    margin-bottom: 2.5rem;
+  }
+
+  .pagination-comment-top {
+    margin-bottom: 2rem;
+  }
+
+  .pagination-comment-bottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 }
 /* ******************** */
 /* Responsive : tablets */
@@ -12075,5 +12104,30 @@ footer, footer a {
     width: 50%;
     margin-bottom: 1rem;
     justify-content: center;
+  }
+
+  hr.separator {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  .comment-separator {
+    width: 94%;
+  }
+
+  textarea#id_content {
+    width: 100%;
+  }
+
+  .btn-comment {
+    margin-bottom: 2.5rem;
+  }
+
+  .pagination-comment-top {
+    margin-bottom: 2rem;
+  }
+
+  .pagination-comment-bottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 }
