@@ -114,13 +114,40 @@ def show_product_detail(request, barcode):
     product_detail = get_object_or_404(Product, barcode=barcode)
     nutriment_level_data = determine_nutriment_level_data(product_detail)
     
+    # Comments
     comment_form = CommentForm()
+    # Using the values() method to obtain a dictionary containing the username in addition to the comment data
+    product_comments = Comment.objects.filter(product__barcode=barcode).values(
+        'content',
+        'creation_date',
+        'user__username'
+    )
 
+    paginator = Paginator(product_comments, 5)
+    page_number = request.GET.get('page', 1)
+    
+    try:
+        page_obj = paginator.get_page(page_number)  # returns the desired page object
+    except PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if page is empty then return last page
+        page_obj = paginator.page(paginator.num_pages)
+
+    if product_comments:
+        return render(request, 'food/product_detail.html', {
+            'product_detail': product_detail,
+            'nutriment_data': nutriment_level_data,
+            'comment_form': comment_form,
+            'product_comments': page_obj
+            })
+        
     return render(request, 'food/product_detail.html', {
-        'product_detail': product_detail,
-        'nutriment_data': nutriment_level_data,
-        'comment_form': comment_form
-        })
+            'product_detail': product_detail,
+            'nutriment_data': nutriment_level_data,
+            'comment_form': comment_form,
+            })
 
 @login_required()
 def add_comment(request):
