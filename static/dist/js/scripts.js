@@ -126,6 +126,36 @@ function addComment(productId, content) {
     })
 }
 
+// AJAX for delete a user comment
+function deleteComment(id) {
+    const myHeaders = new Headers();
+    myHeaders.append("X-CSRFToken", getCookie('csrftoken'));
+    myHeaders.append("Content-Type", "application/json");
+
+    fetch('/delete_comment/', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken'),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({commentId: id})
+    })
+    .then((response) => {
+        const statusCode = response.status;
+        if (statusCode === 204) {
+            console.log("Good")
+            location.reload();
+            
+        } else if (statusCode === 301) {
+            // Do nothing
+            console.log("301")
+        } else if (statusCode === 404) {
+            console.log("404")
+            alert("Le produit n'a pas pu être supprimé !")
+        }
+    })
+}
+
 // We prevent the forms from being resubmitted when the page is refresh
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
@@ -134,7 +164,7 @@ if ( window.history.replaceState ) {
 $(document).ready(function() { 
     $( ".btn-delete" ).click(function() {
         const substituteId = $(this).attr('id');
-        deleteSubstitute(substituteId)
+        deleteSubstitute(substituteId);
     });
 
     $(".delete-form").submit(function(e){
@@ -144,11 +174,20 @@ $(document).ready(function() {
     $( ".btn-comment" ).click(function() {
         const productId = $("input[name=product-id]").val();
         const content = $("textarea[name=content]").val();
-        addComment(productId, content)
+        addComment(productId, content);
     });
 
     $(".comment-form").submit(function(e){
         e.preventDefault();
         $(".comment-form")[0].reset();
+    });
+
+    $( ".btn-delete-comment" ).click(function() {
+        const commentId = $(this).attr('id');
+        deleteComment(commentId);
+    });
+
+    $(".comment-delete-form").submit(function(e){
+        e.preventDefault();
     });
 });
