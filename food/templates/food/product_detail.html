@@ -153,13 +153,13 @@
                                 {{ comment.content }}
                             </div>
                             <div class="row comment-footer">
-                                <div class="col-10 comment-date">
+                                <div class="col-lg-10 col-md-10 col-sm-1 comment-date">
                                     le {{ comment.creation_date|date:"d/m/Y, H:i" }}
                                 </div>
                                 {% if comment.user_id == user.id %}
-                                    <div class="col-2 comment-delete-btn">
+                                    <div class="col-lg-2 col-md-2 col-sm-1 comment-delete-btn">
                                         <form class="comment-delete-form">
-                                            <button type="submit" class="d-flex justify-content-center align-items-center btn btn-link btn-delete-comment"
+                                            <button type="submit" id="{{ comment.id }}" class="d-flex justify-content-center align-items-center btn btn-link btn-delete-comment"
                                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer ce commentaire">
                                                 Supprimer
                                             </button>
