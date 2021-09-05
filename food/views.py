@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -15,7 +16,7 @@ from food.database_service import DatabaseService
 from food.forms import SmallSearchForm, LargeSearchForm, CommentForm
 from food.models import Product, Category, Store, Comment
 from food.search_parser import SearchParser
-from food.settings import NUTRIENT_LEVELS, SAVE_COMMENT_MSG, NOT_SAVE_COMMENT_MSG
+from food.settings import NUTRIENT_LEVELS, SAVE_COMMENT_MSG, NOT_SAVE_COMMENT_MSG, DELETE_COMMENT_MSG
 from users.models import Substitute
 
 def small_search_form(request):
@@ -118,6 +119,7 @@ def show_product_detail(request, barcode):
     comment_form = CommentForm()
     # Using the values() method to obtain a dictionary containing the username in addition to the comment data
     product_comments = Comment.objects.filter(product__barcode=barcode).filter(deletion_date__isnull=True).values(
+        'id',
         'content',
         'creation_date',
         'user_id',
@@ -171,6 +173,31 @@ def add_comment(request):
         # Adding the comment to the database generates a status code 201
         return HttpResponse(status=201)
     return HttpResponse(status=400)
+
+@login_required()
+def delete_comment(request):
+    """
+    Delete own comment on the detailed page of a product.
+    """
+    if request.method == "POST":
+        # We get the data corresponding to the user's choice
+        body = json.loads(request.body.decode("utf-8"))
+        comment_id = body['commentId']
+        comment = get_object_or_404(Comment, pk=comment_id)
+
+        # If the substitute to be deleted exists, it is deleted
+        if comment:
+            Comment.objects.filter(pk=comment_id).update(deletion_date=datetime.datetime.today())
+            # We add a confirmation message
+            messages.success(request, DELETE_COMMENT_MSG)
+            # Deleting the substitute from the database generates a status code 204
+            return HttpResponse(status=204)
+        else:
+            # If the substitute does not exist in the database, a 404 status code is generated
+            return HttpResponse(status=404)
+
+    # If it's a GET, it simply displays the page with the favourites already saved.
+    return redirect('substitutes', permanent=True)
 
 def show_substitute_choice_list(request, barcode):
     """
