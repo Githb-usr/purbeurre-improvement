@@ -124,8 +124,6 @@ def deleted_substitutes_view(request):
     We delete a substitute (a favourite)
     :return: an HTTP response to AJAX
     """
-    favourites = Substitute.objects.all()
-
     if request.method == "POST":
         # We get the data corresponding to the user's choice
         body = json.loads(request.body.decode("utf-8"))

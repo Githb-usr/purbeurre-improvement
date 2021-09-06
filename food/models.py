@@ -110,7 +110,7 @@ class Comment(models.Model):
     deletion_date = models.DateTimeField(null=True, default=None)
 
     def __str__(self):
-        return 'Commentaire {} de {}'.format(self.content, self.user)
+        return 'Commentaire de {}'.format(self.user)
 
     class Meta:
         ordering = ['-creation_date']
