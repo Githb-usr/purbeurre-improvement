@@ -68,11 +68,6 @@ class BaseTest(TestCase):
         self.category2.products.add(Product.objects.get(barcode=8000500310427))
         self.category2.products.add(Product.objects.get(barcode=7613034626844))
         
-        self.content_ok = {
-            'content': 'Commentaire de test',
-            'productId': self.initial_product.pk
-        }
-        
         return super().setUp()
 
 class IndexPageTestCase(BaseTest):
@@ -88,17 +83,6 @@ class ProductDetailPageTestCase(BaseTest):
     def test_product_detail_page_returns_404(self):
         response = self.client.get(reverse('product_detail', args=(self.initial_product.designation,)))
         self.assertEqual(response.status_code, 404)
-
-class AddCommentTestCase(BaseTest):
-    def test_add_comment_returns_201(self):
-        self.client.force_login(self.user1)
-        response = self.client.post('/add_comment/', self.content_ok)
-        print('TOTO', self.user1.id)
-        self.assertEqual(response.status_code, 201)
-
-    # def test_add_comment_in_database(self):
-    #     response = self.client.get(reverse('substitute_list', args=(self.initial_product.barcode,)))
-    #     self.assertEqual(response.status_code, 201)
 
 class SearchResultPageTestCase(BaseTest):
     def test_search_result_name_success(self):
