@@ -5,4 +5,7 @@ __pycache__
 env/
 envp10/
 get-pip.py
+static/node_modules/
+static/scripts/
+static/src/
 staticfiles/
