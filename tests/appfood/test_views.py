@@ -4,9 +4,10 @@
 from django.contrib.auth import get_user_model
 from django.test import Client, SimpleTestCase, TestCase
 from django.urls import reverse
+import json
 
 from food.forms import SmallSearchForm, LargeSearchForm
-from food.models import Product, Category
+from food.models import Product, Category, Comment
 from food.views import determine_level_data, determine_nutriment_level_data
 from users.models import User
 
@@ -21,6 +22,7 @@ class BaseTest(TestCase):
             username='testuser',
             password='12test12',
             )
+        self.user1 = User.objects.get(email='user@test.com')
 
         self.created_product_pk1 = Product.objects.create(
                 designation='Nutella biscuits',
@@ -60,11 +62,28 @@ class BaseTest(TestCase):
 
         self.category1 = Category.objects.create(designation='Biscuits au chocolat')
         self.category2 = Category.objects.create(designation='Produits à tartiner sucrés')
-        
+
         self.category1.products.add(Product.objects.get(barcode=8000500310427))
         self.category1.products.add(Product.objects.get(barcode=7613034626844))
         self.category2.products.add(Product.objects.get(barcode=8000500310427))
         self.category2.products.add(Product.objects.get(barcode=7613034626844))
+
+        self.comment_data_1 = {
+            'content': 'Commentaire de test',
+            'productId': self.initial_product.pk
+        }
+
+        self.comment_data_2 = {
+            'content': 'Test',
+            'productId': self.initial_product.pk
+        }
+
+        self.created_comment = Comment.objects.create(
+            content=self.comment_data_2['content'],
+            product_id=self.comment_data_2['productId'],
+            user_id=self.user1.pk
+        )
+        self.test_comment = Comment.objects.get(content=self.created_comment.content)
         
         return super().setUp()
 
@@ -82,6 +101,24 @@ class ProductDetailPageTestCase(BaseTest):
         response = self.client.get(reverse('product_detail', args=(self.initial_product.designation,)))
         self.assertEqual(response.status_code, 404)
 
+class AddCommentTestCase(BaseTest):
+    def test_add_comment_returns_201(self):
+        self.client.force_login(self.user1)
+        json_data = json.dumps(self.comment_data_1)
+        response = self.client.post('/add_comment/', json_data, content_type='application/json', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        comment = Comment.objects.all()
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(comment[0].content, 'Commentaire de test')
+
+class DeleteCommentTestCase(BaseTest):
+    def test_delete_comment_returns_200(self):
+        self.client.force_login(self.user1)
+        json_data = json.dumps({'commentId': self.test_comment.pk})
+        response = self.client.post('/delete_comment/', json_data, content_type='application/json', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        comment = Comment.objects.get(pk=self.test_comment.pk)
+        self.assertEqual(response.status_code, 200)
+        self.assertNotEqual(comment.deletion_date, None)
+        
 class SearchResultPageTestCase(BaseTest):
     def test_search_result_name_success(self):
         response = self.client.post('/product_list/?query=chocapic')

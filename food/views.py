@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import copy
+import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -15,7 +17,7 @@ from food.database_service import DatabaseService
 from food.forms import SmallSearchForm, LargeSearchForm, CommentForm
 from food.models import Product, Category, Store, Comment
 from food.search_parser import SearchParser
-from food.settings import NUTRIENT_LEVELS, SAVE_COMMENT_MSG, NOT_SAVE_COMMENT_MSG
+from food.settings import NUTRIENT_LEVELS, SAVE_COMMENT_MSG, NOT_SAVE_COMMENT_MSG, DELETE_COMMENT_MSG
 from users.models import Substitute
 
 def small_search_form(request):
@@ -59,7 +61,8 @@ def show_search_result(request):
         page_number = request.GET.get('page', 1)
         paginator = Paginator(product_search_by_name, 6)
         # Management of the shortened display of the pagination
-        page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
+        page_range_top = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
+        page_range_bottom = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
         
         try:
             page_obj = paginator.get_page(page_number)  # returns the desired page object
@@ -79,7 +82,8 @@ def show_search_result(request):
 
             return render(request, 'food/product_list.html', {
                 'search_result': page_obj,
-                'page_range': page_range,
+                'page_range_top': page_range_top,
+                'page_range_bottom': page_range_bottom,
                 'query': query
                 })
         # If the user has entered a barcode
@@ -91,7 +95,8 @@ def show_search_result(request):
             
             return render(request, 'food/product_list.html', {
                 'search_result': product_search_by_barcode,
-                'page_range': page_range,
+                'page_range_top': page_range_top,
+                'page_range_bottom': page_range_bottom,
                 'query': query
                 })
 
@@ -114,19 +119,47 @@ def show_product_detail(request, barcode):
     product_detail = get_object_or_404(Product, barcode=barcode)
     nutriment_level_data = determine_nutriment_level_data(product_detail)
     
+    # Comments
     comment_form = CommentForm()
+    # Using the values() method to obtain a dictionary containing the username in addition to the comment data
+    product_comments = Comment.objects.filter(product__barcode=barcode).filter(deletion_date__isnull=True).values(
+        'id',
+        'content',
+        'creation_date',
+        'user_id',
+        'user__username'
+    )
 
+    paginator = Paginator(product_comments, 5)
+    page_number = request.GET.get('page', 1)
+    
+    try:
+        page_obj = paginator.get_page(page_number)  # returns the desired page object
+    except PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if page is empty then return last page
+        page_obj = paginator.page(paginator.num_pages)
+
+    if product_comments:
+        return render(request, 'food/product_detail.html', {
+            'product_detail': product_detail,
+            'nutriment_data': nutriment_level_data,
+            'comment_form': comment_form,
+            'product_comments': page_obj
+            })
+        
     return render(request, 'food/product_detail.html', {
-        'product_detail': product_detail,
-        'nutriment_data': nutriment_level_data,
-        'comment_form': comment_form
-        })
+            'product_detail': product_detail,
+            'nutriment_data': nutriment_level_data,
+            'comment_form': comment_form,
+            })
 
 @login_required()
 def add_comment(request):
     """
-    We save a user's comment on the detailed sheet of a product.
-    :param barcode: the barcode of the detailed product
+    We save a user's comment on the detailed page of a product.
     """    
     if request.method == "POST":
         # We get the data
@@ -141,8 +174,34 @@ def add_comment(request):
         new_comment.save()       
         # We add a confirmation message
         messages.success(request, SAVE_COMMENT_MSG)
-        # xxx from the database generates a status code 201
+        # Adding the comment to the database generates a status code 201
         return HttpResponse(status=201)
+    return HttpResponse(status=400)
+
+@login_required()
+def delete_comment(request):
+    """
+    Delete own comment on the detailed page of a product.
+    """
+    if request.method == "POST":
+        # We get the data corresponding to the user's choice
+        body = json.loads(request.body.decode("utf-8"))
+        comment_id = body['commentId']
+        comment = get_object_or_404(Comment, pk=comment_id)
+
+        # If the comment to be deleted exists, it is updated
+        if comment:
+            Comment.objects.filter(pk=comment_id).update(deletion_date=datetime.datetime.today())
+            # We add a confirmation message
+            messages.success(request, DELETE_COMMENT_MSG)
+            # Update the comment from the database generates a status code 200
+            return HttpResponse(status=200)
+        else:
+            # If the comment does not exist in the database, a 404 status code is generated
+            return HttpResponse(status=404)
+
+    # If it's a GET, it simply displays the page with the favourites already saved.
+    return redirect('substitutes', permanent=True)
 
 def show_substitute_choice_list(request, barcode):
     """
@@ -170,7 +229,8 @@ def show_substitute_choice_list(request, barcode):
         paginator = Paginator(substitute_search, 6)
         page_number = request.GET.get('page', 1)
         # Management of the shortened display of the pagination
-        page_range = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
+        page_range_top = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
+        page_range_bottom = paginator.get_elided_page_range(number=page_number, on_each_side=1, on_ends=1)
         
         try:
             page_obj = paginator.get_page(page_number)  # returns the desired page object
@@ -184,7 +244,8 @@ def show_substitute_choice_list(request, barcode):
         return render(request, 'food/substitute_list.html', {
             'initial_product': initial_product,
             'search_result': page_obj,
-            'page_range': page_range,
+            'page_range_top': page_range_top,
+            'page_range_bottom': page_range_bottom,
             'existing_substitutes': existing_substitutes,
             })
 
