@@ -142,7 +142,7 @@ function deleteComment(id) {
     })
     .then((response) => {
         const statusCode = response.status;
-        if (statusCode === 204) {
+        if (statusCode === 200) {
             console.log("Good")
             location.reload();
             
