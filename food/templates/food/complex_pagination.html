@@ -1,7 +1,7 @@
 <!-- purbeurre/food/templates/food/complex_pagination.html -->
 
 {% if view_data.paginator.num_pages > 1 %}
-    <nav class="d-flex justify-content-center pagination-top">
+    <nav class="d-flex justify-content-center {{ pagination_css }}">
         <span class="d-flex align-items-center step-links">
             {% if view_data.has_previous and view_data.paginator.num_pages > 3 %}
                 {% if view_data.paginator.num_pages > 8 %}

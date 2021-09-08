@@ -32,7 +32,7 @@
             </div>
         </section>
     {% else %}
-        {% include "food/complex_pagination.html" with view_data=search_result %}
+        {% include "food/complex_pagination.html" with view_data=search_result page_range=page_range_top pagination_css="pagination-top" %}
         <section class="product-list-intro-section">
             <div class="main-instructions">
                 <p class="font-weight-bold text-body">
@@ -73,7 +73,7 @@
                 {% endfor %}
             </div>
         </section>
-        {% include "food/complex_pagination.html" with view_data=search_result %}
+        {% include "food/complex_pagination.html" with view_data=search_result page_range=page_range_bottom pagination_css="pagination-bottom" %}
     {% endif %}
 </main>
 {% endblock content %}
