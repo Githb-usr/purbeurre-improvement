@@ -95,12 +95,12 @@
     <hr class="separator" id="comment-anchor">
     <section class="comments-section">
         {% if messages %}
-            <div class="messages alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                {% for message in messages %}
+            {% for message in messages %}
+                <div {% if message.tags %} class="messages alert alert-{{ message.tags }} d-flex align-items-center alert-dismissible fade show" role="alert" {% endif %}>
                     <i class="bi bi-check-circle-fill comment-message"></i>  {{ message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         {% endif %}
         <div class="row comment-area">
             <div class="col-lg-6 col-md-12 col-sm-1">

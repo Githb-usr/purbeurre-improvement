@@ -57,13 +57,13 @@
                             <div class="card-footer d-flex">
                                 <a type="button" href="{% url 'product_detail' barcode=product.barcode %}"
                                    class="d-flex justify-content-center align-items-center btn btn-link btn-detail"
-                                   data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                   name="btn-detail" data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                    title="Afficher les informations sur ce produit">
                                    <i class="bi bi-info-circle card-footer-icon"></i>
                                 </a>
                                 <a type="button" href="{% url 'substitute_list' barcode=product.barcode %}"
                                    class="d-flex justify-content-center align-items-center btn btn-link btn-choice"
-                                   data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   name="btn-choice" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                    title="Afficher les substituts plus sains">
                                    <i class="bi bi-check-circle card-footer-icon"></i>
                                 </a>

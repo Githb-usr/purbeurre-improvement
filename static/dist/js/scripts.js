@@ -120,8 +120,8 @@ function addComment(productId, content) {
             location.reload();
             
         } else {
-            // Do nothing
             console.log("Error");
+            location.reload();
         }
     })
 }
@@ -147,7 +147,6 @@ function deleteComment(id) {
             location.reload();
             
         } else if (statusCode === 301) {
-            // Do nothing
             console.log("301")
         } else if (statusCode === 404) {
             console.log("404")
