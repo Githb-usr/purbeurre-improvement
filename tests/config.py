@@ -22,6 +22,24 @@ USER2_USERNAME = "Robert"
 USER2_FIRSTNAME = "Simon"
 USER2_LASTNAME = "Scott"
 
+# Product for Selenium
+PRODUCT_ATTRIBUTES = {
+    "designation": 'Nutella biscuits',
+    'brand': 'Ferrero',
+    'barcode': '8000500310427',
+    'nutriscore': 'E',
+    'fat_value': 24.5,
+    'fat_level': 'HI',
+    'saturated_fat_value': 11.8,
+    'saturated_fat_level': 'HI',
+    'sugars_value': 34.7,
+    'sugars_level': 'HI',
+    'salt_value': 0.5,
+    'salt_level': 'MO',
+    'url': 'https://fr.openfoodfacts.org/produit/8000500310427/nutella-biscuits-ferrero',
+    'image_url': 'https://images.openfoodfacts.org/images/products/800/050/031/0427/front_fr.97.400.jpg'
+}
+
 # Partial raw data from Open Food Facts API
 OFF_API_RAW_DATA = [
         {
