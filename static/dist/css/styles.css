@@ -11401,6 +11401,18 @@ a:hover {
   color: rgba(255, 255, 255, 0.75) !important;
 }
 
+.alert-success {
+  color: #508d8a;
+  background-color: #e7fbfa;
+  border-color: #dbf9f8;
+}
+
+.alert-error {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
 #pb-img-logo {
   width: 2rem;
   margin-right: 0.5rem;
