@@ -38,3 +38,4 @@ NUTRIENT_LEVELS = {
 SAVE_COMMENT_MSG = "Votre commentaire a bien été enregistré !"
 NOT_SAVE_COMMENT_MSG = "Votre commentaire n'est pas valide et n'a pas été sauvegardé."
 DELETE_COMMENT_MSG = "Votre commentaire a bien été supprimé !"
+LOGIN_FOR_COMMENT_MSG = "Attention ! Vous devez être connecté(e) à votre compte pour pouvoir poster un commentaire !"
