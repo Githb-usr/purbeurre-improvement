@@ -10,7 +10,10 @@ from selenium import webdriver
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.keys import Keys
 
-from tests.config import USER1_EMAIL, USER1_PASSWORD, USER1_USERNAME, USER1_FIRSTNAME, USER1_LASTNAME, USER2_EMAIL, USER2_PASSWORD, USER2_USERNAME, USER2_FIRSTNAME, USER2_LASTNAME
+import time
+
+from food.models import Product, Comment
+from tests.config import USER1_EMAIL, USER1_PASSWORD, USER1_USERNAME, USER1_FIRSTNAME, USER1_LASTNAME, USER2_EMAIL, USER2_PASSWORD, USER2_USERNAME, USER2_FIRSTNAME, USER2_LASTNAME, PRODUCT_ATTRIBUTES
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
@@ -43,6 +46,8 @@ class ChromeFunctionalTestCases(StaticLiveServerTestCase):
             email=USER1_EMAIL,
             password=USER1_PASSWORD,
         )
+        
+        product = Product.objects.create(**PRODUCT_ATTRIBUTES)   
 
     def test_homepage_large_search_form(self):
         """
@@ -58,17 +63,8 @@ class ChromeFunctionalTestCases(StaticLiveServerTestCase):
         search_field.send_keys("nutella")
         search_field.submit()
 
-        # We look at the list of results displayed after the search
-        # using the find_elements_by_class_name method
-        lists= self.driver.find_elements_by_class_name("product-card")
-
-        # We review the elements and return the individual content
-        i = 0
-        for listitem in lists:
-          print (listitem.get_attribute("innerHTML"))
-          i += 1
-          if(i > 2):
-            break
+        class_to_find = self.driver.find_element_by_css_selector("p.card-title")
+        self.assertEqual(class_to_find.text, "Nutella Biscuits")
 
     def test_registration_form(self):
         """

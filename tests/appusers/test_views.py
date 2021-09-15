@@ -4,8 +4,10 @@
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
+import json
 
 from food.models import Product
+from tests.config import INITIAL_PRODUCT_DATA_1, INITIAL_PRODUCT_DATA_2, SUBSTITUTED_PRODUCT_DATA_1, SUBSTITUTED_PRODUCT_DATA_2
 from users.models import User, Substitute
 
 class BaseTest(TestCase):
@@ -62,45 +64,21 @@ class BaseTest(TestCase):
             'password': 'xxxxxxx'
         }
         
-        self.created_product_pk1 = Product.objects.create(
-                designation='Nutella biscuits',
-                barcode='8000500310427',
-                brand='Ferrero',
-                nutriscore='E',
-                fat_value='24.5',
-                fat_level='HI',
-                saturated_fat_value='11.8',
-                saturated_fat_level='HI',
-                sugars_value='34.7',
-                sugars_level='HI',
-                salt_value='0.529',
-                salt_level='MO',
-                url='https://fr.openfoodfacts.org/produit/8000500310427/nutella-biscuits-ferrero',
-                image_url='https://static.openfoodfacts.org/images/products/800/050/031/0427/front_fr.97.400.jpg'
-                ).pk
-        self.initial_product = Product.objects.get(pk=self.created_product_pk1)
+        self.created_product_pk1 = Product.objects.create(**INITIAL_PRODUCT_DATA_1).pk
+        self.initial_product_1 = Product.objects.get(pk=self.created_product_pk1)
         
-        self.created_product_pk2 = Product.objects.create(
-                designation='Chocapic',
-                barcode='7613034626844',
-                brand='Nestlé',
-                nutriscore='B',
-                fat_value='4.6',
-                fat_level='MO',
-                saturated_fat_value='1.3',
-                saturated_fat_level='LO',
-                sugars_value='25',
-                sugars_level='HI',
-                salt_value='0.22',
-                salt_level='LO',
-                url='https://fr.openfoodfacts.org/produit/7613034626844/chocapic-nestle',
-                image_url='https://static.openfoodfacts.org/images/products/761/303/462/6844/front_fr.184.400.jpg'
-                ).pk
-        self.substituted_product = Product.objects.get(pk=self.created_product_pk2)
+        self.created_product_pk2 = Product.objects.create(**SUBSTITUTED_PRODUCT_DATA_1).pk
+        self.substituted_product_1 = Product.objects.get(pk=self.created_product_pk2)
+        
+        self.created_product_pk3 = Product.objects.create(**INITIAL_PRODUCT_DATA_2).pk
+        self.initial_product_2 = Product.objects.get(pk=self.created_product_pk3)
+        
+        self.created_product_pk4 = Product.objects.create(**SUBSTITUTED_PRODUCT_DATA_2).pk
+        self.substituted_product_2 = Product.objects.get(pk=self.created_product_pk4)
         
         self.created_substitute_pk = Substitute.objects.create(
-            initial_product_id=self.created_product_pk1,
-            substituted_product_id=self.created_product_pk2
+            initial_product_id=self.initial_product_2.pk,
+            substituted_product_id=self.substituted_product_2.pk
         ).pk
         self.substitute = Substitute.objects.get(pk=self.created_substitute_pk)
         
@@ -140,8 +118,11 @@ class SavedSubstitutesViewTest(BaseTest):
         
     def test_saved_substitutes_view_post(self):
         self.client.force_login(self.user)
-        # response = self.client.post(self.delete_favourites_url, { 'substituteId': self.substitute.pk }, content_type='application/json')
-        # self.assertEqual(response.status_code, 204)
+        form_data = {'initial-product-id': self.initial_product_1.pk, 'substituted-product-id': self.substituted_product_1.pk}
+        response = self.client.post(self.favourites_url, data=form_data)
+        favourite = Substitute.objects.all()[1]
+        
+        self.assertEqual(favourite.initial_product_id, self.created_product_pk1)
 
 class DeleteSubstitutesViewTest(BaseTest):
     
