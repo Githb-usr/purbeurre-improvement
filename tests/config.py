@@ -225,3 +225,71 @@ CLEAN_CATEGORIES_FIELD_LIST = ['Snacks', 'Snacks Sucrés', 'Biscuits Et Gâteaux
 
 STORES_FIELD_STRING = 'Bi1,Magasins U,Carrefour,Franprix,Auchan'
 CLEAN_STORES_FIELD_LIST = ['Bi1', 'Magasins U', 'Carrefour', 'Franprix', 'Auchan']
+
+INITIAL_PRODUCT_DATA_1 = {
+    'designation': 'Nutella biscuits',
+    'barcode': '8000500310427',
+    'brand': 'Ferrero',
+    'nutriscore': 'E',
+    'fat_value': '24.5',
+    'fat_level': 'HI',
+    'saturated_fat_value': '11.8',
+    'saturated_fat_level': 'HI',
+    'sugars_value': '34.7',
+    'sugars_level': 'HI',
+    'salt_value': '0.529',
+    'salt_level': 'MO',
+    'url': 'https://fr.openfoodfacts.org/produit/8000500310427/nutella-biscuits-ferrero',
+    'image_url': 'https://static.openfoodfacts.org/images/products/800/050/031/0427/front_fr.97.400.jpg'
+}
+
+INITIAL_PRODUCT_DATA_2 = {
+    'designation': 'Prince Chocolat',
+    'barcode': '7622210449283',
+    'brand': 'Lu',
+    'nutriscore': 'D',
+    'fat_value': '17',
+    'fat_level': 'MO',
+    'saturated_fat_value': '5.6',
+    'saturated_fat_level': 'HI',
+    'sugars_value': '32',
+    'sugars_level': 'HI',
+    'salt_value': '0.58',
+    'salt_level': 'MO',
+    'url': 'https://fr.openfoodfacts.org/produit/7622210449283/prince-chocolat-lu',
+    'image_url': 'https://images.openfoodfacts.org/images/products/762/221/044/9283/front_fr.429.400.jpg'
+}
+
+SUBSTITUTED_PRODUCT_DATA_1 = {
+    'designation': 'Chocapic',
+    'barcode': '7613034626844',
+    'brand': 'Nestlé',
+    'nutriscore': 'B',
+    'fat_value': '4.6',
+    'fat_level': 'MO',
+    'saturated_fat_value': '1.3',
+    'saturated_fat_level': 'LO',
+    'sugars_value': '25',
+    'sugars_level': 'HI',
+    'salt_value': '0.22',
+    'salt_level': 'LO',
+    'url': 'https://fr.openfoodfacts.org/produit/7613034626844/chocapic-nestle',
+    'image_url': 'https://static.openfoodfacts.org/images/products/761/303/462/6844/front_fr.184.400.jpg'
+}
+
+SUBSTITUTED_PRODUCT_DATA_2 = {
+    'designation': 'Biscuit pomme noisette',
+    'barcode': '3175681851849',
+    'brand': 'Gerblé',
+    'nutriscore': 'A',
+    'fat_value': '17',
+    'fat_level': 'MO',
+    'saturated_fat_value': '1.5',
+    'saturated_fat_level': 'MO',
+    'sugars_value': '11',
+    'sugars_level': 'MO',
+    'salt_value': '0.0',
+    'salt_level': 'LO',
+    'url': 'https://fr.openfoodfacts.org/produit/3175681851849/biscuit-pomme-noisette-gerble',
+    'image_url': 'https://images.openfoodfacts.org/images/products/317/568/185/1849/front_fr.124.400.jpg'    
+}
