@@ -129,26 +129,23 @@ class FirefoxFunctionalTestCases(StaticLiveServerTestCase):
         self.driver.get(self.live_server_url)
         # User login
         self.driver.find_element_by_class_name('connect-link').click()
-        login_email = self.driver.find_element_by_id("id_username").send_keys(USER1_EMAIL)
-        login_password = self.driver.find_element_by_id("id_password").send_keys(USER1_PASSWORD)
-        self.driver.find_element_by_css_selector("section.login-main-section form button").click()
+        login_email = self.driver.find_element_by_id('id_username').send_keys(USER1_EMAIL)
+        login_password = self.driver.find_element_by_id('id_password').send_keys(USER1_PASSWORD)
+        self.driver.find_element_by_css_selector('section.login-main-section form button').click()
         # Localise the search text field
-        search_field = self.driver.find_element_by_id("large-search-form")
+        search_field = self.driver.find_element_by_id('large-search-form')
         search_field.clear()
         # Enter and confirm a barcode (to obtain a single result)
-        search_field.send_keys("8000500310427")
+        search_field.send_keys('8000500310427')
         search_field.submit()
         # Got to detailed product page
         self.driver.find_element_by_name('btn-detail').click()
-        # Localise the comment text field
-        # time.sleep(5)
-        # comment_field = self.driver.find_element_by_id("id_content")
-        # comment_field.clear()
-        # Write a comment
-        # comment_field.send_keys("Commentaire de test")
-        # comment_field.submit()
-        # self.driver.find_elements_by_class_name("btn-comment")[0].click()
-        # Search the comment
-        # class_to_find = self.driver.find_element_by_css_selector("alert-success")
-        
-        # self.assertEqual(class_to_find.text, "Votre commentaire a bien été enregistré !")
+        time.sleep(1)
+        title = self.driver.find_element_by_css_selector('h2')
+        self.assertEqual(title.text, 'Nutella Biscuits')
+        comment_field = self.driver.find_element_by_css_selector('textarea')
+        comment_field.send_keys('Commentaire de test')
+        self.driver.find_element_by_css_selector('button#comment-btn').click()
+        time.sleep(1)
+        comment_section = self.driver.find_element_by_css_selector('h3.comment-title')
+        self.assertEqual(comment_section.text, 'Commentaire sur ce produit')

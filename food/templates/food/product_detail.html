@@ -109,7 +109,7 @@
                     {% csrf_token %}
                     <input type="hidden" name="product-id" value="{{ product_detail.id }}">
                     {{ comment_form.as_p }}
-                    <button type="submit" class="btn-comment d-flex justify-content-center align-items-center btn btn-link btn-choice">Commenter</button>
+                    <button type="submit" id="comment-btn" class="btn-comment d-flex justify-content-center align-items-center btn btn-link btn-choice">Commenter</button>
                 </form>
             </div>
             {% if product_comments %}
