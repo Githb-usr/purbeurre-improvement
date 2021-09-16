@@ -11123,6 +11123,10 @@ h3.comment-title, .comment-title.h3 {
   color: #fff;
 }
 
+.btn-delete-comment:hover, button#comment-btn {
+  color: #fff;
+}
+
 .product-list-intro-section {
   margin-bottom: 2rem;
   font-size: 1.3rem;
