@@ -17,7 +17,7 @@ from food.database_service import DatabaseService
 from food.forms import SmallSearchForm, LargeSearchForm, CommentForm
 from food.models import Product, Category, Store, Comment
 from food.search_parser import SearchParser
-from food.settings import NUTRIENT_LEVELS, SAVE_COMMENT_MSG, NOT_SAVE_COMMENT_MSG, DELETE_COMMENT_MSG, LOGIN_FOR_COMMENT_MSG
+from food.settings import NUTRIENT_LEVELS, SAVE_COMMENT_MSG, NOT_SAVE_COMMENT_MSG, DELETE_COMMENT_MSG, LOGIN_FOR_COMMENT_MSG, EMPTY_COMMENT_MSG
 from users.models import Substitute
 
 def small_search_form(request):
@@ -164,17 +164,20 @@ def add_comment(request):
         if request.method == "POST":
             # We get the data
             body = json.loads(request.body.decode("utf-8"))
-            # Create Comment object but don't save to database yet
-            new_comment = Comment(
-                content=body['content'],
-                product_id=body['productId'],
-                user_id=request.user.id
-            )
-            # Save the comment to the database
-            new_comment.save()       
-            # We add a confirmation message
-            messages.success(request, SAVE_COMMENT_MSG)
-            # Adding the comment to the database generates a status code 201
+            if not body['content'] or body['content'].strip() == "":
+                messages.error(request, EMPTY_COMMENT_MSG)
+            else:    
+                # Create Comment object but don't save to database yet
+                new_comment = Comment(
+                    content=body['content'],
+                    product_id=body['productId'],
+                    user_id=request.user.id
+                )
+                # Save the comment to the database
+                new_comment.save()       
+                # We add a confirmation message
+                messages.success(request, SAVE_COMMENT_MSG)
+                # Adding the comment to the database generates a status code 201
             return HttpResponse(status=201)
         return HttpResponse(status=400)
     elif request.method == "POST":
